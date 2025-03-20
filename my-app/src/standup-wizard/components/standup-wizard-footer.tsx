@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from "react";
+import React, { ReactElement } from "react";
 import { Box, Button } from "@mui/material";
 
 interface StandupWizardFooterProps {
