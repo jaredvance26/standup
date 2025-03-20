@@ -21,8 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# local data
-/src/local/team-members.ts
-/src/local/team.ts
-src/local/images/*

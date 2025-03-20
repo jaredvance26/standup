@@ -1,8 +1,9 @@
 import React from "react";
 import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
-import { StandupWizardFooter } from "./components";
-import { Standup, StandupSummary, TeamSelection } from "./steps";
+
+import { StandupWizardFooter, StandupWizardHeader } from "./components";
 import { useStandupWizardStore } from "./standup-wizard-store";
+import { Standup, StandupSummary, TeamSelection } from "./steps";
 
 const steps = ["Team Selection", "Standup", "Standup Summary"];
 
@@ -19,7 +20,7 @@ export const StandupWizard = () => {
 
   return (
     <Box marginTop={3} sx={{ width: "100%" }}>
-		<Typography textAlign='center' marginBottom={6} fontSize={32} fontWeight={500}>High Enrollers Standup</Typography>
+      <StandupWizardHeader />
       <Stepper activeStep={currentStep} alternativeLabel={true} sx={{ mb: 3 }}>
         {steps.map((label, index) => (
           <Step key={index}>
