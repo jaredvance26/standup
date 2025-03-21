@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { Grid2 } from "@mui/material";
 
 import { SelectableBox } from "./selectable-box";
-import { TeamMember } from "../../types";
+import { TeamMember } from "../../../../types";
 
 interface SelectableBoxGroupProps {
   teamMembers: TeamMember[];
