@@ -9,10 +9,12 @@ defaults.devtools = true;
 
 export interface StandupWizardState {
   currentStep: number;
+  selectedTeamMemberIds: number[];
 }
 
 const initialState: StandupWizardState = {
   currentStep: 0,
+  selectedTeamMemberIds: [],
 };
 
 const actions = {

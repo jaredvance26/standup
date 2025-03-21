@@ -20,7 +20,7 @@ export const StandupWizardFooter = (
       <Button disabled={currentStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
         Back
       </Button>
-      <Button variant="contained" onClick={handleNext}>
+      <Button size='large' variant="contained" onClick={handleNext}>
         {primaryFooterText}
       </Button>
     </Box>

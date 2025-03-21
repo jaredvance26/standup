@@ -1,8 +1,9 @@
 import { TeamMember } from "../types";
 
-import { ad, bb, bz, cr, cs, dc, ds, jp, jv, rp } from "./images";
+import { ad, bb, cr, cs, dc, ds, jp, jv, rp } from "./images";
 export const teamMembers: TeamMember[] = [
   {
+    id: 1,
     firstName: "Jared",
     lastName: "Vance",
     photoUrl: jv,
@@ -10,6 +11,7 @@ export const teamMembers: TeamMember[] = [
     position: "Software Engineer",
   },
   {
+    id: 2,
     firstName: "Randi",
     lastName: "Prince",
     photoUrl: rp,
@@ -17,6 +19,7 @@ export const teamMembers: TeamMember[] = [
     position: "Software Engineer 2",
   },
   {
+    id: 3,
     firstName: "Jake",
     lastName: "Pennington",
     photoUrl: jp,
@@ -24,6 +27,7 @@ export const teamMembers: TeamMember[] = [
     position: "Senior Software Engineer",
   },
   {
+    id: 4,
     firstName: "Angela",
     lastName: "Dye",
     photoUrl: ad,
@@ -31,6 +35,7 @@ export const teamMembers: TeamMember[] = [
     position: "QA Engineer",
   },
   {
+    id: 5,
     firstName: "Brody",
     lastName: "Binks",
     photoUrl: bb,
@@ -38,13 +43,7 @@ export const teamMembers: TeamMember[] = [
     position: "Senior Software Engineer",
   },
   {
-    firstName: "Brian",
-    lastName: "Zwahr",
-    photoUrl: bz,
-    jiraId: "61c0fd8df63ac80070aa713a",
-    position: "Senior Software Engineer",
-  },
-  {
+    id: 6,
     firstName: "Chris",
     lastName: "Russon",
     photoUrl: cr,
@@ -52,6 +51,7 @@ export const teamMembers: TeamMember[] = [
     position: "Product Manager 2",
   },
   {
+    id: 7,
     firstName: "Clayton",
     lastName: "Sharp",
     photoUrl: cs,
@@ -59,6 +59,7 @@ export const teamMembers: TeamMember[] = [
     position: "Software Developer",
   },
   {
+    id: 8,
     firstName: "Dave",
     lastName: "Summers",
     photoUrl: ds,
@@ -66,6 +67,7 @@ export const teamMembers: TeamMember[] = [
     position: "Engineering Manager",
   },
   {
+    id: 9,
     firstName: "Devin",
     lastName: "Cameron",
     photoUrl: dc,

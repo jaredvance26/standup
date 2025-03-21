@@ -19,7 +19,7 @@ export const StandupWizard = () => {
   const StepContent = stepComponents[currentStep];
 
   return (
-    <Box marginTop={3} sx={{ width: "100%" }}>
+    <Box marginTop={3} width="100%">
       <StandupWizardHeader />
       <Stepper activeStep={currentStep} alternativeLabel={true} sx={{ mb: 3 }}>
         {steps.map((label, index) => (
@@ -33,7 +33,14 @@ export const StandupWizard = () => {
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
-        <StepContent />
+        <Box
+          sx={{ backgroundColor: "#F6F6F4", padding: 3, borderRadius: 5 }}
+          width="80%"
+          margin="auto"
+          minHeight="500px"
+        >
+          <StepContent />
+        </Box>
         <StandupWizardFooter
           currentStep={currentStep}
           steps={steps}
