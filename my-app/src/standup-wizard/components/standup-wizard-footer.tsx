@@ -16,7 +16,7 @@ export const StandupWizardFooter = (
   const primaryFooterText = currentStep === steps.length - 1 ? "Finish" : "Next";
 
   return (
-    <Box sx={{ mt: 2 }}>
+    <Box display='flex' justifySelf='center' sx={{ mt: 2 }}>
       <Button disabled={currentStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
         Back
       </Button>

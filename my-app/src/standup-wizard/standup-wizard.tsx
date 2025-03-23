@@ -1,7 +1,11 @@
 import React from "react";
 import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
 
-import { StandupWizardFooter, StandupWizardHeader } from "./components";
+import {
+  SectionHeader,
+  StandupWizardFooter,
+  StandupWizardHeader,
+} from "./components";
 import { useStandupWizardStore } from "./standup-wizard-store";
 import { Standup, StandupSummary, TeamSelection } from "./steps";
 
@@ -19,7 +23,7 @@ export const StandupWizard = () => {
   const StepContent = stepComponents[currentStep];
 
   return (
-    <Box marginTop={3} width="100%">
+    <Box marginY={3} width="100%">
       <StandupWizardHeader />
       <Stepper activeStep={currentStep} alternativeLabel={true} sx={{ mb: 3 }}>
         {steps.map((label, index) => (
@@ -30,17 +34,30 @@ export const StandupWizard = () => {
           </Step>
         ))}
       </Stepper>
+      <SectionHeader>{steps[currentStep]}</SectionHeader>
       <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          height: "500px",
+          width: "100%",
+        }}
       >
         <Box
-          sx={{ backgroundColor: "#F6F6F4", padding: 3, borderRadius: 5 }}
-          width="80%"
-          margin="auto"
-          minHeight="500px"
+          sx={{
+            overflow: "auto",
+            padding: 3,
+            width: "80%",
+            margin: "auto",
+            backgroundColor: "#F6F6F4",
+            borderRadius: 3,
+          }}
         >
           <StepContent />
         </Box>
+      </Box>
+      <Box marginTop={3}>
         <StandupWizardFooter
           currentStep={currentStep}
           steps={steps}

@@ -31,10 +31,10 @@ export const SelectableBox = (props: SelectableBoxProps) => {
         variant="rounded"
       />
       <Box sx={{ flexGrow: 1 }}>
-        <Typography lineHeight={1} variant="h6">
+        <Typography lineHeight={1.25} variant="h6">
           {name}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
+        <Typography overflow='hidden' whiteSpace='nowrap' variant="body2" color="textSecondary" textOverflow='ellipsis'>
           {position}
         </Typography>
       </Box>

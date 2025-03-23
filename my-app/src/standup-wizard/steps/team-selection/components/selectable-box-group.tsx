@@ -23,9 +23,9 @@ export const SelectableBoxGroup = (props: SelectableBoxGroupProps): ReactElement
   };
 
   return (
-    <Grid2 columns={3} container spacing={4}>
+    <Grid2 container spacing={4}>
       {teamMembers.map((teamMember) => (
-        <Grid2 size={1} key={teamMember.id}>
+        <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 4}} key={teamMember.id}>
           <SelectableBox
             key={teamMember.id}
             imageUrl={teamMember.photoUrl}

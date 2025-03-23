@@ -6,5 +6,5 @@ interface SectionHeaderProps {
 }
 
 export const SectionHeader = ({ children }: SectionHeaderProps): ReactElement => {
-  return <Typography fontSize={32} textAlign="center">{children}</Typography>;
+  return <Typography fontSize={32} marginBottom={3} textAlign="center">{children}</Typography>;
 };
