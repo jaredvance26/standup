@@ -23,7 +23,10 @@ export const AddGuest = (props: AddGuestProps): ReactElement => {
       <IconButton
         color="primary"
         disabled={!Boolean(addedGuest)}
-		onClick={onAddGuest}
+		onClick={() => {
+			onAddGuest()
+			setAddedGuest('')
+		}}
         size="large"
         sx={{
           backgroundColor: palette.primary.main,

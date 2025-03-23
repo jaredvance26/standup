@@ -4,17 +4,21 @@ import {
   navigateForwardAction,
   setStandupWizardStateAction,
 } from "./actions";
+import { TeamMember } from "../../types";
+import { teamMembers } from "../../local";
 
 defaults.devtools = true;
 
 export interface StandupWizardState {
   currentStep: number;
   selectedTeamMemberIds: number[];
+  teamMembers: TeamMember[];
 }
 
 const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
+  teamMembers: [...teamMembers],
 };
 
 const actions = {

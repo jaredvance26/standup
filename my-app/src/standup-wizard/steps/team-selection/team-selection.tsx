@@ -3,13 +3,14 @@ import { Box, Button } from "@mui/material";
 
 import { AddGuest, SelectableBoxGroup } from "./components";
 import { useStandupWizardStore } from "../../standup-wizard-store";
-import { teamMembers } from "../../../local";
 
 export const TeamSelection = (): ReactElement => {
-  const [{ selectedTeamMemberIds }, { setStandupWizardStateAction }] =
-    useStandupWizardStore();
+  const [
+    { selectedTeamMemberIds, teamMembers },
+    { setStandupWizardStateAction },
+  ] = useStandupWizardStore();
   const [addedGuest, setAddedGuest] = useState<string>("");
-  console.log({addedGuest})
+  console.log({ addedGuest });
 
   const selectDeselectLabel = selectedTeamMemberIds.length
     ? "Deselect All"
@@ -26,18 +27,31 @@ export const TeamSelection = (): ReactElement => {
   };
 
   const onAddGuest = () => {
-	const newTeamMember = {
-		id: teamMembers.length + 1,
-		firstName: addedGuest,
-		lastName: "",
-		position: "",
-		photoUrl: "",
-	}
-	teamMembers.push(newTeamMember)
-	setStandupWizardStateAction({
-		selectedTeamMemberIds: [...selectedTeamMemberIds, newTeamMember.id]
-	})
-  }
+    const newTeamMember = {
+      id: teamMembers.length + 1,
+      firstName: addedGuest,
+      lastName: "",
+      position: "",
+      photoUrl: "",
+    };
+    setStandupWizardStateAction({
+      selectedTeamMemberIds: [...selectedTeamMemberIds, newTeamMember.id],
+      teamMembers: [newTeamMember, ...teamMembers],
+    });
+  };
+
+  const onRemoveGuest = (id: number) => {
+    const foundMember = teamMembers.find((member) => member.id === id);
+    if (foundMember) {
+      const newTeamMembers = teamMembers.filter((member) => member.id !== id);
+      setStandupWizardStateAction({
+        selectedTeamMemberIds: selectedTeamMemberIds.filter(
+          (selectedId) => selectedId !== id
+        ),
+        teamMembers: newTeamMembers,
+      });
+    }
+  };
 
   return (
     <Box>
@@ -49,7 +63,7 @@ export const TeamSelection = (): ReactElement => {
       >
         <AddGuest
           addedGuest={addedGuest}
-		  onAddGuest={onAddGuest}
+          onAddGuest={onAddGuest}
           setAddedGuest={(value) => setAddedGuest(value)}
         />
         <Button size="large" onClick={onSelectDeselect} variant="text">
@@ -57,6 +71,7 @@ export const TeamSelection = (): ReactElement => {
         </Button>
       </Box>
       <SelectableBoxGroup
+        onRemoveGuest={onRemoveGuest}
         selectedIds={selectedTeamMemberIds}
         setSelectedIds={(newValues: number[]) =>
           setStandupWizardStateAction({ selectedTeamMemberIds: newValues })
