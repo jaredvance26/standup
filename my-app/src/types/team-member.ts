@@ -5,4 +5,5 @@ export interface TeamMember {
 	lastName: string;
 	photoUrl: string;
 	position: string;
+	notes?: string;
 }

@@ -21,6 +21,8 @@ export const StandupWizard = () => {
   const [{ currentStep }, { navigateBackwardAction, navigateForwardAction }] =
     useStandupWizardStore();
   const StepContent = stepComponents[currentStep];
+  const overflowSetting = currentStep === 0 ? "auto" : "hidden";
+
 
   return (
     <Box marginY={3} width="100%">
@@ -46,7 +48,7 @@ export const StandupWizard = () => {
       >
         <Box
           sx={{
-            overflow: "auto",
+            overflow: overflowSetting,
             padding: 3,
             width: "80%",
             margin: "auto",

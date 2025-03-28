@@ -36,16 +36,16 @@ export const SelectableBox = (props: SelectableBoxProps) => {
         alignItems: "center",
         padding: 3.5,
         cursor: "pointer",
-        backgroundColor: selected ? "lightblue" : "white",
+        backgroundColor: selected ? palette.grey[300] : palette.common.white,
         transition: "background-color 0.3s ease",
       }}
     >
       <Avatar
         src={imageUrl}
         alt={name}
-        sx={{ marginRight: 2 }}
+        sx={{ marginRight: 2, bgcolor: palette.primary.dark }}
         variant="rounded"
-      />
+      >{`${name[0]}`}</Avatar>
       <Box sx={{ flexGrow: 1 }}>
         <Typography lineHeight={1.25} variant="h6">
           {name}
@@ -65,6 +65,7 @@ export const SelectableBox = (props: SelectableBoxProps) => {
         </IconButton>
       )}
       <Checkbox
+        color="primary"
         checked={selected}
         onChange={(event) => {
           event.stopPropagation();
