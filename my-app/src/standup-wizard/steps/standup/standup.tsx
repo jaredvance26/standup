@@ -1,12 +1,17 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Box, TextField } from "@mui/material";
-import { shuffle } from "lodash";
+import { first, shuffle } from "lodash";
 
 import { EmployeeList } from "./components";
 import { useStandupWizardStore } from "../../standup-wizard-store";
+import { AddGuest } from "../../components";
+import { TeamMember } from "../../../types";
 
 export const Standup = (): ReactElement => {
-  const [{ selectedTeamMemberIds, teamMembers }] = useStandupWizardStore();
+  const [
+    { selectedTeamMemberIds, teamMembers, teamMemberNotes },
+    { addGuestAction, setStandupWizardStateAction },
+  ] = useStandupWizardStore();
   const [selectedTeamMembers] = useState(() =>
     shuffle(
       teamMembers.filter((teamMember) =>
@@ -16,11 +21,39 @@ export const Standup = (): ReactElement => {
   );
 
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(
-    selectedTeamMembers[0].id
+    selectedTeamMembers[0]?.id ?? -1
   );
-  const onEmployeeSelect = (id: number) => {
-    setSelectedEmployeeId(id);
-  };
+  const [addedGuest, setAddedGuest] = useState<string>("");
+
+  // initialize the teamMemberNotes for the selectedTeamMembers
+  if (selectedTeamMembers.length && !Object.keys(teamMemberNotes).length) {
+    setStandupWizardStateAction({
+      teamMemberNotes: selectedTeamMembers.reduce((acc, teamMember) => {
+        acc[teamMember.id] = "";
+        return acc;
+      }, {} as Record<number, string>),
+    });
+  }
+
+  useEffect(() => {
+    if (selectedTeamMemberIds.length > selectedTeamMembers.length) {
+      selectedTeamMembers.push(first(teamMembers) as TeamMember);
+      setStandupWizardStateAction({
+        teamMemberNotes: {
+          ...teamMemberNotes,
+          [selectedTeamMembers[selectedTeamMembers.length - 1].id]: "",
+        },
+      });
+    }
+  }, [
+    selectedTeamMemberIds,
+    selectedTeamMembers,
+    setStandupWizardStateAction,
+    teamMemberNotes,
+    teamMembers,
+  ]);
+
+  console.log({ selectedTeamMemberIds, teamMembers });
 
   return (
     <Box display="flex" gap={2} alignItems="center">
@@ -28,17 +61,35 @@ export const Standup = (): ReactElement => {
         <EmployeeList
           teamMembers={selectedTeamMembers}
           selectedEmployeeId={selectedEmployeeId}
-          onEmployeeSelect={onEmployeeSelect}
+          onEmployeeSelect={(id: number) => {
+            setSelectedEmployeeId(id);
+          }}
         />
       </Box>
       <Box flex={1}>
-        <Box display="flex" height="100%" flexDirection="column">
+        <Box display="flex" height="100%" flexDirection="column" gap={2}>
           <TextField
             fullWidth={true}
             multiline={true}
             placeholder="Notes"
             rows={15}
             sx={{ backgroundColor: "white" }}
+            value={teamMemberNotes[selectedEmployeeId]}
+            onChange={(e) => {
+              setStandupWizardStateAction({
+                teamMemberNotes: {
+                  ...teamMemberNotes,
+                  [selectedEmployeeId]: e.target.value,
+                },
+              });
+            }}
+          />
+          <AddGuest
+            addedGuest={addedGuest}
+            onAddGuest={() => {
+              addGuestAction(addedGuest);
+            }}
+            setAddedGuest={(value: string) => setAddedGuest(value)}
           />
         </Box>
       </Box>

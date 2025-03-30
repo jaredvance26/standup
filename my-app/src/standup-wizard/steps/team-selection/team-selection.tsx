@@ -1,13 +1,14 @@
 import React, { ReactElement, useState } from "react";
 import { Box, Button } from "@mui/material";
 
-import { AddGuest, SelectableBoxGroup } from "./components";
+import { SelectableBoxGroup } from "./components";
+import { AddGuest } from "../../components";
 import { useStandupWizardStore } from "../../standup-wizard-store";
 
 export const TeamSelection = (): ReactElement => {
   const [
     { selectedTeamMemberIds, teamMembers },
-    { setStandupWizardStateAction },
+    { addGuestAction, setStandupWizardStateAction },
   ] = useStandupWizardStore();
   const [addedGuest, setAddedGuest] = useState<string>("");
 
@@ -22,20 +23,6 @@ export const TeamSelection = (): ReactElement => {
     }
     setStandupWizardStateAction({
       selectedTeamMemberIds: teamMembers.map((member) => member.id),
-    });
-  };
-
-  const onAddGuest = () => {
-    const newTeamMember = {
-      id: teamMembers.length + 1,
-      firstName: addedGuest,
-      lastName: "",
-      position: "",
-      photoUrl: "",
-    };
-    setStandupWizardStateAction({
-      selectedTeamMemberIds: [...selectedTeamMemberIds, newTeamMember.id],
-      teamMembers: [newTeamMember, ...teamMembers],
     });
   };
 
@@ -62,7 +49,7 @@ export const TeamSelection = (): ReactElement => {
       >
         <AddGuest
           addedGuest={addedGuest}
-          onAddGuest={onAddGuest}
+          onAddGuest={() => addGuestAction(addedGuest)}
           setAddedGuest={(value) => setAddedGuest(value)}
         />
         <Button size="large" onClick={onSelectDeselect} variant="text">

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { PersonAdd } from "@mui/icons-material";
 import { Box, Button, TextField } from "@mui/material";
 
@@ -15,7 +15,7 @@ export const AddGuest = (props: AddGuestProps): ReactElement => {
     <Box alignItems="center" display="flex" gap={2}>
       <TextField
         placeholder="Add Guest"
-        sx={{ backgroundColor: "#FFFFFD" }}
+        sx={{ backgroundColor: "#FFFFFD", width: "350px" }}
         onChange={(e) => setAddedGuest(e.target.value)}
         value={addedGuest}
       />

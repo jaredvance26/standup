@@ -1,9 +1,8 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { Avatar, Box, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
-import { NavigationButton } from "./navigation-button";
 import { TeamMember } from "../../../../types";
 
 interface EmployeeListProps {
@@ -15,7 +14,9 @@ interface EmployeeListProps {
 export const EmployeeList = (props: EmployeeListProps): ReactElement => {
   const { teamMembers, selectedEmployeeId, onEmployeeSelect } = props;
   const { palette } = useTheme();
-  const employeeIndex = teamMembers.findIndex((teamMember) => teamMember.id === selectedEmployeeId);
+  const employeeIndex = teamMembers.findIndex(
+    (teamMember) => teamMember.id === selectedEmployeeId
+  );
 
   // const to disable back button
   const backIsDisabled = employeeIndex === 0;
@@ -23,26 +24,30 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
   const forwardIsDisabled = employeeIndex === teamMembers.length - 1;
 
   const onForward = () => {
-	const nextEmployee = teamMembers[employeeIndex + 1];
-	if (nextEmployee) {
-		onEmployeeSelect(nextEmployee.id);
-		const nextEmployeeBox = document.getElementById(`employee-${nextEmployee.id}`);
-		if (nextEmployeeBox) {
-			nextEmployeeBox.scrollIntoView({ behavior: "smooth" });
-		}
-	}
-  }
+    const nextEmployee = teamMembers[employeeIndex + 1];
+    if (nextEmployee) {
+      onEmployeeSelect(nextEmployee.id);
+      const nextEmployeeBox = document.getElementById(
+        `employee-${nextEmployee.id}`
+      );
+      if (nextEmployeeBox) {
+        nextEmployeeBox.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   const onBack = () => {
-	const previousEmployee = teamMembers[employeeIndex - 1];
-	if (previousEmployee) {
-		onEmployeeSelect(previousEmployee.id);
-		const previousEmployeeBox = document.getElementById(`employee-${previousEmployee.id}`);
-		if (previousEmployeeBox) {
-			previousEmployeeBox.scrollIntoView({ behavior: "smooth" });
-		}
-	}
-  }
+    const previousEmployee = teamMembers[employeeIndex - 1];
+    if (previousEmployee) {
+      onEmployeeSelect(previousEmployee.id);
+      const previousEmployeeBox = document.getElementById(
+        `employee-${previousEmployee.id}`
+      );
+      if (previousEmployeeBox) {
+        previousEmployeeBox.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <Box>
@@ -51,8 +56,22 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
           const isSelected = teamMember.id === selectedEmployeeId;
 
           return (
-            <Box key={teamMember.id} m={2} id={`employee-${teamMember.id}`} onClick={() => onEmployeeSelect(teamMember.id)} sx={{cursor: 'pointer'}}>
-              <Paper elevation={3} sx={{ borderRadius: 3, backgroundColor: isSelected ? palette.primary.dark : palette.common.white }}>
+            <Box
+              key={teamMember.id}
+              m={2}
+              id={`employee-${teamMember.id}`}
+              onClick={() => onEmployeeSelect(teamMember.id)}
+              sx={{ cursor: "pointer" }}
+            >
+              <Paper
+                elevation={3}
+                sx={{
+                  borderRadius: 3,
+                  backgroundColor: isSelected
+                    ? palette.primary.dark
+                    : palette.common.white,
+                }}
+              >
                 <Box display="flex" gap={1} p={1} alignItems="center">
                   <Box mr={1}>
                     <Avatar
@@ -60,7 +79,7 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                       src={teamMember.photoUrl}
                       alt={`${teamMember.firstName} ${teamMember.lastName}`}
                       sx={{
-						color: palette.primary.main,
+                        color: palette.primary.main,
                         width: 50,
                         height: 50,
                         backgroundColor: palette.grey[100],
@@ -70,13 +89,19 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                     </Avatar>
                   </Box>
                   <Box>
-                    <Typography lineHeight={1} variant="h6" color={isSelected ? palette.common.white : "textPrimary"}>
+                    <Typography
+                      lineHeight={1}
+                      variant="h6"
+                      color={isSelected ? palette.common.white : "textPrimary"}
+                    >
                       {teamMember.firstName} {teamMember.lastName}
                     </Typography>
                     <Typography
                       whiteSpace="nowrap"
                       variant="body2"
-                      color={isSelected ? palette.common.white : "textSecondary"}
+                      color={
+                        isSelected ? palette.common.white : "textSecondary"
+                      }
                     >
                       {teamMember.position}
                     </Typography>
@@ -88,14 +113,17 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
         })}
       </Box>
       <Box flex={1} marginTop={2}>
-        <Box
-          display="flex"
-          gap={1}
-          justifyContent="center"
-          sx={{ borderRadius: 3 }}
-        >
-          <NavigationButton icon={<ArrowBack />} onClick={onBack} isDisabled={backIsDisabled} />
-          <NavigationButton icon={<ArrowForward />} onClick={onForward} isDisabled={forwardIsDisabled} />
+        <Box display="flex" gap={5} justifyContent="center">
+          <Button variant="outlined" onClick={onBack} disabled={backIsDisabled}>
+            <ArrowBack />
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={onForward}
+            disabled={forwardIsDisabled}
+          >
+            <ArrowForward />
+          </Button>
         </Box>
       </Box>
     </Box>
