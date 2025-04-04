@@ -1,3 +1,4 @@
+import { MemberStatus } from "../../../types";
 import { StandupWizardAction } from "../standup-wizard-store";
 
 export const addGuestAction =
@@ -11,6 +12,8 @@ export const addGuestAction =
       lastName: "",
       position: "",
       photoUrl: "",
+      notes: "",
+      status: MemberStatus.None
     };
 
     setState({

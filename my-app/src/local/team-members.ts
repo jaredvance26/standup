@@ -1,6 +1,7 @@
-import { TeamMember } from "../types";
+import { MemberStatus, TeamMember } from "../types";
 
 import { ad, bb, cr, cs, dc, ds, jp, jv, rp } from "./images";
+
 export const teamMembers: TeamMember[] = [
   {
     id: 1,
@@ -9,6 +10,8 @@ export const teamMembers: TeamMember[] = [
     photoUrl: jv,
     jiraId: "6279c3f123d61e006fc419ad",
     position: "Software Engineer",
+    status: MemberStatus.None,
+    notes: "",
   },
   {
     id: 2,
@@ -17,6 +20,8 @@ export const teamMembers: TeamMember[] = [
     photoUrl: rp,
     jiraId: "712020:7376fb19-3b5e-4b6a-a917-7d592d5e3c63",
     position: "Software Engineer 2",
+    status: MemberStatus.None,
+    notes: "",
   },
   {
     id: 3,
@@ -25,6 +30,8 @@ export const teamMembers: TeamMember[] = [
     photoUrl: jp,
     jiraId: "5ec1e475c2e9a00c28b31ac5",
     position: "Senior Software Engineer",
+    status: MemberStatus.None,
+    notes: "",
   },
   {
     id: 4,
@@ -33,6 +40,8 @@ export const teamMembers: TeamMember[] = [
     photoUrl: ad,
     jiraId: "557058:1ba1111b-5864-4157-89dc-21f37a6f4fd8",
     position: "QA Engineer",
+    status: MemberStatus.None,
+    notes: "",
   },
   {
     id: 5,
@@ -41,6 +50,8 @@ export const teamMembers: TeamMember[] = [
     photoUrl: bb,
     jiraId: "712020:34911af8-48bb-4e47-90ed-312064bb9522",
     position: "Senior Software Engineer",
+    status: MemberStatus.None,
+    notes: "",
   },
   {
     id: 6,
@@ -49,6 +60,8 @@ export const teamMembers: TeamMember[] = [
     photoUrl: cr,
     jiraId: "712020:0726456e-714f-45f4-ac25-9ba95929ab86",
     position: "Product Manager 2",
+    status: MemberStatus.None,
+    notes: "",
   },
   {
     id: 7,
@@ -57,6 +70,8 @@ export const teamMembers: TeamMember[] = [
     photoUrl: cs,
     jiraId: "712020:a178e327-d042-4614-bf95-9323e1f3c54b",
     position: "Software Developer",
+    status: MemberStatus.None,
+    notes: "",
   },
   {
     id: 8,
@@ -65,6 +80,8 @@ export const teamMembers: TeamMember[] = [
     photoUrl: ds,
     jiraId: "5b928bb1d5f27c2c1933d447",
     position: "Engineering Manager",
+    status: MemberStatus.None,
+    notes: "",
   },
   {
     id: 9,
@@ -73,5 +90,7 @@ export const teamMembers: TeamMember[] = [
     photoUrl: dc,
     jiraId: "60458bd7e19f910069247cce",
     position: "Senior Product Designer",
+    status: MemberStatus.None,
+    notes: "",
   },
 ];

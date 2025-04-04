@@ -14,14 +14,12 @@ export interface StandupWizardState {
   currentStep: number;
   selectedTeamMemberIds: number[];
   teamMembers: TeamMember[];
-  teamMemberNotes: Record<number, string>;
 }
 
 const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
   teamMembers: [...teamMembers],
-  teamMemberNotes: {},
 };
 
 const actions = {
