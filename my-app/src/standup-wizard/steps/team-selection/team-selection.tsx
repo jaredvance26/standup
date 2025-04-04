@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { Box, Button } from "@mui/material";
+import { shuffle } from "lodash";
 
 import { SelectableBoxGroup } from "./components";
 import { AddGuest } from "../../components";
@@ -60,7 +61,7 @@ export const TeamSelection = (): ReactElement => {
         onRemoveGuest={onRemoveGuest}
         selectedIds={selectedTeamMemberIds}
         setSelectedIds={(newValues: number[]) =>
-          setStandupWizardStateAction({ selectedTeamMemberIds: newValues })
+          setStandupWizardStateAction({ selectedTeamMemberIds: shuffle(newValues) })
         }
         teamMembers={teamMembers}
       />

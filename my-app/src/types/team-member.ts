@@ -1,3 +1,5 @@
+import { MemberStatus } from "./member-status";
+
 export interface TeamMember {
 	firstName: string;
 	id: number;
@@ -5,5 +7,6 @@ export interface TeamMember {
 	lastName: string;
 	photoUrl: string;
 	position: string;
-	notes?: string;
+	notes: string;
+	status: MemberStatus;
 }
