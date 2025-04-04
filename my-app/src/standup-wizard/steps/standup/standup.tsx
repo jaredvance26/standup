@@ -53,8 +53,6 @@ export const Standup = (): ReactElement => {
     teamMembers,
   ]);
 
-  console.log({ selectedTeamMemberIds, teamMembers });
-
   return (
     <Box display="flex" gap={2} alignItems="center">
       <Box flex={1}>
@@ -72,7 +70,7 @@ export const Standup = (): ReactElement => {
             fullWidth={true}
             multiline={true}
             placeholder="Notes"
-            rows={15}
+            rows={5}
             sx={{ backgroundColor: "white" }}
             value={teamMemberNotes[selectedEmployeeId]}
             onChange={(e) => {

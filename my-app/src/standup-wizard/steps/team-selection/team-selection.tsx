@@ -12,12 +12,12 @@ export const TeamSelection = (): ReactElement => {
   ] = useStandupWizardStore();
   const [addedGuest, setAddedGuest] = useState<string>("");
 
-  const selectDeselectLabel = selectedTeamMemberIds.length
+  const selectDeselectLabel = selectedTeamMemberIds.length === teamMembers.length
     ? "Deselect All"
     : "Select All";
 
   const onSelectDeselect = () => {
-    if (selectedTeamMemberIds.length) {
+    if (selectedTeamMemberIds.length === teamMembers.length) {
       setStandupWizardStateAction({ selectedTeamMemberIds: [] });
       return;
     }

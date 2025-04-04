@@ -12,10 +12,21 @@ export const AddGuest = (props: AddGuestProps): ReactElement => {
   const { addedGuest, onAddGuest, setAddedGuest } = props;
 
   return (
-    <Box alignItems="center" display="flex" gap={2}>
+    <Box
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && document.activeElement === e.target && addedGuest) {
+          onAddGuest();
+          setAddedGuest("");
+        }
+      }}
+      alignItems="center"
+      display="flex"
+      gap={2}
+    >
       <TextField
         placeholder="Add Guest"
-        sx={{ backgroundColor: "#FFFFFD", width: "350px" }}
+        fullWidth={true}
+        sx={{ backgroundColor: "#FFFFFD" }}
         onChange={(e) => setAddedGuest(e.target.value)}
         value={addedGuest}
       />
