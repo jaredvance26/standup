@@ -13,8 +13,8 @@ export const Standup = (): ReactElement => {
   ] = useStandupWizardStore();
 
   const selectedTeamMembers = selectedTeamMemberIds
-    .map((id) => teamMembers?.find((teamMember) => teamMember?.id === id))
-    .filter((teamMember) => teamMember !== undefined) as TeamMember[];
+    .map((id) => teamMembers[id])
+    .filter((teamMember): teamMember is TeamMember => teamMember !== undefined);
 
 
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(
@@ -43,12 +43,18 @@ export const Standup = (): ReactElement => {
             placeholder="Notes"
             rows={5}
             sx={{ backgroundColor: "white" }}
-            value={selectedTeamMembers.find((member) => member.id === selectedEmployeeId)?.notes || ""}
-            // onChange={(e) => {
-            //   setStandupWizardStateAction({
-            //     teamMembers: [...teamMembers],
-            //   });
-            // }}
+            value={teamMembers[selectedEmployeeId]?.notes || ""}
+            onChange={(e) => {
+              setStandupWizardStateAction({
+                teamMembers: {
+                  ...teamMembers,
+                  [selectedEmployeeId]: {
+                    ...teamMembers[selectedEmployeeId],
+                    notes: e.target.value
+                  }
+                }
+              });
+            }}
           />
           <AddGuest
             addedGuest={addedGuest}

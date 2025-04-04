@@ -7,17 +7,17 @@ export const addGuestAction =
     const { selectedTeamMemberIds, teamMembers } = getState();
 
     const newTeamMember = {
-      id: teamMembers.length + 1,
+      id: Math.max(0, ...Object.keys(teamMembers).map(Number)) + 1,
       firstName: name,
       lastName: "",
       position: "",
       photoUrl: "",
       notes: "",
-      status: MemberStatus.None
+      status: MemberStatus.None,
     };
 
     setState({
-      selectedTeamMemberIds: [...selectedTeamMemberIds, newTeamMember.id],
-      teamMembers: [newTeamMember, ...teamMembers],
+      selectedTeamMemberIds: [newTeamMember.id, ...selectedTeamMemberIds],
+      teamMembers: { [newTeamMember.id]: newTeamMember, ...teamMembers },
     });
   };

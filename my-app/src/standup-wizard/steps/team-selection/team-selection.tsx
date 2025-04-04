@@ -13,24 +13,25 @@ export const TeamSelection = (): ReactElement => {
   ] = useStandupWizardStore();
   const [addedGuest, setAddedGuest] = useState<string>("");
 
-  const selectDeselectLabel = selectedTeamMemberIds.length === teamMembers.length
+  const teamMemberCount = Object.keys(teamMembers).length;
+  const selectDeselectLabel = selectedTeamMemberIds.length === teamMemberCount
     ? "Deselect All"
     : "Select All";
 
   const onSelectDeselect = () => {
-    if (selectedTeamMemberIds.length === teamMembers.length) {
+    if (selectedTeamMemberIds.length === teamMemberCount) {
       setStandupWizardStateAction({ selectedTeamMemberIds: [] });
       return;
     }
     setStandupWizardStateAction({
-      selectedTeamMemberIds: teamMembers.map((member) => member.id),
+      selectedTeamMemberIds: Object.values(teamMembers).map((member) => member.id),
     });
   };
 
   const onRemoveGuest = (id: number) => {
-    const foundMember = teamMembers.find((member) => member.id === id);
+    const foundMember = teamMembers[id];
     if (foundMember) {
-      const newTeamMembers = teamMembers.filter((member) => member.id !== id);
+      const { [id]: _, ...newTeamMembers } = teamMembers;
       setStandupWizardStateAction({
         selectedTeamMemberIds: selectedTeamMemberIds.filter(
           (selectedId) => selectedId !== id
@@ -63,7 +64,7 @@ export const TeamSelection = (): ReactElement => {
         setSelectedIds={(newValues: number[]) =>
           setStandupWizardStateAction({ selectedTeamMemberIds: shuffle(newValues) })
         }
-        teamMembers={teamMembers}
+        teamMembers={Object.values(teamMembers)}
       />
     </Box>
   );

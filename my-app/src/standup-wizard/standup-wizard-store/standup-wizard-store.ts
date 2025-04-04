@@ -13,13 +13,13 @@ defaults.devtools = true;
 export interface StandupWizardState {
   currentStep: number;
   selectedTeamMemberIds: number[];
-  teamMembers: TeamMember[];
+  teamMembers: Record<number, TeamMember>;
 }
 
 const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
-  teamMembers: [...teamMembers],
+  teamMembers: teamMembers.reduce((acc, member) => ({ ...acc, [member.id]: member }), {}),
 };
 
 const actions = {
