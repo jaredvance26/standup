@@ -64,7 +64,9 @@ export const TeamSelection = (): ReactElement => {
         setSelectedIds={(newValues: number[]) =>
           setStandupWizardStateAction({ selectedTeamMemberIds: shuffle(newValues) })
         }
-        teamMembers={Object.values(teamMembers)}
+        teamMembers={Object.values(teamMembers).sort((a, b) =>
+          a.firstName.localeCompare(b.firstName)
+        )}
       />
     </Box>
   );

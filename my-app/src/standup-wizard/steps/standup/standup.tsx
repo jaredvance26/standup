@@ -22,8 +22,6 @@ export const Standup = (): ReactElement => {
   );
   const [addedGuest, setAddedGuest] = useState<string>("");
 
-//   const selectedTeamMember = selectedTeamMembers.find((member) => member.id === selectedEmployeeId);
-
   return (
     <Box display="flex" gap={2} alignItems="center">
       <Box flex={1}>

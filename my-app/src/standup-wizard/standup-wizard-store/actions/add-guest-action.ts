@@ -18,6 +18,6 @@ export const addGuestAction =
 
     setState({
       selectedTeamMemberIds: [newTeamMember.id, ...selectedTeamMemberIds],
-      teamMembers: { [newTeamMember.id]: newTeamMember, ...teamMembers },
+      teamMembers: { ...teamMembers, [newTeamMember.id]: newTeamMember },
     });
   };
