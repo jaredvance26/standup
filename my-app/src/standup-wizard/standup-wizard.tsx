@@ -21,7 +21,7 @@ export const StandupWizard = () => {
   const [{ currentStep }, { navigateBackwardAction, navigateForwardAction }] =
     useStandupWizardStore();
   const StepContent = stepComponents[currentStep];
-  const overflowSetting = currentStep === 0 ? "auto" : "hidden";
+  const overflowSetting = currentStep === 1 ? "hidden" : "auto";
 
 
   return (

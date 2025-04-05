@@ -1,15 +1,13 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import {
-  Box,
   MenuItem,
   Select,
   SelectChangeEvent,
-  Typography,
   useTheme,
 } from "@mui/material";
 
-import { MemberStatus } from "../../../../types/member-status";
-import { Circle } from "@mui/icons-material";
+import { Status } from "../../../components";
+import { MemberStatus } from "../../../../types";
 
 interface StatusSelectProps {
   value: MemberStatus;
@@ -25,43 +23,19 @@ export const StatusSelect = ({
   };
   const { palette } = useTheme();
 
-  const statusComponents = {
-    [MemberStatus.None]: (
-      <Typography color={palette.grey[500]}>Status</Typography>
-    ),
-    [MemberStatus.Green]: (
-      <Box display="flex" alignItems="center" gap={1}>
-        <Circle style={{ fontSize: "1.5rem", fill: "green" }} />
-		<Typography>GREEN</Typography>
-      </Box>
-    ),
-    [MemberStatus.Yellow]: (
-      <Box display="flex" alignItems="center" gap={1}>
-        <Circle style={{ fontSize: "1.5rem", fill: "#E5E500" }} />
-		<Typography>YELLOW</Typography>
-      </Box>
-    ),
-    [MemberStatus.Red]: (
-      <Box display="flex" alignItems="center" gap={1}>
-        <Circle style={{ fontSize: "1.5rem", fill: "red" }} />
-		<Typography>RED</Typography>
-      </Box>
-    ),
-  };
-
   return (
     <Select
       value={value}
       variant="outlined"
       onChange={handleChange}
       displayEmpty
-      renderValue={() => statusComponents[value]}
+      renderValue={() => <Status status={value} />}
       fullWidth
       sx={{ backgroundColor: palette.common.white }}
     >
-      <MenuItem value={MemberStatus.Green}>{statusComponents[MemberStatus.Green]}</MenuItem>
-      <MenuItem value={MemberStatus.Yellow}>{statusComponents[MemberStatus.Yellow]}</MenuItem>
-      <MenuItem value={MemberStatus.Red}>{statusComponents[MemberStatus.Red]}</MenuItem>
+      <MenuItem value={MemberStatus.Green}>{<Status status={MemberStatus.Green} />}</MenuItem>
+      <MenuItem value={MemberStatus.Yellow}>{<Status status={MemberStatus.Yellow} />}</MenuItem>
+      <MenuItem value={MemberStatus.Red}>{<Status status={MemberStatus.Red} />}</MenuItem>
     </Select>
   );
 };
