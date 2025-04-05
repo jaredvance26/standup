@@ -59,9 +59,9 @@ export const StatusSelect = ({
       fullWidth
       sx={{ backgroundColor: palette.common.white }}
     >
-      <MenuItem value={MemberStatus.Green}>GREEN</MenuItem>
-      <MenuItem value={MemberStatus.Yellow}>YELLOW</MenuItem>
-      <MenuItem value={MemberStatus.Red}>RED</MenuItem>
+      <MenuItem value={MemberStatus.Green}>{statusComponents[MemberStatus.Green]}</MenuItem>
+      <MenuItem value={MemberStatus.Yellow}>{statusComponents[MemberStatus.Yellow]}</MenuItem>
+      <MenuItem value={MemberStatus.Red}>{statusComponents[MemberStatus.Red]}</MenuItem>
     </Select>
   );
 };
