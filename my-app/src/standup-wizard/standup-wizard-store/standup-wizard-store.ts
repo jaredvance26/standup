@@ -3,6 +3,7 @@ import {
   addGuestAction,
   navigateBackwardAction,
   navigateForwardAction,
+  resetStandupWizardStoreAction,
   setStandupWizardStateAction,
 } from "./actions";
 import { TeamMember } from "../../types";
@@ -26,6 +27,7 @@ const actions = {
   addGuestAction,
   navigateBackwardAction,
   navigateForwardAction,
+  resetStandupWizardStoreAction,
   setStandupWizardStateAction,
 };
 

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { captureTableScreenshot } from './utils';
+import { captureTableScreenshot } from "./utils";
 import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
 
 import {
@@ -22,11 +22,19 @@ const StepThree = () => {
 const stepComponents = [StepOne, StepTwo, StepThree];
 
 export const StandupWizard = () => {
-  const [{ currentStep }, { navigateBackwardAction, navigateForwardAction }] =
-    useStandupWizardStore();
+  const [
+    { currentStep, teamMembers },
+    {
+      navigateBackwardAction,
+      navigateForwardAction,
+      resetStandupWizardStoreAction,
+    },
+  ] = useStandupWizardStore();
+  console.log({ teamMembers })
 
   const onFinish = () => {
     captureTableScreenshot();
+    resetStandupWizardStoreAction();
   };
   const StepContent = stepComponents[currentStep];
   const overflowSetting = currentStep === 1 ? "hidden" : "auto";
