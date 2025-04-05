@@ -1,0 +1,1 @@
+export { captureTableScreenshot } from './capture-table-screenshot'

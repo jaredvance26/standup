@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import { captureTableScreenshot } from './utils';
 import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
 
 import {
@@ -13,16 +14,23 @@ const steps = ["Team Selection", "Standup", "Standup Summary"];
 
 const StepOne = () => <TeamSelection />;
 const StepTwo = () => <Standup />;
-const StepThree = () => <StandupSummary />;
+const StepThree = () => {
+  const summaryRef = useRef<HTMLDivElement>(null);
+  return <StandupSummary ref={summaryRef} />;
+};
 
 const stepComponents = [StepOne, StepTwo, StepThree];
 
 export const StandupWizard = () => {
   const [{ currentStep }, { navigateBackwardAction, navigateForwardAction }] =
     useStandupWizardStore();
+
+  const onFinish = () => {
+    captureTableScreenshot();
+  };
   const StepContent = stepComponents[currentStep];
   const overflowSetting = currentStep === 1 ? "hidden" : "auto";
-
+  const isLastStep = currentStep === steps.length - 1;
 
   return (
     <Box marginY={3} width="100%">
@@ -64,7 +72,7 @@ export const StandupWizard = () => {
           currentStep={currentStep}
           steps={steps}
           handleBack={navigateBackwardAction}
-          handleNext={navigateForwardAction}
+          handleNext={isLastStep ? onFinish : navigateForwardAction}
         />
       </Box>
     </Box>

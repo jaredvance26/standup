@@ -10,16 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useStandupWizardStore } from '../../standup-wizard-store';
-import { TeamMember } from '../../../types';
+import { MemberStatus, TeamMember } from '../../../types';
 import { Status } from '../../components';
 
-export const StandupSummary = (): ReactElement => {
+export const StandupSummary = React.forwardRef<HTMLDivElement>((_, ref): ReactElement => {
 	const [{ selectedTeamMemberIds, teamMembers }] = useStandupWizardStore();
 
 	const selectedEmployees = selectedTeamMemberIds.map(id => teamMembers[id]);
 
 	return (
-		<TableContainer component={Paper} sx={{ maxHeight: 440 }}>
+		<TableContainer ref={ref} component={Paper} sx={{ maxHeight: 440, backgroundColor: '#fff' }}>
 			<Table stickyHeader>
 				<TableHead>
 					<TableRow>
@@ -32,7 +32,7 @@ export const StandupSummary = (): ReactElement => {
 					{selectedEmployees.map((employee: TeamMember) => (
 						<TableRow key={employee.id}>
 							<TableCell><Typography fontSize={18}>{`${employee.firstName} ${employee.lastName}`}</Typography></TableCell>
-							<TableCell><Status status={employee.status} /></TableCell>
+							<TableCell>{employee.status !== MemberStatus.None ? <Status status={employee.status} /> : '—'}</TableCell>
 							<TableCell><Typography fontSize={18}>{employee.notes.split('\n').join('  |  ')}</Typography></TableCell>
 						</TableRow>
 					))}
@@ -40,4 +40,6 @@ export const StandupSummary = (): ReactElement => {
 			</Table>
 		</TableContainer>
 	);
-}
+});
+
+StandupSummary.displayName = 'StandupSummary';

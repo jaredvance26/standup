@@ -34,14 +34,20 @@ export const AddMember = (props: AddMemberProps): ReactElement => {
     <Box>
       <Box display="flex" gap={2} alignItems="center">
         <Select
+          disabled={teamMembers.length === 0}
           displayEmpty={true}
           fullWidth={true}
-          sx={{ backgroundColor: "#FFFFFD" }}
+          sx={{
+            backgroundColor: "#FFFFFD",
+            "&.Mui-disabled": {
+              backgroundColor: palette.grey[300],
+            },
+          }}
           value={selectedTeamMember}
           onChange={(e) => setSelectedTeamMember(Number(e.target.value))}
           renderValue={(value) =>
             value ? (
-              teamMember?.firstName
+              `${teamMember?.firstName} ${teamMember?.lastName}`
             ) : (
               <Typography color={palette.grey[500]}>
                 Add Team Member
