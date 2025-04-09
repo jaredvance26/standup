@@ -43,7 +43,7 @@ export const AddMember = (props: AddMemberProps): ReactElement => {
               backgroundColor: palette.grey[300],
             },
           }}
-          value={selectedTeamMember}
+          value={selectedTeamMember || ''}
           onChange={(e) => setSelectedTeamMember(Number(e.target.value))}
           renderValue={(value) =>
             value ? (

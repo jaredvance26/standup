@@ -8,6 +8,7 @@ import {
   TableRow,
   Paper,
   Typography,
+  useTheme
 } from "@mui/material";
 import { useStandupWizardStore } from '../../standup-wizard-store';
 import { MemberStatus, TeamMember } from '../../../types';
@@ -15,6 +16,7 @@ import { Status } from '../../components';
 
 export const StandupSummary = React.forwardRef<HTMLDivElement>((_, ref): ReactElement => {
 	const [{ selectedTeamMemberIds, teamMembers }] = useStandupWizardStore();
+	const { palette } = useTheme();
 
 	const selectedEmployees = selectedTeamMemberIds.map(id => teamMembers[id]);
 
@@ -23,9 +25,9 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>((_, ref): ReactEl
 			<Table stickyHeader>
 				<TableHead>
 					<TableRow>
-						<TableCell><Typography fontSize={20} fontWeight={600}>Name</Typography></TableCell>
-						<TableCell><Typography fontSize={20} fontWeight={600}>Status</Typography></TableCell>
-						<TableCell><Typography fontSize={20} fontWeight={600}>Notes</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Name</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Status</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Notes</Typography></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>

@@ -15,8 +15,8 @@ export const TeamSelection = (): ReactElement => {
 
   const teamMemberCount = Object.keys(teamMembers).length;
   const selectDeselectLabel = selectedTeamMemberIds.length === teamMemberCount
-    ? "Deselect All"
-    : "Select All";
+    ? "DESELECT ALL"
+    : "SELECT ALL";
 
   const onSelectDeselect = () => {
     if (selectedTeamMemberIds.length === teamMemberCount) {

@@ -17,7 +17,7 @@ export const StandupWizardHeader = (): ReactElement => {
       <Typography
         textAlign="center"
         fontSize={32}
-        fontWeight={500}
+        fontWeight={700}
       >{`${TEAM.name} Standup`}</Typography>
     </Box>
   );

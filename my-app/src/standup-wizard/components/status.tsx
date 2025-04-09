@@ -12,19 +12,19 @@ export const Status = ({ status }: { status: MemberStatus }): ReactElement => {
     [MemberStatus.Green]: (
       <Box display="flex" alignItems="center" gap={1}>
         <Circle style={{ fontSize: "1.5rem", fill: "green" }} />
-        <Typography>GREEN</Typography>
+        <Typography fontWeight={600}>GREEN</Typography>
       </Box>
     ),
     [MemberStatus.Yellow]: (
       <Box display="flex" alignItems="center" gap={1}>
         <Circle style={{ fontSize: "1.5rem", fill: "#E5E500" }} />
-        <Typography>YELLOW</Typography>
+        <Typography fontWeight={600}>YELLOW</Typography>
       </Box>
     ),
     [MemberStatus.Red]: (
       <Box display="flex" alignItems="center" gap={1}>
         <Circle style={{ fontSize: "1.5rem", fill: "red" }} />
-        <Typography>RED</Typography>
+        <Typography fontWeight={600}>RED</Typography>
       </Box>
     ),
   };

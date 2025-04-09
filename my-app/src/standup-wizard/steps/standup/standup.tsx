@@ -42,7 +42,7 @@ export const Standup = (): ReactElement => {
         <Box display="flex"flexDirection="column" gap={2}>
           <StatusSelect
             value={
-              teamMembers[selectedEmployeeId]?.status || MemberStatus.Green
+              teamMembers[selectedEmployeeId]?.status || MemberStatus.None
             }
             onChange={(status) => {
               setStandupWizardStateAction({
