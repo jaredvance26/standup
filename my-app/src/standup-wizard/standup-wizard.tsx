@@ -51,13 +51,22 @@ export const StandupWizard = () => {
     },
   });
 
-  const onFinish = () => {
-    captureTableScreenshot();
-    resetStandupWizardStoreAction();
-  };
+  const [{ selectedTeamMemberIds }] = useStandupWizardStore();
+
   const StepContent = stepComponents[currentStep];
   const overflowSetting = currentStep === 1 ? "hidden" : "auto";
   const isLastStep = currentStep === steps.length - 1;
+
+  const handleNext = () => {
+    if (isLastStep) {
+      captureTableScreenshot();
+      resetStandupWizardStoreAction();
+    } else {
+      navigateForwardAction();
+    }
+  };
+
+  const canMoveForward = currentStep === 0 ? selectedTeamMemberIds.length > 0 : true;
 
   return (
     <ThemeProvider theme={theme}>
@@ -105,7 +114,7 @@ export const StandupWizard = () => {
             currentStep={currentStep}
             steps={steps}
             handleBack={navigateBackwardAction}
-            handleNext={isLastStep ? onFinish : navigateForwardAction}
+            handleNext={canMoveForward ? handleNext : undefined}
           />
         </Box>
       </Box>
