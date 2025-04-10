@@ -10,14 +10,14 @@ import {
 } from '@mui/material';
 import { Cable, Close, Palette, Star, Settings } from '@mui/icons-material';
 
-import { TabLabel, TabPanel } from './components';
+import { TabLabel, TabPanel, ThemeTab } from './components';
 import { useStandupWizardStore } from '../standup-wizard-store';
 
 
 export const SettingsModal = (): ReactElement => {
   const [tabValue, setTabValue] = useState(0);
   const { palette } = useTheme();
-  const [{ settingsModalOpen }, { setStandupWizardStateAction }] = useStandupWizardStore();
+  const [{ selectedColor, settingsModalOpen }, { setStandupWizardStateAction }] = useStandupWizardStore();
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -76,7 +76,7 @@ export const SettingsModal = (): ReactElement => {
           Integrations Content
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          Theme Content
+          <ThemeTab selectedColor={selectedColor} onColorSelect={(color) => setStandupWizardStateAction({ selectedColor: color })} />
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
           Fun Content

@@ -12,6 +12,7 @@ import {
 import { useStandupWizardStore } from "./standup-wizard-store";
 import { Standup, StandupSummary, TeamSelection } from "./steps";
 import { SettingsModal } from "./settings-modal";
+import { COLOR_SHADES } from "./constants";
 
 const steps = ["Team Selection", "Standup", "Standup Summary"];
 
@@ -26,7 +27,7 @@ const stepComponents = [StepOne, StepTwo, StepThree];
 
 export const StandupWizard = () => {
   const [
-    { currentStep },
+    { currentStep, selectedColor },
     {
       navigateBackwardAction,
       navigateForwardAction,
@@ -37,9 +38,9 @@ export const StandupWizard = () => {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#1976d2",
-        light: "#42a5f5",
-        dark: "#1565c0",
+        main: COLOR_SHADES[selectedColor].main,
+        light: COLOR_SHADES[selectedColor].light,
+        dark: COLOR_SHADES[selectedColor].dark,
       },
     },
     typography: {

@@ -8,11 +8,13 @@ import {
 } from "./actions";
 import { TeamMember } from "../../types";
 import { teamMembers } from "../../local";
+import { Colors } from "../types";
 
 defaults.devtools = true;
 
 export interface StandupWizardState {
   currentStep: number;
+  selectedColor: Colors;
   selectedTeamMemberIds: number[];
   teamMembers: Record<number, TeamMember>;
   settingsModalOpen: boolean;
@@ -21,6 +23,7 @@ export interface StandupWizardState {
 const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
+  selectedColor: Colors.Blue,
   teamMembers: teamMembers.reduce((acc, member) => ({ ...acc, [member.id]: member }), {}),
   settingsModalOpen: false,
 };
@@ -42,5 +45,3 @@ const StandupWizardStore = createStore({
 export const useStandupWizardStore = createHook(StandupWizardStore);
 
 export type StandupWizardAction = Action<StandupWizardState>;
-// type StandupWizardShape = typeof initialState;
-// type StandupWizardActions = typeof actions;
