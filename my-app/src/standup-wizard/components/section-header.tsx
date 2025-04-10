@@ -14,8 +14,8 @@ export const SectionHeader = ({
       fontSize={40}
       marginBottom={3}
       textAlign="center"
-      fontWeight={500}
-      sx={{ color: palette.grey[900] }}
+      fontWeight={600}
+      sx={{ color: palette.primary.main }}
     >
       {children}
     </Typography>

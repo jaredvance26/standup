@@ -11,6 +11,7 @@ import {
 } from "./components";
 import { useStandupWizardStore } from "./standup-wizard-store";
 import { Standup, StandupSummary, TeamSelection } from "./steps";
+import { SettingsModal } from "./settings-modal";
 
 const steps = ["Team Selection", "Standup", "Standup Summary"];
 
@@ -30,6 +31,7 @@ export const StandupWizard = () => {
       navigateBackwardAction,
       navigateForwardAction,
       resetStandupWizardStoreAction,
+      setStandupWizardStateAction,
     },
   ] = useStandupWizardStore();
   const theme = createTheme({
@@ -72,7 +74,7 @@ export const StandupWizard = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box marginY={3} width="100%">
-        <StandupWizardHeader />
+        <StandupWizardHeader onSettingsClick={() => setStandupWizardStateAction({ settingsModalOpen: true })} />
         <Stepper
           activeStep={currentStep}
           alternativeLabel={true}
@@ -81,7 +83,15 @@ export const StandupWizard = () => {
           {steps.map((label, index) => (
             <Step key={index}>
               <StepLabel>
-                <Typography fontSize={24} fontWeight={500}>{label}</Typography>
+                <Typography
+                  fontSize={24}
+                  fontWeight={500}
+                  sx={{
+                    color: index === currentStep ? theme.palette.primary.main : undefined,
+                  }}
+                >
+                  {label}
+                </Typography>
               </StepLabel>
             </Step>
           ))}
@@ -118,6 +128,7 @@ export const StandupWizard = () => {
           />
         </Box>
       </Box>
+      <SettingsModal />
     </ThemeProvider>
   );
 };

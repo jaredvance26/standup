@@ -15,12 +15,14 @@ export interface StandupWizardState {
   currentStep: number;
   selectedTeamMemberIds: number[];
   teamMembers: Record<number, TeamMember>;
+  settingsModalOpen: boolean;
 }
 
 const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
   teamMembers: teamMembers.reduce((acc, member) => ({ ...acc, [member.id]: member }), {}),
+  settingsModalOpen: false,
 };
 
 const actions = {
