@@ -1,6 +1,12 @@
 import { Colors } from "./types";
 
 export const COLOR_SHADES = {
+	[Colors.Black]: {
+		main: '#424242',
+		name: 'Black',
+		light: '#616161',
+		dark: '#212121',
+	},
 	[Colors.Blue]: {
 		main: '#1976d2',
 		name: 'Blue',
@@ -32,10 +38,10 @@ export const COLOR_SHADES = {
 		dark: '#7b1fa2',
 	},
 	[Colors.Orange]: {
-		main: '#f57c00',
+		main: '#d35400',
 		name: 'Orange',
-		light: '#ff9800',
-		dark: '#e65100',
+		light: '#e67e22',
+		dark: '#b84b00',
 	},
 	[Colors.Pink]: {
 		main: '#d81b60',
