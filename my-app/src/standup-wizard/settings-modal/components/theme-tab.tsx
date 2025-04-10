@@ -28,7 +28,7 @@ export const ThemeTab = ({
         }}
       >
         {Object.values(Colors).map((color) => (
-          <Box key={color}>
+          <Box display="flex" alignItems="center" justifyItems='center' flexDirection='column' key={color}>
             <Box
               marginBottom={1}
               onClick={() => onColorSelect(color)}
@@ -42,9 +42,6 @@ export const ThemeTab = ({
                   color === selectedColor
                     ? `3px solid ${COLOR_SHADES[color].dark}`
                     : `2px solid ${COLOR_SHADES[color].main}`,
-                "&:hover": {
-                  border: `2px solid ${COLOR_SHADES[color].dark}`,
-                },
               }}
             >
               {color === selectedColor && (
@@ -60,7 +57,7 @@ export const ThemeTab = ({
               )}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Typography>{COLOR_SHADES[color].name}</Typography>
+              <Typography fontWeight={500}>{COLOR_SHADES[color].name}</Typography>
             </Box>
           </Box>
         ))}
