@@ -53,6 +53,4 @@ This application is configured for deployment on Render as a static site with th
 - TypeScript for enhanced type safety and developer experience
 - State management with React Sweet State
 
-## License
-MIT
 ## Standup tool web app
