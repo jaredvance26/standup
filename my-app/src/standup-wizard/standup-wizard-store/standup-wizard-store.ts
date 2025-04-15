@@ -5,10 +5,11 @@ import {
   navigateForwardAction,
   resetStandupWizardStoreAction,
   setStandupWizardStateAction,
+  getJiraDataAction,
 } from "./actions";
 import { TeamMember } from "../../types";
 import { teamMembers } from "../../local";
-import { Colors } from "../types";
+import { Colors, JiraIssue, Sprint } from "../types";
 
 defaults.devtools = true;
 
@@ -18,6 +19,10 @@ export interface StandupWizardState {
   selectedTeamMemberIds: number[];
   teamMembers: Record<number, TeamMember>;
   settingsModalOpen: boolean;
+  // Jira data
+  isJiraDataLoading: boolean;
+  sprint: Sprint | null;
+  issues: JiraIssue[];
 }
 
 const initialState: StandupWizardState = {
@@ -26,6 +31,10 @@ const initialState: StandupWizardState = {
   selectedColor: Colors.Blue,
   teamMembers: teamMembers.reduce((acc, member) => ({ ...acc, [member.id]: member }), {}),
   settingsModalOpen: false,
+  // Jira data
+  isJiraDataLoading: false,
+  sprint: null,
+  issues: [],
 };
 
 const actions = {
@@ -34,6 +43,7 @@ const actions = {
   navigateForwardAction,
   resetStandupWizardStoreAction,
   setStandupWizardStateAction,
+  getJiraDataAction,
 };
 
 const StandupWizardStore = createStore({

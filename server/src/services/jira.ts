@@ -53,17 +53,4 @@ export class JiraService {
       }
     };
   }
-
-  async getIssue(issueId: string) {
-    return this.request(`/rest/api/3/issue/${issueId}`);
-  }
-
-  async updateIssueStatus(issueId: string, statusId: string) {
-    const data = {
-      transition: {
-        id: statusId
-      }
-    };
-    return this.request(`/rest/api/3/issue/${issueId}/transitions`, 'POST', data);
-  }
 }

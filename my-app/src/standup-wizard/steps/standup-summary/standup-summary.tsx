@@ -25,9 +25,9 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>((_, ref): ReactEl
 			<Table stickyHeader>
 				<TableHead>
 					<TableRow>
-						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Name</Typography></TableCell>
-						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Status</Typography></TableCell>
-						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Notes</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.primary.dark }}><Typography fontSize={20} fontWeight={700} color="white">Name</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.primary.dark }}><Typography fontSize={20} fontWeight={700} color="white">Status</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.primary.dark }}><Typography fontSize={20} fontWeight={700} color="white">Notes</Typography></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>

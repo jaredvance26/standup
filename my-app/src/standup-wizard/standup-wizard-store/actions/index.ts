@@ -3,3 +3,4 @@ export { navigateBackwardAction } from './navigate-backward-action';
 export { navigateForwardAction } from './navigate-forward-action';
 export { resetStandupWizardStoreAction } from './reset-standup-wizard-store-action';
 export { setStandupWizardStateAction } from './set-standup-wizard-state-action';
+export { getJiraDataAction } from './get-jira-data-action';
