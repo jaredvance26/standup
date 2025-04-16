@@ -1,10 +1,10 @@
 import React from "react";
-import { StandupWizard } from "./standup-wizard";
+import { StandupWizardConnector } from "./standup-wizard";
 
 function App() {
   return (
     <div className="App">
-      <StandupWizard />
+      <StandupWizardConnector />
     </div>
   );
 }

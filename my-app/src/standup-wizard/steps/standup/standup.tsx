@@ -1,7 +1,7 @@
 import { ReactElement, useState } from "react";
 import { Box, TextField } from "@mui/material";
 
-import { AddMember, EmployeeList, StatusSelect } from "./components";
+import { AddMember, EmployeeList, JiraSection, StatusSelect } from "./components";
 import { useStandupWizardStore } from "../../standup-wizard-store";
 import { AddGuest } from "../../components";
 import { MemberStatus, TeamMember } from "../../../types";
@@ -37,7 +37,7 @@ export const Standup = (): ReactElement => {
           }}
         />
       </Box>
-      {/* <Box flex={1}></Box> */}
+      <JiraSection />
       <Box flex={1}>
         <Box display="flex"flexDirection="column" gap={2}>
           <StatusSelect

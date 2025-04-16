@@ -49,7 +49,7 @@ export class JiraService {
         name: activeSprint.name,
         state: activeSprint.state,
         startDate: activeSprint.startDate,
-        endDate: activeSprint.endDate
+        endDate: activeSprint.endDate,
       }
     };
   }

@@ -1,1 +1,1 @@
-export { StandupWizard } from "./standup-wizard";
+export { StandupWizardConnector } from "./standup-wizard-connector";

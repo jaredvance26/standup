@@ -1,4 +1,10 @@
-import { Action, createHook, createStore, defaults } from "react-sweet-state";
+import {
+  Action,
+  createContainer,
+  createHook,
+  createStore,
+  defaults,
+} from "react-sweet-state";
 import {
   addGuestAction,
   navigateBackwardAction,
@@ -29,7 +35,10 @@ const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
   selectedColor: Colors.Blue,
-  teamMembers: teamMembers.reduce((acc, member) => ({ ...acc, [member.id]: member }), {}),
+  teamMembers: teamMembers.reduce(
+    (acc, member) => ({ ...acc, [member.id]: member }),
+    {}
+  ),
   settingsModalOpen: false,
   // Jira data
   isJiraDataLoading: false,
@@ -55,3 +64,14 @@ const StandupWizardStore = createStore({
 export const useStandupWizardStore = createHook(StandupWizardStore);
 
 export type StandupWizardAction = Action<StandupWizardState>;
+
+export const StandupWizardContainer = createContainer<
+  typeof initialState,
+  typeof actions
+>(StandupWizardStore, {
+  onInit:
+    () =>
+    ({ dispatch }) => {
+      dispatch(getJiraDataAction());
+    },
+});

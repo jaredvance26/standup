@@ -69,13 +69,18 @@ export const StandupWizard = () => {
     }
   };
 
-  const canMoveForward = currentStep === 0 ? selectedTeamMemberIds.length > 0 : true;
+  const canMoveForward =
+    currentStep === 0 ? selectedTeamMemberIds.length > 0 : true;
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box marginY={3} width="100%">
-        <StandupWizardHeader onSettingsClick={() => setStandupWizardStateAction({ settingsModalOpen: true })} />
+        <StandupWizardHeader
+          onSettingsClick={() =>
+            setStandupWizardStateAction({ settingsModalOpen: true })
+          }
+        />
         <Stepper
           activeStep={currentStep}
           alternativeLabel={true}
@@ -88,7 +93,10 @@ export const StandupWizard = () => {
                   fontSize={24}
                   fontWeight={500}
                   sx={{
-                    color: index === currentStep ? theme.palette.primary.main : undefined,
+                    color:
+                      index === currentStep
+                        ? theme.palette.primary.main
+                        : undefined,
                   }}
                 >
                   {label}
@@ -97,7 +105,9 @@ export const StandupWizard = () => {
             </Step>
           ))}
         </Stepper>
-        <SectionHeader>{steps[currentStep]}</SectionHeader>
+        <SectionHeader>
+          {steps[currentStep]}
+        </SectionHeader>
         <Box
           sx={{
             display: "flex",
