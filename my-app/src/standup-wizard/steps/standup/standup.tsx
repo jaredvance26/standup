@@ -1,14 +1,19 @@
 import { ReactElement, useState } from "react";
 import { Box, TextField } from "@mui/material";
 
-import { AddMember, EmployeeList, JiraSection, StatusSelect } from "./components";
+import {
+  AddMember,
+  EmployeeList,
+  JiraSection,
+  StatusSelect,
+} from "./components";
 import { useStandupWizardStore } from "../../standup-wizard-store";
 import { AddGuest } from "../../components";
 import { MemberStatus, TeamMember } from "../../../types";
 
 export const Standup = (): ReactElement => {
   const [
-    { selectedTeamMemberIds, teamMembers },
+    { selectedTeamMemberIds, teamMembers, sprint, issues },
     { addGuestAction, setStandupWizardStateAction },
   ] = useStandupWizardStore();
 
@@ -27,7 +32,7 @@ export const Standup = (): ReactElement => {
   );
 
   return (
-    <Box display="flex" gap={2} alignItems="center">
+    <Box display="flex" gap={2}>
       <Box flex={1}>
         <EmployeeList
           teamMembers={selectedTeamMembers}
@@ -37,13 +42,20 @@ export const Standup = (): ReactElement => {
           }}
         />
       </Box>
-      <JiraSection />
+      {sprint && (
+        <JiraSection
+          sprint={sprint}
+          issues={issues?.filter(
+            (issue) =>
+              issue.fields.assignee?.accountId ===
+              teamMembers[selectedEmployeeId]?.jiraId
+          )}
+        />
+      )}
       <Box flex={1}>
-        <Box display="flex"flexDirection="column" gap={2}>
+        <Box display="flex" flexDirection="column" gap={2}>
           <StatusSelect
-            value={
-              teamMembers[selectedEmployeeId]?.status || MemberStatus.None
-            }
+            value={teamMembers[selectedEmployeeId]?.status || MemberStatus.None}
             onChange={(status) => {
               setStandupWizardStateAction({
                 teamMembers: {
@@ -79,12 +91,18 @@ export const Standup = (): ReactElement => {
             teamMembers={leftOverTeamMembers}
             onAddMember={() => {
               if (addedMember) {
-                setStandupWizardStateAction({selectedTeamMemberIds: [...selectedTeamMemberIds, addedMember],
+                setStandupWizardStateAction({
+                  selectedTeamMemberIds: [
+                    ...selectedTeamMemberIds,
+                    addedMember,
+                  ],
                 });
               }
             }}
             selectedTeamMember={addedMember}
-            setSelectedTeamMember={(value: number | null) => setAddedMember(value)}
+            setSelectedTeamMember={(value: number | null) =>
+              setAddedMember(value)
+            }
           />
           <AddGuest
             addedGuest={addedGuest}

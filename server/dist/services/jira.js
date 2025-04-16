@@ -50,7 +50,7 @@ class JiraService {
                 state: activeSprint.state,
                 startDate: activeSprint.startDate,
                 endDate: activeSprint.endDate,
-                goals: activeSprint.goals
+                goals: activeSprint.goal
             }
         };
     }

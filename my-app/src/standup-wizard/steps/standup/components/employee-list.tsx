@@ -51,7 +51,7 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
 
   return (
     <Box>
-      <Box borderRadius={3} overflow="auto" height="400px">
+      <Box borderRadius={3} overflow="auto" height="500px">
         {teamMembers.map((teamMember) => {
           const isSelected = teamMember.id === selectedEmployeeId;
 

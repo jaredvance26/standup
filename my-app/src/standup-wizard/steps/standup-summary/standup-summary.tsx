@@ -21,7 +21,7 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>((_, ref): ReactEl
 	const selectedEmployees = selectedTeamMemberIds.map(id => teamMembers[id]);
 
 	return (
-		<TableContainer ref={ref} component={Paper} sx={{ maxHeight: 440, backgroundColor: '#fff' }}>
+		<TableContainer ref={ref} component={Paper} sx={{ height: 550, backgroundColor: '#fff' }}>
 			<Table stickyHeader>
 				<TableHead>
 					<TableRow>

@@ -14,6 +14,7 @@ export const addGuestAction =
       photoUrl: "",
       notes: "",
       status: MemberStatus.None,
+      jiraId: "",
     };
 
     setState({

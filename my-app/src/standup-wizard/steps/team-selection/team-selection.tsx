@@ -24,7 +24,7 @@ export const TeamSelection = (): ReactElement => {
       return;
     }
     setStandupWizardStateAction({
-      selectedTeamMemberIds: Object.values(teamMembers).map((member) => member.id),
+      selectedTeamMemberIds: shuffle(Object.values(teamMembers).map((member) => member.id)),
     });
   };
 

@@ -4,6 +4,7 @@ export interface Sprint {
 	state: string;
 	startDate: string;
 	endDate: string;
+	goals: string;
   }
 
   export interface JiraIssue {
@@ -17,6 +18,7 @@ export interface Sprint {
 		id: string;
 	  };
 	  assignee: {
+		accountId: string;
 		displayName: string;
 		emailAddress: string;
 	  };

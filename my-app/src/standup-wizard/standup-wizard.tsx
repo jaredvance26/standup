@@ -105,15 +105,12 @@ export const StandupWizard = () => {
             </Step>
           ))}
         </Stepper>
-        <SectionHeader>
-          {steps[currentStep]}
-        </SectionHeader>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
-            height: "500px",
+            height: "600px",
             width: "100%",
           }}
         >
@@ -125,6 +122,7 @@ export const StandupWizard = () => {
               margin: "auto",
               backgroundColor: "#F6F6F4",
               borderRadius: 3,
+			  height: '100%'
             }}
           >
             <StepContent />
