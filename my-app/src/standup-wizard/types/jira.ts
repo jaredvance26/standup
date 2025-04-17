@@ -5,6 +5,7 @@ export interface Sprint {
 	startDate: string;
 	endDate: string;
 	goals: string;
+	issues: JiraIssue[];
   }
 
   export interface JiraIssue {
@@ -26,6 +27,15 @@ export interface Sprint {
   }
 
   export interface JiraGetData {
-	issues: JiraIssue[];
 	sprint: Sprint | null;
   }
+
+  export enum JiraIssueStatus {
+	ToDo = 'toDo',
+	InProgress = 'in progress',
+	CodeReview = 'code review',
+	ReadyForUpload = 'ready for upload',
+	Done = 'done',
+	Cancelled = 'cancelled'
+  }
+  

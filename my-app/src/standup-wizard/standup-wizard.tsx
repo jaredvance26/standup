@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import {
-  SectionHeader,
   StandupWizardFooter,
   StandupWizardHeader,
 } from "./components";

@@ -13,6 +13,7 @@ import {
   setStandupWizardStateAction,
   getJiraDataAction,
 } from "./actions";
+import { getJiraSectionContentSelector } from "./selectors";
 import { TeamMember } from "../../types";
 import { teamMembers } from "../../local";
 import { Colors, JiraIssue, Sprint } from "../types";
@@ -74,4 +75,8 @@ export const StandupWizardContainer = createContainer<
     ({ dispatch }) => {
       dispatch(getJiraDataAction());
     },
+});
+
+export const useGetJiraSectionContent = createHook(StandupWizardStore, {
+  selector: getJiraSectionContentSelector,
 });

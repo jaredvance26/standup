@@ -9,7 +9,7 @@ export const getJiraDataAction = (): StandupWizardAction => async ({ getState, s
     const jiraData = await getJiraData();
     if (jiraData) {
       setState({
-        issues: jiraData.issues,
+        issues: jiraData.sprint?.issues || [],
         sprint: jiraData.sprint
       });
     }

@@ -4,28 +4,38 @@ import { Box, TextField } from "@mui/material";
 import {
   AddMember,
   EmployeeList,
-  JiraSection,
   StatusSelect,
 } from "./components";
-import { useStandupWizardStore } from "../../standup-wizard-store";
+import { useGetJiraSectionContent, useStandupWizardStore } from "../../standup-wizard-store";
 import { AddGuest } from "../../components";
 import { MemberStatus, TeamMember } from "../../../types";
 
 export const Standup = (): ReactElement => {
   const [
-    { selectedTeamMemberIds, teamMembers, sprint, issues },
+    store,
     { addGuestAction, setStandupWizardStateAction },
   ] = useStandupWizardStore();
+  const { selectedTeamMemberIds, teamMembers, issues } = store;
 
   const selectedTeamMembers = selectedTeamMemberIds
-    .map((id) => teamMembers[id])
-    .filter((teamMember): teamMember is TeamMember => teamMember !== undefined);
+	.map((id) => teamMembers[id])
+	.filter((teamMember): teamMember is TeamMember => teamMember !== undefined);
 
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(
-    selectedTeamMembers[0]?.id ?? -1
-  );
   const [addedGuest, setAddedGuest] = useState<string>("");
   const [addedMember, setAddedMember] = useState<number | null>(null);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(
+	selectedTeamMembers[0]?.id ?? -1
+  );
+
+  const selectedEmployeeIssues = issues?.filter(
+    (issue) =>
+      issue.fields.assignee?.accountId ===
+      teamMembers[selectedEmployeeId]?.jiraId
+  ) ?? [];
+
+  const [jiraSection] = useGetJiraSectionContent({...store, issues: selectedEmployeeIssues})
+
+
 
   const leftOverTeamMembers = Object.values(teamMembers).filter(
     (teamMember) => !selectedTeamMemberIds.includes(teamMember.id)
@@ -42,16 +52,7 @@ export const Standup = (): ReactElement => {
           }}
         />
       </Box>
-      {sprint && (
-        <JiraSection
-          sprint={sprint}
-          issues={issues?.filter(
-            (issue) =>
-              issue.fields.assignee?.accountId ===
-              teamMembers[selectedEmployeeId]?.jiraId
-          )}
-        />
-      )}
+      {jiraSection}
       <Box flex={1}>
         <Box display="flex" flexDirection="column" gap={2}>
           <StatusSelect

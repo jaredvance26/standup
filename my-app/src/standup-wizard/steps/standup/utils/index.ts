@@ -1,0 +1,1 @@
+export { getJiraIssueStatusColor } from './get-jira-issue-status-color';

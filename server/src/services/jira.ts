@@ -43,14 +43,14 @@ export class JiraService {
     const activeSprint = sprintData.values[0];
     const issues = await this.request(`/rest/agile/1.0/sprint/${activeSprint.id}/issue?fields=assignee,summary,status,issuetype`);
     return {
-      issues: issues.issues || [],
       sprint: {
         id: activeSprint.id,
         name: activeSprint.name,
         state: activeSprint.state,
         startDate: activeSprint.startDate,
         endDate: activeSprint.endDate,
-		goals: activeSprint.goal
+		goals: activeSprint.goal,
+		issues: issues.issues || [],
       }
     };
   }
