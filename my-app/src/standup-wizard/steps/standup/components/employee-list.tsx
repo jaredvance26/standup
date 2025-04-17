@@ -69,44 +69,52 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                   borderRadius: 3,
                   backgroundColor: isSelected
                     ? palette.primary.dark
-                    : palette.common.white,
+                    : teamMember.hasBeenViewed
+                      ? palette.common.white
+                      : palette.grey[300],
+                  minHeight: '70px', 
                 }}
               >
-                <Box display="flex" gap={1} p={1} alignItems="center">
-                  <Box mr={1}>
-                    <Avatar
-                      variant="rounded"
-                      src={teamMember.photoUrl}
-                      alt={`${teamMember.firstName} ${teamMember.lastName}`}
-                      sx={{
-                        color: palette.primary.main,
-                        width: 50,
-                        height: 50,
-                        backgroundColor: palette.grey[100],
-                      }}
-                    >
-                      {teamMember.firstName[0]}
-                    </Avatar>
+                {teamMember.hasBeenViewed? (
+                  <Box display="flex" gap={1} p={1} alignItems="center">
+                    <Box mr={1}>
+                      <Avatar
+                        variant="rounded"
+                        src={teamMember.photoUrl}
+                        alt={`${teamMember.firstName} ${teamMember.lastName}`}
+                        sx={{
+                          color: palette.primary.main,
+                          width: 50,
+                          height: 50,
+                          backgroundColor: palette.grey[100],
+                        }}
+                      >
+                        {teamMember.firstName[0]}
+                      </Avatar>
+                    </Box>
+                    <Box>
+                      <Typography
+                        lineHeight={1}
+                        variant="h6"
+                        color={isSelected ? palette.common.white : "textPrimary"}
+                      >
+                        {teamMember.firstName} {teamMember.lastName}
+                      </Typography>
+                      <Typography
+                        whiteSpace="nowrap"
+                        variant="body2"
+                        color={
+                          isSelected ? palette.common.white : "textSecondary"
+                        }
+                      >
+                        {teamMember.position}
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box>
-                    <Typography
-                      lineHeight={1}
-                      variant="h6"
-                      color={isSelected ? palette.common.white : "textPrimary"}
-                    >
-                      {teamMember.firstName} {teamMember.lastName}
-                    </Typography>
-                    <Typography
-                      whiteSpace="nowrap"
-                      variant="body2"
-                      color={
-                        isSelected ? palette.common.white : "textSecondary"
-                      }
-                    >
-                      {teamMember.position}
-                    </Typography>
-                  </Box>
-                </Box>
+                ) : (
+                  // Render a gray box if the team member hasn't been viewed yet
+                  <Box p={1} height="100%" width="100%" sx={{ backgroundColor: palette.grey[300], borderRadius:3 }}></Box>
+                )}
               </Paper>
             </Box>
           );

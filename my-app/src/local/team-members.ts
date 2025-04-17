@@ -12,6 +12,7 @@ export const teamMembers: TeamMember[] = [
     position: "Software Engineer",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const teamMembers: TeamMember[] = [
     position: "Software Engineer 2",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ export const teamMembers: TeamMember[] = [
     position: "Senior Software Engineer",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ export const teamMembers: TeamMember[] = [
     position: "QA Engineer",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
   {
     id: 5,
@@ -52,6 +56,7 @@ export const teamMembers: TeamMember[] = [
     position: "Senior Software Engineer",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
   {
     id: 6,
@@ -62,6 +67,7 @@ export const teamMembers: TeamMember[] = [
     position: "Product Manager 2",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
   {
     id: 7,
@@ -72,6 +78,7 @@ export const teamMembers: TeamMember[] = [
     position: "Software Developer",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
   {
     id: 8,
@@ -82,6 +89,7 @@ export const teamMembers: TeamMember[] = [
     position: "Engineering Manager",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
   {
     id: 9,
@@ -92,5 +100,6 @@ export const teamMembers: TeamMember[] = [
     position: "Senior Product Designer",
     status: MemberStatus.None,
     notes: "",
+    hasBeenViewed: false,
   },
 ];

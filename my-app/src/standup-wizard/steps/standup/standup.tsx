@@ -1,41 +1,60 @@
 import { ReactElement, useState } from "react";
 import { Box, TextField } from "@mui/material";
 
+import { AddMember, EmployeeList, StatusSelect } from "./components";
 import {
-  AddMember,
-  EmployeeList,
-  StatusSelect,
-} from "./components";
-import { useGetJiraSectionContent, useStandupWizardStore } from "../../standup-wizard-store";
+  useGetJiraSectionContent,
+  useStandupWizardStore,
+} from "../../standup-wizard-store";
 import { AddGuest } from "../../components";
 import { MemberStatus, TeamMember } from "../../../types";
 
 export const Standup = (): ReactElement => {
-  const [
-    store,
-    { addGuestAction, setStandupWizardStateAction },
-  ] = useStandupWizardStore();
+  const [store, { addGuestAction, setStandupWizardStateAction }] =
+    useStandupWizardStore();
   const { selectedTeamMemberIds, teamMembers, issues } = store;
 
   const selectedTeamMembers = selectedTeamMemberIds
-	.map((id) => teamMembers[id])
-	.filter((teamMember): teamMember is TeamMember => teamMember !== undefined);
+    .map((id) => teamMembers[id])
+    .filter((teamMember): teamMember is TeamMember => teamMember !== undefined);
 
   const [addedGuest, setAddedGuest] = useState<string>("");
   const [addedMember, setAddedMember] = useState<number | null>(null);
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(
-	selectedTeamMembers[0]?.id ?? -1
-  );
 
-  const selectedEmployeeIssues = issues?.filter(
-    (issue) =>
-      issue.fields.assignee?.accountId ===
-      teamMembers[selectedEmployeeId]?.jiraId
-  ) ?? [];
+  // Get the first team member's ID
+  const firstTeamMemberId = selectedTeamMembers[0]?.id ?? -1;
 
-  const [jiraSection] = useGetJiraSectionContent({...store, issues: selectedEmployeeIssues})
+  // Handle marking the first team member as viewed and setting the selectedEmployeeId
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(() => {
+    // This function only runs once during initial render
+    if (firstTeamMemberId !== -1 && teamMembers[firstTeamMemberId]) {
+      // Mark the first employee as viewed during initialization
+      const updatedTeamMembers = {
+        ...teamMembers,
+        [firstTeamMemberId]: {
+          ...teamMembers[firstTeamMemberId],
+          hasBeenViewed: true,
+        },
+      };
 
+      // Update the store after the component has mounted
+      setStandupWizardStateAction({ teamMembers: updatedTeamMembers });
+    }
+    // Return the ID to initialize the state
+    return firstTeamMemberId;
+  });
 
+  const selectedEmployeeIssues =
+    issues?.filter(
+      (issue) =>
+        issue.fields.assignee?.accountId ===
+        teamMembers[selectedEmployeeId]?.jiraId
+    ) ?? [];
+
+  const [jiraSection] = useGetJiraSectionContent({
+    ...store,
+    issues: selectedEmployeeIssues,
+  });
 
   const leftOverTeamMembers = Object.values(teamMembers).filter(
     (teamMember) => !selectedTeamMemberIds.includes(teamMember.id)
@@ -49,6 +68,15 @@ export const Standup = (): ReactElement => {
           selectedEmployeeId={selectedEmployeeId}
           onEmployeeSelect={(id: number) => {
             setSelectedEmployeeId(id);
+            setStandupWizardStateAction({
+              teamMembers: {
+                ...teamMembers,
+                [id]: {
+                  ...teamMembers[id],
+                  hasBeenViewed: true,
+                },
+              },
+            });
           }}
         />
       </Box>

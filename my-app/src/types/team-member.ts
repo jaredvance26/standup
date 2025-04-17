@@ -9,4 +9,5 @@ export interface TeamMember {
 	position: string;
 	notes: string;
 	status: MemberStatus;
+	hasBeenViewed: boolean;
 }

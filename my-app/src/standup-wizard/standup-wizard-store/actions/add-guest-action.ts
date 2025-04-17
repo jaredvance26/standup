@@ -15,6 +15,7 @@ export const addGuestAction =
       notes: "",
       status: MemberStatus.None,
       jiraId: "",
+	  hasBeenViewed: false,
     };
 
     setState({
