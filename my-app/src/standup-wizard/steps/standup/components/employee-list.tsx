@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -23,16 +23,38 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
   // const to disable forward button
   const forwardIsDisabled = employeeIndex === teamMembers.length - 1;
 
+  // Reference to the scrollable container
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+
+  const scrollIfNeeded = (element: HTMLElement | null) => {
+    if (!element || !scrollContainerRef.current) return;
+
+    const container = scrollContainerRef.current;
+    const containerRect = container.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
+
+    // Check if element is fully visible
+    const isFullyVisible =
+      elementRect.top >= containerRect.top &&
+      elementRect.bottom <= containerRect.bottom;
+
+    // Only scroll if not fully visible
+    if (!isFullyVisible) {
+      element.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  };
+
   const onForward = () => {
     const nextEmployee = teamMembers[employeeIndex + 1];
     if (nextEmployee) {
       onEmployeeSelect(nextEmployee.id);
-      const nextEmployeeBox = document.getElementById(
-        `employee-${nextEmployee.id}`
-      );
-      if (nextEmployeeBox) {
-        nextEmployeeBox.scrollIntoView({ behavior: "smooth" });
-      }
+      // Use setTimeout to ensure DOM has updated before scrolling
+      setTimeout(() => {
+        const nextEmployeeBox = document.getElementById(
+          `employee-${nextEmployee.id}`
+        );
+        scrollIfNeeded(nextEmployeeBox);
+      }, 0);
     }
   };
 
@@ -40,18 +62,24 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
     const previousEmployee = teamMembers[employeeIndex - 1];
     if (previousEmployee) {
       onEmployeeSelect(previousEmployee.id);
-      const previousEmployeeBox = document.getElementById(
-        `employee-${previousEmployee.id}`
-      );
-      if (previousEmployeeBox) {
-        previousEmployeeBox.scrollIntoView({ behavior: "smooth" });
-      }
+      // Use setTimeout to ensure DOM has updated before scrolling
+      setTimeout(() => {
+        const previousEmployeeBox = document.getElementById(
+          `employee-${previousEmployee.id}`
+        );
+        scrollIfNeeded(previousEmployeeBox);
+      }, 0);
     }
   };
 
   return (
     <Box>
-      <Box borderRadius={3} overflow="auto" height="500px">
+      <Box
+        ref={scrollContainerRef}
+        borderRadius={3}
+        overflow="auto"
+        height="500px"
+      >
         {teamMembers.map((teamMember) => {
           const isSelected = teamMember.id === selectedEmployeeId;
 
@@ -70,12 +98,12 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                   backgroundColor: isSelected
                     ? palette.primary.dark
                     : teamMember.hasBeenViewed
-                      ? palette.common.white
-                      : palette.grey[300],
-                  minHeight: '70px', 
+                    ? palette.common.white
+                    : palette.grey[300],
+                  minHeight: "70px",
                 }}
               >
-                {teamMember.hasBeenViewed? (
+                {teamMember.hasBeenViewed ? (
                   <Box display="flex" gap={1} p={1} alignItems="center">
                     <Box mr={1}>
                       <Avatar
@@ -96,7 +124,9 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                       <Typography
                         lineHeight={1}
                         variant="h6"
-                        color={isSelected ? palette.common.white : "textPrimary"}
+                        color={
+                          isSelected ? palette.common.white : "textPrimary"
+                        }
                       >
                         {teamMember.firstName} {teamMember.lastName}
                       </Typography>
@@ -113,7 +143,12 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                   </Box>
                 ) : (
                   // Render a gray box if the team member hasn't been viewed yet
-                  <Box p={1} height="100%" width="100%" sx={{ backgroundColor: palette.grey[300], borderRadius:3 }}></Box>
+                  <Box
+                    p={1}
+                    height="100%"
+                    width="100%"
+                    sx={{ backgroundColor: palette.grey[300], borderRadius: 3 }}
+                  ></Box>
                 )}
               </Paper>
             </Box>
