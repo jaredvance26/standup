@@ -26,7 +26,7 @@ const stepComponents = [StepOne, StepTwo, StepThree];
 
 export const StandupWizard = () => {
   const [
-    { currentStep, selectedColor },
+    { currentStep, settings },
     {
       navigateBackwardAction,
       navigateForwardAction,
@@ -34,6 +34,7 @@ export const StandupWizard = () => {
       setStandupWizardStateAction,
     },
   ] = useStandupWizardStore();
+  const { selectedColor } = settings;
   const theme = createTheme({
     palette: {
       primary: {

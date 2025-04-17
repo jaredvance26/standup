@@ -22,7 +22,6 @@ defaults.devtools = true;
 
 export interface StandupWizardState {
   currentStep: number;
-  selectedColor: Colors;
   selectedTeamMemberIds: number[];
   teamMembers: Record<number, TeamMember>;
   settingsModalOpen: boolean;
@@ -30,12 +29,16 @@ export interface StandupWizardState {
   isJiraDataLoading: boolean;
   sprint: Sprint | null;
   issues: JiraIssue[];
+  // settings
+  settings: {
+    selectedColor: Colors;
+    hideEmployees: boolean;
+  };
 }
 
 const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
-  selectedColor: Colors.Blue,
   teamMembers: teamMembers.reduce(
     (acc, member) => ({ ...acc, [member.id]: member }),
     {}
@@ -45,6 +48,11 @@ const initialState: StandupWizardState = {
   isJiraDataLoading: false,
   sprint: null,
   issues: [],
+  //settings
+  settings: {
+    selectedColor: Colors.Blue,
+    hideEmployees: true,
+  },
 };
 
 const actions = {

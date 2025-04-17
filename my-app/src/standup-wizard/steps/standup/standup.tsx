@@ -12,7 +12,7 @@ import { MemberStatus, TeamMember } from "../../../types";
 export const Standup = (): ReactElement => {
   const [store, { addGuestAction, setStandupWizardStateAction }] =
     useStandupWizardStore();
-  const { selectedTeamMemberIds, teamMembers, issues } = store;
+  const { selectedTeamMemberIds, teamMembers, issues, settings } = store;
 
   const selectedTeamMembers = selectedTeamMemberIds
     .map((id) => teamMembers[id])
@@ -64,6 +64,7 @@ export const Standup = (): ReactElement => {
     <Box display="flex" gap={2}>
       <Box flex={1}>
         <EmployeeList
+          hideEmployeesSetting={settings.hideEmployees}
           teamMembers={selectedTeamMembers}
           selectedEmployeeId={selectedEmployeeId}
           onEmployeeSelect={(id: number) => {

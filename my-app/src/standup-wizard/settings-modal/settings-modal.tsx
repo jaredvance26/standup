@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from 'react';
+import React, { useState, ReactElement } from "react";
 import {
   Modal,
   Box,
@@ -7,17 +7,26 @@ import {
   Tab,
   useTheme,
   IconButton,
-} from '@mui/material';
-import { Cable, Close, Palette, Star, Settings } from '@mui/icons-material';
+} from "@mui/material";
+import {
+  Cable,
+  Close,
+  Palette,
+  Star,
+  Settings,
+  Tune,
+} from "@mui/icons-material";
 
-import { TabLabel, TabPanel, ThemeTab } from './components';
-import { useStandupWizardStore } from '../standup-wizard-store';
-
+import { TabLabel, TabPanel } from "./components";
+import { GeneralTab, ThemeTab } from "./tabs";
+import { useStandupWizardStore } from "../standup-wizard-store";
 
 export const SettingsModal = (): ReactElement => {
   const [tabValue, setTabValue] = useState(0);
   const { palette } = useTheme();
-  const [{ selectedColor, settingsModalOpen }, { setStandupWizardStateAction }] = useStandupWizardStore();
+  const [{ settings, settingsModalOpen }, { setStandupWizardStateAction }] =
+    useStandupWizardStore();
+  const { selectedColor, hideEmployees } = settings;
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -32,30 +41,51 @@ export const SettingsModal = (): ReactElement => {
     >
       <Box
         sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
           width: 800,
           minHeight: 500,
-          bgcolor: 'background.paper',
+          bgcolor: "background.paper",
           borderRadius: 3,
           boxShadow: 24,
           p: 0,
         }}
       >
-        <Box sx={{ backgroundColor: palette.grey[100], borderRadius: 3, borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderBottom: 1, borderColor: 'divider', p: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Settings sx={{ mr: 1, fontSize: 45, color: palette.primary.main }} />
-            <Typography fontSize={32} fontWeight={600} sx={{ color: palette.primary.main }}>
+        <Box
+          sx={{
+            backgroundColor: palette.grey[100],
+            borderRadius: 3,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            borderBottom: 1,
+            borderColor: "divider",
+            p: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Settings
+              sx={{ mr: 1, fontSize: 45, color: palette.primary.main }}
+            />
+            <Typography
+              fontSize={32}
+              fontWeight={600}
+              sx={{ color: palette.primary.main }}
+            >
               Settings
             </Typography>
           </Box>
           <IconButton
-            onClick={() => setStandupWizardStateAction({ settingsModalOpen: false })}
+            onClick={() =>
+              setStandupWizardStateAction({ settingsModalOpen: false })
+            }
             sx={{
               color: palette.primary.main,
-              '&:hover': {
+              "&:hover": {
                 color: palette.primary.dark,
               },
             }}
@@ -66,19 +96,36 @@ export const SettingsModal = (): ReactElement => {
 
         <Box marginTop={2} marginLeft={2}>
           <Tabs value={tabValue} onChange={handleTabChange}>
+            <Tab label={<TabLabel label="General" icon={<Tune />} />} />
             <Tab label={<TabLabel label="Integrations" icon={<Cable />} />} />
             <Tab label={<TabLabel label="Theme" icon={<Palette />} />} />
             <Tab label={<TabLabel label="Fun" icon={<Star />} />} />
           </Tabs>
         </Box>
-
         <TabPanel value={tabValue} index={0}>
-          Integrations content coming soon...
+          <GeneralTab
+            hideEmployees={hideEmployees}
+            onToggleHideEmployees={() =>
+              setStandupWizardStateAction({
+                settings: { ...settings, hideEmployees: !hideEmployees },
+              })
+            }
+          />
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          <ThemeTab selectedColor={selectedColor} onColorSelect={(color) => setStandupWizardStateAction({ selectedColor: color })} />
+          Integrations content coming soon...
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
+          <ThemeTab
+            selectedColor={selectedColor}
+            onColorSelect={(color) =>
+              setStandupWizardStateAction({
+                settings: { ...settings, selectedColor: color },
+              })
+            }
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={3}>
           Fun content coming soon...
         </TabPanel>
       </Box>

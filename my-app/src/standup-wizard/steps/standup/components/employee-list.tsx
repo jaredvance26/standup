@@ -9,10 +9,11 @@ interface EmployeeListProps {
   teamMembers: TeamMember[];
   selectedEmployeeId: number;
   onEmployeeSelect: (id: number) => void;
+  hideEmployeesSetting: boolean;
 }
 
 export const EmployeeList = (props: EmployeeListProps): ReactElement => {
-  const { teamMembers, selectedEmployeeId, onEmployeeSelect } = props;
+  const { teamMembers, selectedEmployeeId, onEmployeeSelect, hideEmployeesSetting } = props;
   const { palette } = useTheme();
   const employeeIndex = teamMembers.findIndex(
     (teamMember) => teamMember.id === selectedEmployeeId
@@ -97,13 +98,13 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                   borderRadius: 3,
                   backgroundColor: isSelected
                     ? palette.primary.dark
-                    : teamMember.hasBeenViewed
+                    : teamMember.hasBeenViewed || !hideEmployeesSetting
                     ? palette.common.white
                     : palette.grey[300],
                   minHeight: "70px",
                 }}
               >
-                {teamMember.hasBeenViewed ? (
+                {teamMember.hasBeenViewed || !hideEmployeesSetting ? (
                   <Box display="flex" gap={1} p={1} alignItems="center">
                     <Box mr={1}>
                       <Avatar
