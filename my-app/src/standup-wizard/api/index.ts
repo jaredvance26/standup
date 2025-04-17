@@ -1,0 +1,1 @@
+export { getJiraData} from './get-jira-data'

@@ -1,0 +1,1 @@
+export { getJiraSectionContentSelector} from './get-jira-section-content-selector'

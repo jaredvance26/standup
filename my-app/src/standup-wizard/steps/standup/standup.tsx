@@ -1,33 +1,48 @@
 import { ReactElement, useState } from "react";
 import { Box, TextField } from "@mui/material";
 
-import { AddMember, EmployeeList, StatusSelect } from "./components";
-import { useStandupWizardStore } from "../../standup-wizard-store";
+import {
+  AddMember,
+  EmployeeList,
+  StatusSelect,
+} from "./components";
+import { useGetJiraSectionContent, useStandupWizardStore } from "../../standup-wizard-store";
 import { AddGuest } from "../../components";
 import { MemberStatus, TeamMember } from "../../../types";
 
 export const Standup = (): ReactElement => {
   const [
-    { selectedTeamMemberIds, teamMembers },
+    store,
     { addGuestAction, setStandupWizardStateAction },
   ] = useStandupWizardStore();
+  const { selectedTeamMemberIds, teamMembers, issues } = store;
 
   const selectedTeamMembers = selectedTeamMemberIds
-    .map((id) => teamMembers[id])
-    .filter((teamMember): teamMember is TeamMember => teamMember !== undefined);
+	.map((id) => teamMembers[id])
+	.filter((teamMember): teamMember is TeamMember => teamMember !== undefined);
 
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(
-    selectedTeamMembers[0]?.id ?? -1
-  );
   const [addedGuest, setAddedGuest] = useState<string>("");
   const [addedMember, setAddedMember] = useState<number | null>(null);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(
+	selectedTeamMembers[0]?.id ?? -1
+  );
+
+  const selectedEmployeeIssues = issues?.filter(
+    (issue) =>
+      issue.fields.assignee?.accountId ===
+      teamMembers[selectedEmployeeId]?.jiraId
+  ) ?? [];
+
+  const [jiraSection] = useGetJiraSectionContent({...store, issues: selectedEmployeeIssues})
+
+
 
   const leftOverTeamMembers = Object.values(teamMembers).filter(
     (teamMember) => !selectedTeamMemberIds.includes(teamMember.id)
   );
 
   return (
-    <Box display="flex" gap={2} alignItems="center">
+    <Box display="flex" gap={2}>
       <Box flex={1}>
         <EmployeeList
           teamMembers={selectedTeamMembers}
@@ -37,13 +52,11 @@ export const Standup = (): ReactElement => {
           }}
         />
       </Box>
-      {/* <Box flex={1}></Box> */}
+      {jiraSection}
       <Box flex={1}>
-        <Box display="flex"flexDirection="column" gap={2}>
+        <Box display="flex" flexDirection="column" gap={2}>
           <StatusSelect
-            value={
-              teamMembers[selectedEmployeeId]?.status || MemberStatus.None
-            }
+            value={teamMembers[selectedEmployeeId]?.status || MemberStatus.None}
             onChange={(status) => {
               setStandupWizardStateAction({
                 teamMembers: {
@@ -79,12 +92,18 @@ export const Standup = (): ReactElement => {
             teamMembers={leftOverTeamMembers}
             onAddMember={() => {
               if (addedMember) {
-                setStandupWizardStateAction({selectedTeamMemberIds: [...selectedTeamMemberIds, addedMember],
+                setStandupWizardStateAction({
+                  selectedTeamMemberIds: [
+                    ...selectedTeamMemberIds,
+                    addedMember,
+                  ],
                 });
               }
             }}
             selectedTeamMember={addedMember}
-            setSelectedTeamMember={(value: number | null) => setAddedMember(value)}
+            setSelectedTeamMember={(value: number | null) =>
+              setAddedMember(value)
+            }
           />
           <AddGuest
             addedGuest={addedGuest}

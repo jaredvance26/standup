@@ -1,1 +1,1 @@
-export { useStandupWizardStore } from "./standup-wizard-store";
+export { useGetJiraSectionContent, useStandupWizardStore } from "./standup-wizard-store";

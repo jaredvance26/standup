@@ -1,14 +1,22 @@
-import { Action, createHook, createStore, defaults } from "react-sweet-state";
+import {
+  Action,
+  createContainer,
+  createHook,
+  createStore,
+  defaults,
+} from "react-sweet-state";
 import {
   addGuestAction,
   navigateBackwardAction,
   navigateForwardAction,
   resetStandupWizardStoreAction,
   setStandupWizardStateAction,
+  getJiraDataAction,
 } from "./actions";
+import { getJiraSectionContentSelector } from "./selectors";
 import { TeamMember } from "../../types";
 import { teamMembers } from "../../local";
-import { Colors } from "../types";
+import { Colors, JiraIssue, Sprint } from "../types";
 
 defaults.devtools = true;
 
@@ -18,14 +26,25 @@ export interface StandupWizardState {
   selectedTeamMemberIds: number[];
   teamMembers: Record<number, TeamMember>;
   settingsModalOpen: boolean;
+  // Jira data
+  isJiraDataLoading: boolean;
+  sprint: Sprint | null;
+  issues: JiraIssue[];
 }
 
 const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
   selectedColor: Colors.Blue,
-  teamMembers: teamMembers.reduce((acc, member) => ({ ...acc, [member.id]: member }), {}),
+  teamMembers: teamMembers.reduce(
+    (acc, member) => ({ ...acc, [member.id]: member }),
+    {}
+  ),
   settingsModalOpen: false,
+  // Jira data
+  isJiraDataLoading: false,
+  sprint: null,
+  issues: [],
 };
 
 const actions = {
@@ -34,6 +53,7 @@ const actions = {
   navigateForwardAction,
   resetStandupWizardStoreAction,
   setStandupWizardStateAction,
+  getJiraDataAction,
 };
 
 const StandupWizardStore = createStore({
@@ -45,3 +65,18 @@ const StandupWizardStore = createStore({
 export const useStandupWizardStore = createHook(StandupWizardStore);
 
 export type StandupWizardAction = Action<StandupWizardState>;
+
+export const StandupWizardContainer = createContainer<
+  typeof initialState,
+  typeof actions
+>(StandupWizardStore, {
+  onInit:
+    () =>
+    ({ dispatch }) => {
+      dispatch(getJiraDataAction());
+    },
+});
+
+export const useGetJiraSectionContent = createHook(StandupWizardStore, {
+  selector: getJiraSectionContentSelector,
+});

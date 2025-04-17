@@ -73,13 +73,13 @@ export const SettingsModal = (): ReactElement => {
         </Box>
 
         <TabPanel value={tabValue} index={0}>
-          Integrations Content
+          Integrations content coming soon...
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
           <ThemeTab selectedColor={selectedColor} onColorSelect={(color) => setStandupWizardStateAction({ selectedColor: color })} />
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
-          Fun Content
+          Fun content coming soon...
         </TabPanel>
       </Box>
     </Modal>

@@ -21,13 +21,13 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>((_, ref): ReactEl
 	const selectedEmployees = selectedTeamMemberIds.map(id => teamMembers[id]);
 
 	return (
-		<TableContainer ref={ref} component={Paper} sx={{ maxHeight: 440, backgroundColor: '#fff' }}>
+		<TableContainer ref={ref} component={Paper} sx={{ height: 550, backgroundColor: '#fff' }}>
 			<Table stickyHeader>
 				<TableHead>
 					<TableRow>
-						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Name</Typography></TableCell>
-						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Status</Typography></TableCell>
-						<TableCell sx={{ backgroundColor: palette.grey[800] }}><Typography fontSize={20} fontWeight={700} color="white">Notes</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.primary.dark }}><Typography fontSize={20} fontWeight={700} color="white">Name</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.primary.dark }}><Typography fontSize={20} fontWeight={700} color="white">Status</Typography></TableCell>
+						<TableCell sx={{ backgroundColor: palette.primary.dark }}><Typography fontSize={20} fontWeight={700} color="white">Notes</Typography></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>

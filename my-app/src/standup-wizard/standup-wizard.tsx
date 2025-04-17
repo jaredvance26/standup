@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import {
-  SectionHeader,
   StandupWizardFooter,
   StandupWizardHeader,
 } from "./components";
@@ -69,13 +68,18 @@ export const StandupWizard = () => {
     }
   };
 
-  const canMoveForward = currentStep === 0 ? selectedTeamMemberIds.length > 0 : true;
+  const canMoveForward =
+    currentStep === 0 ? selectedTeamMemberIds.length > 0 : true;
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box marginY={3} width="100%">
-        <StandupWizardHeader onSettingsClick={() => setStandupWizardStateAction({ settingsModalOpen: true })} />
+        <StandupWizardHeader
+          onSettingsClick={() =>
+            setStandupWizardStateAction({ settingsModalOpen: true })
+          }
+        />
         <Stepper
           activeStep={currentStep}
           alternativeLabel={true}
@@ -88,7 +92,10 @@ export const StandupWizard = () => {
                   fontSize={24}
                   fontWeight={500}
                   sx={{
-                    color: index === currentStep ? theme.palette.primary.main : undefined,
+                    color:
+                      index === currentStep
+                        ? theme.palette.primary.main
+                        : undefined,
                   }}
                 >
                   {label}
@@ -97,13 +104,12 @@ export const StandupWizard = () => {
             </Step>
           ))}
         </Stepper>
-        <SectionHeader>{steps[currentStep]}</SectionHeader>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
-            height: "500px",
+            height: "600px",
             width: "100%",
           }}
         >
@@ -115,6 +121,7 @@ export const StandupWizard = () => {
               margin: "auto",
               backgroundColor: "#F6F6F4",
               borderRadius: 3,
+			  height: '100%'
             }}
           >
             <StepContent />
