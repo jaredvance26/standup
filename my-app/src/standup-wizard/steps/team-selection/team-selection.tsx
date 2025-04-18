@@ -1,5 +1,5 @@
 import { ReactElement, useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { shuffle } from "lodash";
 
 import { SelectableBoxGroup } from "./components";
@@ -12,11 +12,13 @@ export const TeamSelection = (): ReactElement => {
     { addGuestAction, setStandupWizardStateAction },
   ] = useStandupWizardStore();
   const [addedGuest, setAddedGuest] = useState<string>("");
+  const { palette } = useTheme();
 
   const teamMemberCount = Object.keys(teamMembers).length;
-  const selectDeselectLabel = selectedTeamMemberIds.length === teamMemberCount
-    ? "DESELECT ALL"
-    : "SELECT ALL";
+  const selectDeselectLabel =
+    selectedTeamMemberIds.length === teamMemberCount
+      ? "DESELECT ALL"
+      : "SELECT ALL";
 
   const onSelectDeselect = () => {
     if (selectedTeamMemberIds.length === teamMemberCount) {
@@ -24,7 +26,9 @@ export const TeamSelection = (): ReactElement => {
       return;
     }
     setStandupWizardStateAction({
-      selectedTeamMemberIds: shuffle(Object.values(teamMembers).map((member) => member.id)),
+      selectedTeamMemberIds: shuffle(
+        Object.values(teamMembers).map((member) => member.id)
+      ),
     });
   };
 
@@ -47,22 +51,44 @@ export const TeamSelection = (): ReactElement => {
         alignItems="center"
         display="flex"
         justifyContent="space-between"
-        marginBottom={4}
+        marginBottom={6}
       >
         <AddGuest
           addedGuest={addedGuest}
           onAddGuest={() => addGuestAction(addedGuest)}
           setAddedGuest={(value) => setAddedGuest(value)}
         />
-        <Button size="large" onClick={onSelectDeselect} variant="text">
-          {selectDeselectLabel}
-        </Button>
+        <Box display='flex' flexDirection='column'>
+          <Button
+            onClick={onSelectDeselect}
+            variant="text"
+            sx={{ fontSize: 20, fontWeight: 600 }}
+          >
+            {selectDeselectLabel}
+          </Button>
+          <Typography
+            fontSize={16}
+            fontWeight={600}
+            color={palette.common.white}
+            sx={{
+              backgroundColor: palette.primary.dark,
+              padding: 1,
+              borderRadius: 3,
+              display: "inline-block",
+            }}
+          >
+            {selectedTeamMemberIds.length} Team Member
+            {selectedTeamMemberIds.length === 1 ? "" : "s"} Selected
+          </Typography>
+        </Box>
       </Box>
       <SelectableBoxGroup
         onRemoveGuest={onRemoveGuest}
         selectedIds={selectedTeamMemberIds}
         setSelectedIds={(newValues: number[]) =>
-          setStandupWizardStateAction({ selectedTeamMemberIds: shuffle(newValues) })
+          setStandupWizardStateAction({
+            selectedTeamMemberIds: shuffle(newValues),
+          })
         }
         teamMembers={Object.values(teamMembers).sort((a, b) =>
           a.firstName.localeCompare(b.firstName)
