@@ -43,8 +43,7 @@ export const SelectableBox = (props: SelectableBoxProps) => {
       <Avatar
         src={imageUrl}
         alt={name}
-        sx={{ marginRight: 2, bgcolor: palette.primary.dark }}
-        variant="rounded"
+        sx={{ marginRight: 2, bgcolor: palette.primary.dark, borderRadius: 3, width: 50, height: 50 }}
       >{`${name[0]}`}</Avatar>
       <Box sx={{ flexGrow: 1 }}>
         <Typography lineHeight={1.25} variant="h6">

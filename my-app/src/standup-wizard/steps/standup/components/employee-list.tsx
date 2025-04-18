@@ -108,7 +108,6 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                   <Box display="flex" gap={1} p={1} alignItems="center">
                     <Box mr={1}>
                       <Avatar
-                        variant="rounded"
                         src={teamMember.photoUrl}
                         alt={`${teamMember.firstName} ${teamMember.lastName}`}
                         sx={{
@@ -116,6 +115,7 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                           width: 50,
                           height: 50,
                           backgroundColor: palette.grey[100],
+						  borderRadius: 3,
                         }}
                       >
                         {teamMember.firstName[0]}
