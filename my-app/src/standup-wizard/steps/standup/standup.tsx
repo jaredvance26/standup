@@ -25,6 +25,7 @@ export const Standup = (): ReactElement => {
   const firstTeamMemberId = selectedTeamMembers[0]?.id ?? -1;
 
   // Handle marking the first team member as viewed and setting the selectedEmployeeId
+  const [cursorPosition, setCursorPosition] = useState<number | null>(null);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(() => {
     // This function only runs once during initial render
     if (firstTeamMemberId !== -1 && teamMembers[firstTeamMemberId]) {
@@ -106,6 +107,8 @@ export const Standup = (): ReactElement => {
             sx={{ backgroundColor: "white" }}
             value={teamMembers[selectedEmployeeId]?.notes || ""}
             onChange={(e) => {
+              const cursorPos = e.target.selectionStart;
+              setCursorPosition(cursorPos);
               setStandupWizardStateAction({
                 teamMembers: {
                   ...teamMembers,
@@ -115,6 +118,12 @@ export const Standup = (): ReactElement => {
                   },
                 },
               });
+            }}
+            onFocus={(e) => {
+              if (cursorPosition !== null) {
+                e.target.selectionStart = cursorPosition;
+                e.target.selectionEnd = cursorPosition;
+              }
             }}
           />
           <AddMember
