@@ -26,8 +26,12 @@ export const AddGuest = (props: AddGuestProps): ReactElement => {
       <TextField
         placeholder="Add Guest"
         fullWidth={true}
-        sx={{ backgroundColor: "#FFFFFD" }}
-        onChange={(e) => setAddedGuest(e.target.value)}
+		sx={{
+			"& .MuiOutlinedInput-root": {
+			  borderRadius: 3,
+			  backgroundColor: "white",
+			}
+		  }}        onChange={(e) => setAddedGuest(e.target.value)}
         value={addedGuest}
       />
       <Button

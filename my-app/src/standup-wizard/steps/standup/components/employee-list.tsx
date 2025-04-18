@@ -87,7 +87,7 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
           return (
             <Box
               key={teamMember.id}
-              m={2}
+              mb={2}
               id={`employee-${teamMember.id}`}
               onClick={() => onEmployeeSelect(teamMember.id)}
               sx={{ cursor: "pointer" }}

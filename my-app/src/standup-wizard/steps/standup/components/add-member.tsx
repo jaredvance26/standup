@@ -38,6 +38,7 @@ export const AddMember = (props: AddMemberProps): ReactElement => {
           displayEmpty={true}
           fullWidth={true}
           sx={{
+			borderRadius: 3,
             backgroundColor: "#FFFFFD",
             "&.Mui-disabled": {
               backgroundColor: palette.grey[300],

@@ -31,7 +31,7 @@ export const StatusSelect = ({
       displayEmpty
       renderValue={() => <Status status={value} />}
       fullWidth
-      sx={{ backgroundColor: palette.common.white }}
+      sx={{ backgroundColor: palette.common.white, borderRadius: 3 }}
     >
       <MenuItem value={MemberStatus.Green}>{<Status status={MemberStatus.Green} />}</MenuItem>
       <MenuItem value={MemberStatus.Yellow}>{<Status status={MemberStatus.Yellow} />}</MenuItem>

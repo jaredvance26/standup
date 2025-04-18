@@ -104,7 +104,12 @@ export const Standup = (): ReactElement => {
             multiline={true}
             placeholder="Notes"
             rows={5}
-            sx={{ backgroundColor: "white" }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 3,
+                backgroundColor: "white",
+              }
+            }}
             value={teamMembers[selectedEmployeeId]?.notes || ""}
             onChange={(e) => {
               const cursorPos = e.target.selectionStart;
