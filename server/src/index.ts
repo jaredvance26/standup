@@ -5,6 +5,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { jiraRouter } from "./routes/jira";
+import { authRouter } from "./routes/auth";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -20,10 +21,10 @@ app.use(express.json());
 
 // Routes
 app.use("/api/jira", jiraRouter);
+app.use("/api/auth", authRouter);
 
 // MongoDB connection
 import mongoose from 'mongoose';
-
 
 mongoose.connect(process.env.MONGODB_URI as string, {
     serverSelectionTimeoutMS: 10000,  // 10 second timeout
