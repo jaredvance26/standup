@@ -1,8 +1,9 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
+import { useAuthStore } from "./auth-store";
 import roundTable from "../static/round-table.png";
-import { useAuthStore } from "./auth-store/auth-store";
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();

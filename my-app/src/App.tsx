@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import { AuthConnector, LoginPage, useAuthStore } from "./auth";
 import { StandupWizardConnector } from "./standup-wizard";
-import { LoginPage } from "./auth/login-page";
-import { AuthProvider, useAuth } from "./auth/auth-context";
 
 const AppRoutes = () => {
-  const { isAuthenticated } = useAuth();
+const [{isAuthenticated}] = useAuthStore();
 
   return (
     <Routes>
@@ -24,9 +24,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <AuthProvider>
+        <AuthConnector>
           <AppRoutes />
-        </AuthProvider>
+        </AuthConnector>
       </div>
     </BrowserRouter>
   );
