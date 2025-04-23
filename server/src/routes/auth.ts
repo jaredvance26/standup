@@ -64,7 +64,7 @@ router.post('/login', async (req: AuthRequest, res: Response) => {
 		const user = await User.findOne({ email });
 
 		if (!user) {
-			return res.status(401).json({ error: 'Invalid credentials' });
+			return res.status(401).json({ error: 'No account with this email' });
 		}
 
 		const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -73,7 +73,7 @@ router.post('/login', async (req: AuthRequest, res: Response) => {
 		}
 
 		const token = jwt.sign(
-			{ 
+			{
 				userId: user._id,
 				email: user.email
 			},
@@ -81,7 +81,7 @@ router.post('/login', async (req: AuthRequest, res: Response) => {
 			{ expiresIn: '1h' }
 		);
 
-		res.json({ 
+		res.json({
 			token,
 			user: {
 				id: user._id,
@@ -93,5 +93,16 @@ router.post('/login', async (req: AuthRequest, res: Response) => {
 		res.status(500).json({ error: 'Internal server error' });
 	}
 })
+
+// Validate Token
+router.post('/validate-token', (req, res) => {
+    const { token } = req.body;
+    jwt.verify(token, SECRET, (err: jwt.VerifyErrors | null) => {
+        if (err) {
+            return res.status(401).json({ valid: false });
+        }
+        return res.status(200).json({ valid: true });
+    });
+});
 
 export const authRouter = router;

@@ -3,7 +3,7 @@ import { Box, Typography, IconButton, useTheme } from "@mui/material";
 import { Settings } from "@mui/icons-material";
 import { format } from "date-fns";
 
-import roundTable from "../images/round-table.png";
+import roundTable from "../../static/round-table.png";
 import { TEAM } from "../../local";
 
 interface StandupWizardHeaderProps {

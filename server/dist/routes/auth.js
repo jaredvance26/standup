@@ -52,7 +52,7 @@ router.post('/login', async (req, res) => {
     try {
         const user = await user_1.default.findOne({ email });
         if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(401).json({ error: 'No account with this email' });
         }
         const isPasswordValid = await bcryptjs_1.default.compare(password, user.password);
         if (!isPasswordValid) {
@@ -74,5 +74,15 @@ router.post('/login', async (req, res) => {
         console.error('Login error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
+});
+// Validate Token
+router.post('/validate-token', (req, res) => {
+    const { token } = req.body;
+    jsonwebtoken_1.default.verify(token, SECRET, (err) => {
+        if (err) {
+            return res.status(401).json({ valid: false });
+        }
+        return res.status(200).json({ valid: true });
+    });
 });
 exports.authRouter = router;
