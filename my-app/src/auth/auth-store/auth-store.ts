@@ -5,7 +5,12 @@ import {
   createStore,
   defaults,
 } from "react-sweet-state";
-import { loginAction, setAuthDataAction, validateTokenAction } from "./actions";
+import {
+  loginAction,
+  setAuthDataAction,
+  signupAction,
+  validateTokenAction,
+} from "./actions";
 
 defaults.devtools = true;
 // Define the state interface
@@ -29,7 +34,12 @@ const initialState: AuthState = {
 };
 
 // Define actions
-const actions = { loginAction, setAuthDataAction, validateTokenAction };
+const actions = {
+  loginAction,
+  setAuthDataAction,
+  signupAction,
+  validateTokenAction,
+};
 
 // Create the store
 const AuthStore = createStore({

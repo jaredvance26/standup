@@ -39,12 +39,23 @@ router.post('/signup', async (req: AuthRequest, res: Response) => {
 
 		// Hash password and create user
 		const passwordHash = await bcrypt.hash(password, 10);
-		await User.create({
+		const user = await User.create({
 			email,
 			password: passwordHash,
 		});
 
-		res.status(201).json({ message: 'Account created successfully' });
+		// Generate JWT token
+		const token = jwt.sign({ userId: user._id, email: user.email }, SECRET, { expiresIn: '1h' });
+
+		res.status(201).json({
+		  message: 'Account created successfully',
+		  token,
+		  user: {
+		    _id: user._id,
+		    email: user.email,
+		    // Add other non-sensitive fields as needed
+		  }
+		});
 	} catch (error) {
 		console.error('Signup error:', error);
 		res.status(500).json({ error: 'Internal server error' });

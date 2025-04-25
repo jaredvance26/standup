@@ -31,11 +31,21 @@ router.post('/signup', async (req, res) => {
         }
         // Hash password and create user
         const passwordHash = await bcryptjs_1.default.hash(password, 10);
-        await user_1.default.create({
+        const user = await user_1.default.create({
             email,
             password: passwordHash,
         });
-        res.status(201).json({ message: 'Account created successfully' });
+        // Generate JWT token
+        const token = jsonwebtoken_1.default.sign({ userId: user._id, email: user.email }, SECRET, { expiresIn: '1h' });
+        res.status(201).json({
+            message: 'Account created successfully',
+            token,
+            user: {
+                _id: user._id,
+                email: user.email,
+                // Add other non-sensitive fields as needed
+            }
+        });
     }
     catch (error) {
         console.error('Signup error:', error);

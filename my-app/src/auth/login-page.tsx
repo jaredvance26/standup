@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "./auth-store";
+import { SignupModal } from "./components";
 import roundTable from "../static/round-table.png";
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const [{email, password}, { loginAction, setAuthDataAction}] = useAuthStore();
+  const [{ email, password }, { loginAction, setAuthDataAction }] =
+    useAuthStore();
+
+const [signupModalOpen, setSignupModalOpen] = useState<boolean>(false);
+
   return (
     <Box>
       <Box
@@ -102,12 +107,22 @@ export const LoginPage: React.FC = () => {
             >
               Don't have an account?
             </Typography>
-            <Button variant="text" sx={{ textTransform: "none", fontSize: 16, fontFamily: '"Raleway", "Roboto", "Helvetica", "Arial", sans-serif' }}>
+            <Button
+			onClick={() => setSignupModalOpen(true)}
+              variant="text"
+              sx={{
+                textTransform: "none",
+                fontSize: 16,
+                fontFamily:
+                  '"Raleway", "Roboto", "Helvetica", "Arial", sans-serif',
+              }}
+            >
               Sign up
             </Button>
           </Box>
         </Box>
       </Box>
+	  <SignupModal isOpen={signupModalOpen} onClose={() => setSignupModalOpen(false)} />
     </Box>
   );
 };
