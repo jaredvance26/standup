@@ -1,0 +1,119 @@
+import express, { Request, Response } from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+import User from '../models/user';
+
+interface AuthRequest extends Request {
+  body: {
+    email: string;
+    password: string;
+  };
+}
+const router = express.Router();
+
+const SECRET = process.env.SECRET;
+if (!SECRET) {
+  throw new Error('JWT SECRET environment variable is not set');
+}
+
+// Signup
+router.post('/signup', async (req: AuthRequest, res: Response) => {
+	const { email, password } = req.body;
+
+	// Input validation
+	if (!email || !password) {
+		return res.status(400).json({ error: 'Email and password are required' });
+	}
+
+	if (password.length < 6) {
+		return res.status(400).json({ error: 'Password must be at least 6 characters long' });
+	}
+
+	try {
+		// Check if user already exists
+		const existingUser = await User.findOne({ email });
+		if (existingUser) {
+			return res.status(409).json({ error: 'Email already registered' });
+		}
+
+		// Hash password and create user
+		const passwordHash = await bcrypt.hash(password, 10);
+		const user = await User.create({
+			email,
+			password: passwordHash,
+		});
+
+		// Generate JWT token
+		const token = jwt.sign({ userId: user._id, email: user.email }, SECRET, { expiresIn: '1h' });
+
+		res.status(201).json({
+		  message: 'Account created successfully',
+		  token,
+		  user: {
+		    _id: user._id,
+		    email: user.email,
+		    // Add other non-sensitive fields as needed
+		  }
+		});
+	} catch (error) {
+		console.error('Signup error:', error);
+		res.status(500).json({ error: 'Internal server error' });
+	}
+});
+
+// Login
+router.post('/login', async (req: AuthRequest, res: Response) => {
+	const { email, password } = req.body;
+
+	// Input validation
+	if (!email || !password) {
+		return res.status(400).json({ error: 'Email and password are required' });
+	}
+
+	try {
+		const user = await User.findOne({ email });
+
+		if (!user) {
+			return res.status(401).json({ error: 'No account with this email' });
+		}
+
+		const isPasswordValid = await bcrypt.compare(password, user.password);
+		if (!isPasswordValid) {
+			return res.status(401).json({ error: 'Invalid credentials' });
+		}
+
+		const token = jwt.sign(
+			{
+				userId: user._id,
+				email: user.email
+			},
+			SECRET,
+			{ expiresIn: '1h' }
+		);
+
+		res.json({
+			token,
+			user: {
+				id: user._id,
+				email: user.email
+			}
+		});
+	} catch (error) {
+		console.error('Login error:', error);
+		res.status(500).json({ error: 'Internal server error' });
+	}
+})
+
+// Validate Token
+router.post('/validate-token', (req, res) => {
+    const { token } = req.body;
+    jwt.verify(token, SECRET, (err: jwt.VerifyErrors | null) => {
+        if (err) {
+            return res.status(401).json({ valid: false });
+        }
+        return res.status(200).json({ valid: true });
+    });
+});
+
+export const authRouter = router;

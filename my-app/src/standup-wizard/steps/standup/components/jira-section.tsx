@@ -16,7 +16,6 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
   const { palette } = useTheme();
 
   const endDate = parseISO(sprint.endDate);
-  console.log({ issues });
 
   return (
     <Box flex={1} alignSelf="start">

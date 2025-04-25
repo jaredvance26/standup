@@ -1,11 +1,34 @@
-import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import { AuthConnector, LoginPage, useAuthStore } from "./auth";
 import { StandupWizardConnector } from "./standup-wizard";
 
-function App() {
+const AppRoutes = () => {
+const [{isAuthenticated}] = useAuthStore();
+
   return (
-    <div className="App">
-      <StandupWizardConnector />
-    </div>
+    <Routes>
+      <Route path="/" element={isAuthenticated ? <Navigate to="/standup" /> : <LoginPage />} />
+      <Route
+        path="/standup"
+        element={
+          isAuthenticated ? <StandupWizardConnector /> : <Navigate to="/" />
+        }
+      />
+    </Routes>
+  );
+};
+
+function App() {
+
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <AuthConnector>
+          <AppRoutes />
+        </AuthConnector>
+      </div>
+    </BrowserRouter>
   );
 }
 

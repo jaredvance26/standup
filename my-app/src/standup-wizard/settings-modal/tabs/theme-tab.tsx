@@ -15,16 +15,13 @@ export const ThemeTab = ({
 }: ThemeTabProps): ReactElement => {
   const { palette } = useTheme();
   return (
-    <Box>
-      <Typography fontSize={24} fontWeight={500} mb={3}>
-        Select a color:
-      </Typography>
       <Box
         sx={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: 2,
           maxWidth: 300,
+		  mt: 2
         }}
       >
         {Object.values(Colors).map((color) => (
@@ -62,6 +59,5 @@ export const ThemeTab = ({
           </Box>
         ))}
       </Box>
-    </Box>
   );
 };
