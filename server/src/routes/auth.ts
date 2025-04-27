@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
+import Settings from '../models/settings';
 import User from '../models/user';
 
 interface AuthRequest extends Request {
@@ -43,6 +43,9 @@ router.post('/signup', async (req: AuthRequest, res: Response) => {
 			email,
 			password: passwordHash,
 		});
+
+		const settings = new Settings({userId: user._id});
+		await settings.save();
 
 		// Generate JWT token
 		const token = jwt.sign({ userId: user._id, email: user.email }, SECRET, { expiresIn: '1h' });
@@ -108,11 +111,12 @@ router.post('/login', async (req: AuthRequest, res: Response) => {
 // Validate Token
 router.post('/validate-token', (req, res) => {
     const { token } = req.body;
-    jwt.verify(token, SECRET, (err: jwt.VerifyErrors | null) => {
+    jwt.verify(token, SECRET, (err: jwt.VerifyErrors | null, decoded: any) => {
         if (err) {
             return res.status(401).json({ valid: false });
         }
-        return res.status(200).json({ valid: true });
+        // decoded contains the payload, e.g., { userId, email, iat, exp }
+        return res.status(200).json({ valid: true, userId: decoded?.userId });
     });
 });
 

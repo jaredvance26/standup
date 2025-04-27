@@ -7,6 +7,7 @@ exports.authRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const settings_1 = __importDefault(require("../models/settings"));
 const user_1 = __importDefault(require("../models/user"));
 const router = express_1.default.Router();
 const SECRET = process.env.SECRET;
@@ -35,6 +36,8 @@ router.post('/signup', async (req, res) => {
             email,
             password: passwordHash,
         });
+        const settings = new settings_1.default({ userId: user._id });
+        await settings.save();
         // Generate JWT token
         const token = jsonwebtoken_1.default.sign({ userId: user._id, email: user.email }, SECRET, { expiresIn: '1h' });
         res.status(201).json({
@@ -88,11 +91,12 @@ router.post('/login', async (req, res) => {
 // Validate Token
 router.post('/validate-token', (req, res) => {
     const { token } = req.body;
-    jsonwebtoken_1.default.verify(token, SECRET, (err) => {
+    jsonwebtoken_1.default.verify(token, SECRET, (err, decoded) => {
         if (err) {
             return res.status(401).json({ valid: false });
         }
-        return res.status(200).json({ valid: true });
+        // decoded contains the payload, e.g., { userId, email, iat, exp }
+        return res.status(200).json({ valid: true, userId: decoded?.userId });
     });
 });
 exports.authRouter = router;

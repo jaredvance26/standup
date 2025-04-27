@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const jira_1 = require("./routes/jira");
 const auth_1 = require("./routes/auth");
+const settings_1 = require("./routes/settings");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3001;
 // Middleware
@@ -21,6 +22,7 @@ app.use(express_1.default.json());
 // Routes
 app.use("/api/jira", jira_1.jiraRouter);
 app.use("/api/auth", auth_1.authRouter);
+app.use("/api/settings", settings_1.settingsRouter);
 // MongoDB connection
 const mongoose_1 = __importDefault(require("mongoose"));
 mongoose_1.default.connect(process.env.MONGODB_URI, {
