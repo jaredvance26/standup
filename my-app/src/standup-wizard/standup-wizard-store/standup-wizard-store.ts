@@ -12,6 +12,7 @@ import {
   resetStandupWizardStoreAction,
   setStandupWizardStateAction,
   getJiraDataAction,
+  getUserSettingsAction,
 } from "./actions";
 import { getJiraSectionContentSelector } from "./selectors";
 import { TeamMember } from "../../types";
@@ -30,6 +31,7 @@ export interface StandupWizardState {
   sprint: Sprint | null;
   issues: JiraIssue[];
   // settings
+  isSettingsDataLoading: boolean;
   settings: {
     selectedColor: Colors;
     hideEmployees: boolean;
@@ -49,6 +51,7 @@ const initialState: StandupWizardState = {
   sprint: null,
   issues: [],
   //settings
+  isSettingsDataLoading: false,
   settings: {
     selectedColor: Colors.Blue,
     hideEmployees: true,
@@ -62,6 +65,7 @@ const actions = {
   resetStandupWizardStoreAction,
   setStandupWizardStateAction,
   getJiraDataAction,
+  getUserSettingsAction,
 };
 
 const StandupWizardStore = createStore({
@@ -74,14 +78,22 @@ export const useStandupWizardStore = createHook(StandupWizardStore);
 
 export type StandupWizardAction = Action<StandupWizardState>;
 
+type StandupWizardProps = {
+  userId: string;
+};
+
 export const StandupWizardContainer = createContainer<
   typeof initialState,
-  typeof actions
+  typeof actions,
+  StandupWizardProps
 >(StandupWizardStore, {
   onInit:
     () =>
-    ({ dispatch }) => {
+    ({ dispatch }, { userId }) => {
       dispatch(getJiraDataAction());
+      if (userId) {
+        dispatch(getUserSettingsAction(userId));
+      }
     },
 });
 

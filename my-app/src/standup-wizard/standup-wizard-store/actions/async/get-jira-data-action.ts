@@ -1,5 +1,5 @@
-import { StandupWizardAction } from "../standup-wizard-store";
-import { getJiraData } from "../../api/get-jira-data";
+import { StandupWizardAction } from "../../standup-wizard-store";
+import { getJiraData } from "../../../api/get-jira-data";
 
 export const getJiraDataAction = (): StandupWizardAction => async ({ getState, setState }) => {
   const { isJiraDataLoading } = getState();

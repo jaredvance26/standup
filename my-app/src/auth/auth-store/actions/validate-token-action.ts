@@ -14,7 +14,7 @@ export const validateTokenAction = (): AuthAction => async ({getState, setState}
 		}
 		const response = await validateToken(token);
 		if (response.data.valid) {
-			setState({ isAuthenticated: true, isTokenValidationLoading: false });
+			setState({ isAuthenticated: true, isTokenValidationLoading: false, userId: response.data.userId });
 		} else {
 			setState({ isAuthenticated: false, isTokenValidationLoading: false });
 		}

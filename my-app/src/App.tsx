@@ -4,7 +4,7 @@ import { AuthConnector, LoginPage, useAuthStore } from "./auth";
 import { StandupWizardConnector } from "./standup-wizard";
 
 const AppRoutes = () => {
-const [{isAuthenticated}] = useAuthStore();
+const [{isAuthenticated, userId}] = useAuthStore();
 
   return (
     <Routes>
@@ -12,7 +12,7 @@ const [{isAuthenticated}] = useAuthStore();
       <Route
         path="/standup"
         element={
-          isAuthenticated ? <StandupWizardConnector /> : <Navigate to="/" />
+          isAuthenticated ? <StandupWizardConnector userId={userId || ''} /> : <Navigate to="/" />
         }
       />
     </Routes>
