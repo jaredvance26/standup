@@ -22,10 +22,12 @@ import { isEqual } from "lodash";
 import { SettingsModalFooter, TabLabel, TabPanel } from "./components";
 import { AccountTab, GeneralTab, ThemeTab } from "./tabs";
 import { useStandupWizardStore } from "../standup-wizard-store";
+import { useMessageAlert } from "../../hooks";
 
 export const SettingsModal = (): ReactElement => {
   const [tabValue, setTabValue] = useState(0);
   const { palette } = useTheme();
+  const [setMessage, AlertComponent] = useMessageAlert();
   const [
     { settings, userId, settingsModalOpen, originalSettings },
     { setStandupWizardStateAction, updateSettingsAction },
@@ -144,15 +146,17 @@ export const SettingsModal = (): ReactElement => {
         </Box>
         {/* Modal Footer */}
         <SettingsModalFooter
-          onPrimaryClick={() =>
-            updateSettingsAction(userId)
-          }
+          onPrimaryClick={() => {
+            updateSettingsAction(userId);
+            setMessage("success", "Settings updated successfully");
+          }}
           onCancel={() => {
             setStandupWizardStateAction({ settingsModalOpen: false });
-			setStandupWizardStateAction({settings: originalSettings})
+            setStandupWizardStateAction({ settings: originalSettings });
           }}
           isPrimaryDisabled={isPrimaryDisabled}
         />
+		{AlertComponent}
       </Box>
     </Modal>
   );
