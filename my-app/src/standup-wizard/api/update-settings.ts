@@ -3,9 +3,9 @@ import { SettingsContract } from '../types';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
-export const getUserSettings = async (userId: string): Promise<SettingsContract> => {
+export const updateSettings = async (userId: string, settings: SettingsContract): Promise<SettingsContract> => {
   try {
-    const response = await axios.get<SettingsContract>(`${API_BASE_URL}/settings/${userId}`, {
+    const response = await axios.put<SettingsContract>(`${API_BASE_URL}/settings/${userId}`, settings, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -13,10 +13,10 @@ export const getUserSettings = async (userId: string): Promise<SettingsContract>
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error('Failed to fetch user settings:', error.response?.data || error.message);
+      console.error('Failed to update user settings:', error.response?.data || error.message);
     } else {
       console.error('Unexpected error:', error);
     }
     throw error;
   }
-} 
+}

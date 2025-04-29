@@ -13,6 +13,10 @@ export const getUserSettingsAction = (userId: string): StandupWizardAction => as
           selectedColor: userSettings.theme,
           hideEmployees: userSettings.standup.hideUnselectedEmployees
         },
+        originalSettings: {
+          selectedColor: userSettings.theme,
+          hideEmployees: userSettings.standup.hideUnselectedEmployees
+        },
         isSettingsDataLoading: false
       });
     }

@@ -17,6 +17,7 @@ import {
   Tune,
   Person,
 } from "@mui/icons-material";
+import { isEqual } from "lodash";
 
 import { SettingsModalFooter, TabLabel, TabPanel } from "./components";
 import { AccountTab, GeneralTab, ThemeTab } from "./tabs";
@@ -25,13 +26,17 @@ import { useStandupWizardStore } from "../standup-wizard-store";
 export const SettingsModal = (): ReactElement => {
   const [tabValue, setTabValue] = useState(0);
   const { palette } = useTheme();
-  const [{ settings, settingsModalOpen }, { setStandupWizardStateAction }] =
-    useStandupWizardStore();
+  const [
+    { settings, userId, settingsModalOpen, originalSettings },
+    { setStandupWizardStateAction, updateSettingsAction },
+  ] = useStandupWizardStore();
   const { selectedColor, hideEmployees } = settings;
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
+
+  const isPrimaryDisabled = isEqual(settings, originalSettings);
 
   return (
     <Modal
@@ -52,8 +57,8 @@ export const SettingsModal = (): ReactElement => {
           borderRadius: 3,
           boxShadow: 24,
           p: 0,
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <Box
@@ -97,7 +102,7 @@ export const SettingsModal = (): ReactElement => {
           </IconButton>
         </Box>
 
-        <Box sx={{ flex: 1, overflowY: 'auto' }}>
+        <Box sx={{ flex: 1, overflowY: "auto" }}>
           <Box marginTop={2} marginLeft={2}>
             <Tabs value={tabValue} onChange={handleTabChange}>
               <Tab label={<TabLabel label="Account" icon={<Person />} />} />
@@ -139,8 +144,14 @@ export const SettingsModal = (): ReactElement => {
         </Box>
         {/* Modal Footer */}
         <SettingsModalFooter
-          onPrimaryClick={() => setStandupWizardStateAction({ settingsModalOpen: false })}
-          onCancel={() => setStandupWizardStateAction({ settingsModalOpen: false })}
+          onPrimaryClick={() =>
+            updateSettingsAction(userId)
+          }
+          onCancel={() => {
+            setStandupWizardStateAction({ settingsModalOpen: false });
+			setStandupWizardStateAction({settings: originalSettings})
+          }}
+          isPrimaryDisabled={isPrimaryDisabled}
         />
       </Box>
     </Modal>

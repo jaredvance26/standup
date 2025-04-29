@@ -1,5 +1,5 @@
 export { addGuestAction } from './add-guest-action';
-export { getJiraDataAction, getUserSettingsAction } from './async';
+export { getJiraDataAction, getUserSettingsAction, updateSettingsAction } from './async';
 export { navigateBackwardAction } from './navigate-backward-action';
 export { navigateForwardAction } from './navigate-forward-action';
 export { resetStandupWizardStoreAction } from './reset-standup-wizard-store-action';

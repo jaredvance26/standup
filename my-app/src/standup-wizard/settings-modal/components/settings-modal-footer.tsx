@@ -4,9 +4,10 @@ import { Box, Button, useTheme } from "@mui/material";
 interface SettingsModalFooterProps {
 	onPrimaryClick: () => void;
 	onCancel: () => void;
+	isPrimaryDisabled: boolean;
 }
 export const SettingsModalFooter = (props: SettingsModalFooterProps): ReactElement => {
-  const { onPrimaryClick, onCancel } = props;
+  const { onPrimaryClick, onCancel, isPrimaryDisabled } = props;
   const { palette } = useTheme();
   
   return (
@@ -38,6 +39,7 @@ export const SettingsModalFooter = (props: SettingsModalFooterProps): ReactEleme
         color="primary"
         onClick={onPrimaryClick}
         sx={{ fontSize: 18, borderRadius: 3 }}
+        disabled={isPrimaryDisabled}
       >
         Save
       </Button>

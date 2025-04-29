@@ -23,4 +23,21 @@ router.get('/:userId', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch settings', details: error });
     }
 });
+// PUT /api/settings/:userId - Update settings for a specific user
+router.put('/:userId', async (req, res) => {
+    const { userId } = req.params;
+    const update = req.body;
+    try {
+        const updatedSettings = await settings_1.default.updateSettingsByUserId(userId, update);
+        if (!updatedSettings) {
+            return res.status(404).json({ error: 'Settings not found' });
+        }
+        // Omit jiraData before sending
+        const { jiraData, userId: id, ...safeSettings } = updatedSettings.toObject();
+        res.json(safeSettings);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Failed to update settings', details: error });
+    }
+});
 exports.settingsRouter = router;

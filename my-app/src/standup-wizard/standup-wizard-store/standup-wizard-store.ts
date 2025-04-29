@@ -13,11 +13,12 @@ import {
   setStandupWizardStateAction,
   getJiraDataAction,
   getUserSettingsAction,
+  updateSettingsAction,
 } from "./actions";
 import { getJiraSectionContentSelector } from "./selectors";
+import { Colors, JiraIssue, Sprint, Settings } from "../types";
 import { TeamMember } from "../../types";
 import { teamMembers } from "../../local";
-import { Colors, JiraIssue, Sprint } from "../types";
 
 defaults.devtools = true;
 
@@ -26,17 +27,21 @@ export interface StandupWizardState {
   selectedTeamMemberIds: number[];
   teamMembers: Record<number, TeamMember>;
   settingsModalOpen: boolean;
+  userId: string;
   // Jira data
   isJiraDataLoading: boolean;
   sprint: Sprint | null;
   issues: JiraIssue[];
   // settings
   isSettingsDataLoading: boolean;
-  settings: {
-    selectedColor: Colors;
-    hideEmployees: boolean;
-  };
+  settings: Settings;
+  originalSettings: Settings;
 }
+
+const initialSettingsState = {
+  selectedColor: Colors.Blue,
+  hideEmployees: true,
+};
 
 const initialState: StandupWizardState = {
   currentStep: 0,
@@ -45,6 +50,7 @@ const initialState: StandupWizardState = {
     (acc, member) => ({ ...acc, [member.id]: member }),
     {}
   ),
+  userId: "",
   settingsModalOpen: false,
   // Jira data
   isJiraDataLoading: false,
@@ -52,10 +58,8 @@ const initialState: StandupWizardState = {
   issues: [],
   //settings
   isSettingsDataLoading: false,
-  settings: {
-    selectedColor: Colors.Blue,
-    hideEmployees: true,
-  },
+  settings: initialSettingsState,
+  originalSettings: initialSettingsState,
 };
 
 const actions = {
@@ -66,6 +70,7 @@ const actions = {
   setStandupWizardStateAction,
   getJiraDataAction,
   getUserSettingsAction,
+  updateSettingsAction,
 };
 
 const StandupWizardStore = createStore({
@@ -89,16 +94,18 @@ export const StandupWizardContainer = createContainer<
 >(StandupWizardStore, {
   onInit:
     () =>
-    ({ dispatch }, { userId }) => {
+    ({ setState, dispatch }, { userId }) => {
       dispatch(getJiraDataAction());
       if (userId) {
+        setState({ userId });
         dispatch(getUserSettingsAction(userId));
       }
     },
 	onUpdate:
 		() =>
-		({ dispatch }, { userId }) => {
+		({ setState, dispatch }, { userId }) => {
 		  if (userId) {
+			  setState({ userId });
 			  dispatch(getUserSettingsAction(userId));
 		  }
 		},
