@@ -15,10 +15,11 @@ import {
   Star,
   Settings,
   Tune,
+  Person,
 } from "@mui/icons-material";
 
-import { TabLabel, TabPanel } from "./components";
-import { GeneralTab, ThemeTab } from "./tabs";
+import { SettingsModalFooter, TabLabel, TabPanel } from "./components";
+import { AccountTab, GeneralTab, ThemeTab } from "./tabs";
 import { useStandupWizardStore } from "../standup-wizard-store";
 
 export const SettingsModal = (): ReactElement => {
@@ -45,12 +46,14 @@ export const SettingsModal = (): ReactElement => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 800,
-          minHeight: 500,
+          width: 900,
+          minHeight: 600,
           bgcolor: "background.paper",
           borderRadius: 3,
           boxShadow: 24,
           p: 0,
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <Box
@@ -94,40 +97,51 @@ export const SettingsModal = (): ReactElement => {
           </IconButton>
         </Box>
 
-        <Box marginTop={2} marginLeft={2}>
-          <Tabs value={tabValue} onChange={handleTabChange}>
-            <Tab label={<TabLabel label="General" icon={<Tune />} />} />
-            <Tab label={<TabLabel label="Integrations" icon={<Cable />} />} />
-            <Tab label={<TabLabel label="Theme" icon={<Palette />} />} />
-            <Tab label={<TabLabel label="Fun" icon={<Star />} />} />
-          </Tabs>
+        <Box sx={{ flex: 1, overflowY: 'auto' }}>
+          <Box marginTop={2} marginLeft={2}>
+            <Tabs value={tabValue} onChange={handleTabChange}>
+              <Tab label={<TabLabel label="Account" icon={<Person />} />} />
+              <Tab label={<TabLabel label="General" icon={<Tune />} />} />
+              <Tab label={<TabLabel label="Integrations" icon={<Cable />} />} />
+              <Tab label={<TabLabel label="Theme" icon={<Palette />} />} />
+              <Tab label={<TabLabel label="Fun" icon={<Star />} />} />
+            </Tabs>
+          </Box>
+          <TabPanel value={tabValue} index={0}>
+            <AccountTab />
+          </TabPanel>
+          <TabPanel value={tabValue} index={1}>
+            <GeneralTab
+              hideEmployees={hideEmployees}
+              onToggleHideEmployees={() =>
+                setStandupWizardStateAction({
+                  settings: { ...settings, hideEmployees: !hideEmployees },
+                })
+              }
+            />
+          </TabPanel>
+          <TabPanel value={tabValue} index={2}>
+            Integrations content coming soon...
+          </TabPanel>
+          <TabPanel value={tabValue} index={3}>
+            <ThemeTab
+              selectedColor={selectedColor}
+              onColorSelect={(color) =>
+                setStandupWizardStateAction({
+                  settings: { ...settings, selectedColor: color },
+                })
+              }
+            />
+          </TabPanel>
+          <TabPanel value={tabValue} index={4}>
+            Fun content coming soon...
+          </TabPanel>
         </Box>
-        <TabPanel value={tabValue} index={0}>
-          <GeneralTab
-            hideEmployees={hideEmployees}
-            onToggleHideEmployees={() =>
-              setStandupWizardStateAction({
-                settings: { ...settings, hideEmployees: !hideEmployees },
-              })
-            }
-          />
-        </TabPanel>
-        <TabPanel value={tabValue} index={1}>
-          Integrations content coming soon...
-        </TabPanel>
-        <TabPanel value={tabValue} index={2}>
-          <ThemeTab
-            selectedColor={selectedColor}
-            onColorSelect={(color) =>
-              setStandupWizardStateAction({
-                settings: { ...settings, selectedColor: color },
-              })
-            }
-          />
-        </TabPanel>
-        <TabPanel value={tabValue} index={3}>
-          Fun content coming soon...
-        </TabPanel>
+        {/* Modal Footer */}
+        <SettingsModalFooter
+          onPrimaryClick={() => setStandupWizardStateAction({ settingsModalOpen: false })}
+          onCancel={() => setStandupWizardStateAction({ settingsModalOpen: false })}
+        />
       </Box>
     </Modal>
   );

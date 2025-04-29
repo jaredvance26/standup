@@ -95,6 +95,13 @@ export const StandupWizardContainer = createContainer<
         dispatch(getUserSettingsAction(userId));
       }
     },
+	onUpdate:
+		() =>
+		({ dispatch }, { userId }) => {
+		  if (userId) {
+			  dispatch(getUserSettingsAction(userId));
+		  }
+		},
 });
 
 export const useGetJiraSectionContent = createHook(StandupWizardStore, {
