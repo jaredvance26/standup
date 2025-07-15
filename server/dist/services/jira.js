@@ -40,7 +40,7 @@ class JiraService {
         if (!sprintData.values || sprintData.values.length === 0) {
             return { issues: [], sprint: null };
         }
-        const activeSprint = sprintData.values[0];
+        const activeSprint = sprintData.values.find((sprint) => sprint.originBoardId === 186);
         const issues = await this.request(`/rest/agile/1.0/sprint/${activeSprint.id}/issue?fields=assignee,summary,status,issuetype`);
         return {
             sprint: {
