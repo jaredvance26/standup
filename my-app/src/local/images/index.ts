@@ -1,4 +1,5 @@
 export { default as ad } from "./ad.jpg";
+export { default as am } from "./am.jpg";
 export { default as bb } from "./bb.jpg";
 export { default as cr } from "./cr.jpg";
 export { default as cs } from "./cs.jpg";

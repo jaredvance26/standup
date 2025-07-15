@@ -1,6 +1,6 @@
 import { MemberStatus, TeamMember } from "../types";
 
-import { ad, bb, cr, cs, dc, ds, jp, jv, rp } from "./images";
+import { ad, am, bb, cr, cs, dc, ds, jp, jv, rp } from "./images";
 
 export const teamMembers: TeamMember[] = [
   {
@@ -9,7 +9,7 @@ export const teamMembers: TeamMember[] = [
     lastName: "Vance",
     photoUrl: jv,
     jiraId: "6279c3f123d61e006fc419ad",
-    position: "Software Engineer",
+    position: "Software Engineer 2",
     status: MemberStatus.None,
     notes: "",
     hasBeenViewed: false,
@@ -64,7 +64,7 @@ export const teamMembers: TeamMember[] = [
     lastName: "Russon",
     photoUrl: cr,
     jiraId: "712020:0726456e-714f-45f4-ac25-9ba95929ab86",
-    position: "Product Manager 2",
+    position: "Senior Product Manager",
     status: MemberStatus.None,
     notes: "",
     hasBeenViewed: false,
@@ -102,4 +102,15 @@ export const teamMembers: TeamMember[] = [
     notes: "",
     hasBeenViewed: false,
   },
+  {
+    id: 10,
+    firstName: "Abdul",
+    lastName: "Mansoor",
+    photoUrl: am,
+    jiraId: "712020:a151da26-cbdc-4e21-8290-e6fc2c1b341e",
+    position: "Software Developer, Intern",
+    status: MemberStatus.None,
+    notes: "",
+    hasBeenViewed: false,
+  }
 ];
