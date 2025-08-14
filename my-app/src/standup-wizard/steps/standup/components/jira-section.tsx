@@ -28,15 +28,24 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
           }}
         >
           <Box display="flex" alignItems="end" gap={1}>
-            <Typography
-              textAlign="center"
-              fontSize={24}
-              fontWeight={600}
-              marginBottom={0.5}
-              color={palette.primary.dark}
+            <Box
+              sx={{
+                maxWidth: "310px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
             >
-              {sprint.name}
-            </Typography>
+              <Typography
+                textAlign="center"
+                fontSize={24}
+                fontWeight={600}
+                marginBottom={0.5}
+                color={palette.primary.dark}
+              >
+                {sprint.name}
+              </Typography>
+            </Box>
             <Typography
               textAlign="center"
               fontSize={15}

@@ -7,6 +7,7 @@ import helmet from "helmet";
 import { jiraRouter } from "./routes/jira";
 import { authRouter } from "./routes/auth";
 import { settingsRouter } from "./routes/settings";
+import { teamMemberRouter } from "./routes/teamMember";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use("/api/jira", jiraRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/settings", settingsRouter);
+app.use("/api/team-members", teamMemberRouter);
 
 // MongoDB connection
 import mongoose from 'mongoose';
