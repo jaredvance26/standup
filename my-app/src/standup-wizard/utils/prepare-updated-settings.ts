@@ -1,4 +1,5 @@
-import { Settings, SettingsContract } from "../types";
+import { Settings } from "../types";
+import { SettingsContract } from '../api/contracts'
 
 export const prepareUpdatedSettings = (settings: Settings): SettingsContract => {
   return {

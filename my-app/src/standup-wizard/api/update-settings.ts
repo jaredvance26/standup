@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SettingsContract } from '../types';
+import { SettingsContract } from './contracts';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 

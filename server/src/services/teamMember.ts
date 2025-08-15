@@ -2,11 +2,12 @@ import TeamMember, { ITeamMember } from '../models/teamMember';
 
 export class TeamMemberService {
   /**
-   * Get all team members
+   * Get all team members for a specific user
+   * @param userId - The user ID to filter by
    */
-  async getAllTeamMembers(): Promise<ITeamMember[]> {
+  async getAllTeamMembers(userId: string): Promise<ITeamMember[]> {
     try {
-      return await TeamMember.find().sort({ lastName: 1, firstName: 1 });
+      return await TeamMember.find({ userId }).sort({ lastName: 1, firstName: 1 });
     } catch (error) {
       console.error('Error fetching team members:', error);
       throw error;
@@ -22,8 +23,9 @@ export class TeamMemberService {
   async createTeamMember(teamMemberData: {
     firstName: string;
     lastName: string;
-    position: string;
-    jiraId: string;
+    position?: string;
+    jiraId?: string;
+    userId: string;
   }): Promise<ITeamMember> {
     try {
       const newTeamMember = new TeamMember(teamMemberData);
@@ -44,8 +46,9 @@ export class TeamMemberService {
     updateData: Partial<{
       firstName: string;
       lastName: string;
-      position: string;
-      jiraId: string;
+      position?: string;
+      jiraId?: string;
+      userId?: string;
     }>
   ): Promise<ITeamMember | null> {
     try {

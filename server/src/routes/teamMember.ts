@@ -4,10 +4,16 @@ import { TeamMemberService } from "../services/teamMember";
 const router = express.Router();
 const teamMemberService = new TeamMemberService();
 
-// Get all team members
+// Get all team members for a specific user
 router.get("/", async (req, res) => {
   try {
-    const teamMembers = await teamMemberService.getAllTeamMembers();
+    const { userId } = req.query;
+    
+    if (!userId || typeof userId !== 'string') {
+      return res.status(400).json({ error: "userId is required as a query parameter" });
+    }
+    
+    const teamMembers = await teamMemberService.getAllTeamMembers(userId);
     res.json(teamMembers);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch team members" });
@@ -17,12 +23,12 @@ router.get("/", async (req, res) => {
 // Create a new team member
 router.post("/", async (req, res) => {
   try {
-    const { firstName, lastName, position, jiraId } = req.body;
+    const { firstName, lastName, position, jiraId, userId } = req.body;
 
-    if (!firstName || !lastName || !position || !jiraId) {
+    if (!firstName || !lastName || !userId) {
       return res.status(400).json({
         error:
-          "Missing required fields. Please provide firstName, lastName, position, and jiraId",
+          "Missing required fields. Please provide firstName, lastName, and userId",
       });
     }
 
@@ -31,6 +37,7 @@ router.post("/", async (req, res) => {
       lastName,
       position,
       jiraId,
+      userId,
     });
 
     res.status(201).json(newTeamMember);
@@ -43,12 +50,13 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const updateData: any = {};
-    const { firstName, lastName, position, jiraId } = req.body;
+    const { firstName, lastName, position, jiraId, userId } = req.body;
 
     if (firstName) updateData.firstName = firstName;
     if (lastName) updateData.lastName = lastName;
     if (position) updateData.position = position;
     if (jiraId) updateData.jiraId = jiraId;
+    if (userId) updateData.userId = userId;
 
     if (Object.keys(updateData).length === 0) {
       return res.status(400).json({ error: "No update data provided" });
