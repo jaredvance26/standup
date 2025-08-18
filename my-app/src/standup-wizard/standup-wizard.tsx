@@ -80,6 +80,7 @@ export const StandupWizard = () => {
           onSettingsClick={() =>
             setStandupWizardStateAction({ settingsModalOpen: true })
           }
+          currentStep={currentStep}
         />
         <Stepper
           activeStep={currentStep}

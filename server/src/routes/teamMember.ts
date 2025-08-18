@@ -5,14 +5,16 @@ const router = express.Router();
 const teamMemberService = new TeamMemberService();
 
 // Get all team members for a specific user
-router.get("/", async (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
-    const { userId } = req.query;
-    
-    if (!userId || typeof userId !== 'string') {
-      return res.status(400).json({ error: "userId is required as a query parameter" });
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ error: "userId is required as a path parameter" });
     }
-    
+
     const teamMembers = await teamMemberService.getAllTeamMembers(userId);
     res.json(teamMembers);
   } catch (error) {

@@ -1,4 +1,4 @@
-import TeamMember, { ITeamMember } from '../models/teamMember';
+import TeamMember, { ITeamMember } from "../models/teamMember";
 
 export class TeamMemberService {
   /**
@@ -7,14 +7,15 @@ export class TeamMemberService {
    */
   async getAllTeamMembers(userId: string): Promise<ITeamMember[]> {
     try {
-      return await TeamMember.find({ userId }).sort({ lastName: 1, firstName: 1 });
+      return await TeamMember.find(
+        { userId },
+        { createdAt: 0, updatedAt: 0 }
+      ).sort({ lastName: 1, firstName: 1 });
     } catch (error) {
-      console.error('Error fetching team members:', error);
+      console.error("Error fetching team members:", error);
       throw error;
     }
   }
-
-
 
   /**
    * Create a new team member
@@ -31,7 +32,7 @@ export class TeamMemberService {
       const newTeamMember = new TeamMember(teamMemberData);
       return await newTeamMember.save();
     } catch (error) {
-      console.error('Error creating team member:', error);
+      console.error("Error creating team member:", error);
       throw error;
     }
   }

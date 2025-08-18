@@ -1,0 +1,1 @@
+export { TeamMemberManagerConnector } from "./team-member-manager-connector";

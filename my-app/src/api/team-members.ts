@@ -15,9 +15,8 @@ export const getTeamMembers = async (
 ): Promise<TeamMemberContract[]> => {
   try {
     const response = await axios.get<TeamMemberContract[]>(
-      `${API_BASE_URL}/team-members`,
+      `${API_BASE_URL}/team-members/${userId}`,
       {
-        params: { userId },
         headers: {
           "Content-Type": "application/json",
         },

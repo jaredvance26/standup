@@ -9,7 +9,6 @@ export const signupAction =
     setState({ isLoading: true });
     try {
       const response = await signUp({ email, password });
-	  console.log({response})
       if (response && response.user) {
         setState({
           isAuthenticated: true,
