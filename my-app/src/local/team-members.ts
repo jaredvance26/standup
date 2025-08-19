@@ -1,6 +1,6 @@
 import { MemberStatus, TeamMember } from "../types";
 
-import { ad, am, bb, cr, cs, dc, ds, jp, jv, rp } from "./images";
+import { ad, bb, cr, cs, dc, ds, jv, rp } from "./images";
 
 export const teamMembers: TeamMember[] = [
   {
@@ -27,17 +27,6 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: 3,
-    firstName: "Jake",
-    lastName: "Pennington",
-    photoUrl: jp,
-    jiraId: "5ec1e475c2e9a00c28b31ac5",
-    position: "Senior Software Engineer",
-    status: MemberStatus.None,
-    notes: "",
-    hasBeenViewed: false,
-  },
-  {
-    id: 4,
     firstName: "Angela",
     lastName: "Dye",
     photoUrl: ad,
@@ -48,7 +37,7 @@ export const teamMembers: TeamMember[] = [
     hasBeenViewed: false,
   },
   {
-    id: 5,
+    id: 4,
     firstName: "Brody",
     lastName: "Binks",
     photoUrl: bb,
@@ -59,7 +48,7 @@ export const teamMembers: TeamMember[] = [
     hasBeenViewed: false,
   },
   {
-    id: 6,
+    id: 5,
     firstName: "Chris",
     lastName: "Russon",
     photoUrl: cr,
@@ -70,7 +59,7 @@ export const teamMembers: TeamMember[] = [
     hasBeenViewed: false,
   },
   {
-    id: 7,
+    id: 6,
     firstName: "Clayton",
     lastName: "Sharp",
     photoUrl: cs,
@@ -81,7 +70,7 @@ export const teamMembers: TeamMember[] = [
     hasBeenViewed: false,
   },
   {
-    id: 8,
+    id: 7,
     firstName: "Dave",
     lastName: "Summers",
     photoUrl: ds,
@@ -92,7 +81,7 @@ export const teamMembers: TeamMember[] = [
     hasBeenViewed: false,
   },
   {
-    id: 9,
+    id: 8,
     firstName: "Devin",
     lastName: "Cameron",
     photoUrl: dc,
@@ -102,15 +91,4 @@ export const teamMembers: TeamMember[] = [
     notes: "",
     hasBeenViewed: false,
   },
-  {
-    id: 10,
-    firstName: "Abdul",
-    lastName: "Mansoor",
-    photoUrl: am,
-    jiraId: "712020:a151da26-cbdc-4e21-8290-e6fc2c1b341e",
-    position: "Software Developer, Intern",
-    status: MemberStatus.None,
-    notes: "",
-    hasBeenViewed: false,
-  }
 ];

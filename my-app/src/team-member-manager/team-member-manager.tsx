@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { Box, Button } from "@mui/material";
-import { TeamMemberManagerHeader } from "./components";
+import { TeamMemberManagerHeader, TeamMemberTable } from "./components";
 import { useTeamMemberManagerStore } from "./team-member-manager-store";
 import { PersonAdd } from "@mui/icons-material";
 
@@ -26,6 +26,7 @@ export const TeamMemberManager = (): ReactElement => {
           }}
         >
 			<Button startIcon={<PersonAdd />} variant="contained">Add Team Member</Button>
+			<TeamMemberTable />
 		</Box>
       </Box>
     </Box>
