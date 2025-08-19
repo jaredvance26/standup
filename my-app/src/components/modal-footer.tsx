@@ -1,15 +1,18 @@
 import { ReactElement } from "react";
 import { Box, Button, useTheme } from "@mui/material";
 
-interface SettingsModalFooterProps {
-	onPrimaryClick: () => void;
-	onCancel: () => void;
-	isPrimaryDisabled: boolean;
+interface ModalFooterProps {
+  onPrimaryClick: () => void;
+  onCancel: () => void;
+  isPrimaryDisabled: boolean;
+  primaryButtonLabel?: string;
 }
-export const SettingsModalFooter = (props: SettingsModalFooterProps): ReactElement => {
-  const { onPrimaryClick, onCancel, isPrimaryDisabled } = props;
+export const ModalFooter = (
+  props: ModalFooterProps
+): ReactElement => {
+  const { onPrimaryClick, onCancel, isPrimaryDisabled, primaryButtonLabel="Save" } = props;
   const { palette } = useTheme();
-  
+
   return (
     <Box
       sx={{
@@ -41,7 +44,7 @@ export const SettingsModalFooter = (props: SettingsModalFooterProps): ReactEleme
         sx={{ fontSize: 18, borderRadius: 3 }}
         disabled={isPrimaryDisabled}
       >
-        Save
+        {primaryButtonLabel}
       </Button>
     </Box>
   );

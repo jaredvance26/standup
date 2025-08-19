@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import {
   Box,
   Table,
@@ -15,13 +15,22 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+
+import { RemoveTeamMemberModal } from "./remove-team-member-modal";
 import { useTeamMemberManagerStore } from "../team-member-manager-store/team-member-manager-store";
 import { TeamMemberContract } from "../../api/contracts";
+import { useMessageAlert } from "../../hooks";
 
 export const TeamMemberTable = (): ReactElement => {
-  const [state] = useTeamMemberManagerStore();
+  const [state, { removeTeamMemberAction }] = useTeamMemberManagerStore();
   const { teamMembers, isTeamDataLoading } = state;
   const { palette } = useTheme();
+  const [setMessage, AlertComponent] = useMessageAlert();
+
+  const [isRemoveTeamMemberModalOpen, setIsRemoveTeamMemberOpen] =
+    useState<boolean>(false);
+  const [selectedTeamMember, setSelectedTeamMember] =
+    useState<TeamMemberContract | null>(null);
 
   const maskJiraId = (jiraId: string | undefined): string => {
     if (!jiraId) return "--";
@@ -102,19 +111,17 @@ export const TeamMemberTable = (): ReactElement => {
                     }}
                   >
                     <Tooltip title="Edit">
-                      <IconButton
-                        onClick={() => null}
-                        size="small"
-                        color="primary"
-                      >
+                      <IconButton onClick={() => null} size="small">
                         <EditIcon fontSize="medium" />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
                       <IconButton
-                        onClick={() => null}
+                        onClick={() => {
+                          setIsRemoveTeamMemberOpen(true);
+                          setSelectedTeamMember(member);
+                        }}
                         size="small"
-                        color="error"
                       >
                         <DeleteIcon fontSize="medium" />
                       </IconButton>
@@ -135,6 +142,20 @@ export const TeamMemberTable = (): ReactElement => {
           </TableBody>
         </Table>
       </TableContainer>
+      {selectedTeamMember && (
+        <RemoveTeamMemberModal
+          isOpen={isRemoveTeamMemberModalOpen}
+          onClose={() => setIsRemoveTeamMemberOpen(false)}
+          onRemove={() => {
+            removeTeamMemberAction(selectedTeamMember.id, () =>
+              setMessage("success", "Team member removed successfully")
+            );
+            setIsRemoveTeamMemberOpen(false);
+          }}
+          selectedTeamMember={selectedTeamMember}
+        />
+      )}
+      {AlertComponent}
     </Box>
   );
 };

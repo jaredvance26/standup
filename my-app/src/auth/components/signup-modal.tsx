@@ -2,18 +2,16 @@ import React, { useState } from "react";
 import {
   Modal,
   Box,
-  Typography,
   TextField,
   Button,
-  IconButton,
   useTheme,
   Checkbox,
 } from "@mui/material";
-import { Close } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "../auth-store";
+import { ModalWrapper } from "../../components";
 import roundTable from "../../static/round-table.png";
-import { useNavigate } from "react-router-dom";
 
 interface SignupModalInterface {
   isOpen: boolean;
@@ -78,46 +76,12 @@ export const SignupModal = (
         },
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 900,
-          height: 800,
-          bgcolor: palette.common.white,
-          borderRadius: 3,
-          boxShadow: 24,
-          p: 0,
-          display: "flex",
-          flexDirection: "column",
-        }}
+      <ModalWrapper
+        onClose={onClose}
+        headerName="Sign Up"
+        modalIcon={<img src={roundTable} alt="Logo" width={50} height={50} />}
+        modalHeight={850}
       >
-        <Box
-          sx={{
-            backgroundColor: palette.grey[100],
-            borderRadius: 3,
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
-            borderBottom: 1,
-            borderColor: "divider",
-            p: 2,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Box display="flex" alignItems="center" gap={2}>
-            <img src={roundTable} alt="Logo" width={50} height={50} />
-            <Typography fontSize={32} fontWeight={600}>
-              Sign Up
-            </Typography>
-          </Box>
-          <IconButton onClick={onClose}>
-            <Close />
-          </IconButton>
-        </Box>
         <Box
           sx={{
             flex: 1,
@@ -168,17 +132,21 @@ export const SignupModal = (
                 }}
               />
               {/* Password checklist */}
-              <Box bgcolor={palette.grey[100]} p={1} sx={{ ml: 1, mt: 2, borderRadius: 3 }}>
+              <Box
+                bgcolor={palette.grey[100]}
+                p={1}
+                sx={{ ml: 1, mt: 2, borderRadius: 3 }}
+              >
                 {passwordRequirements.map((req, idx) => {
                   const fulfilled = req.test(password);
                   return (
                     <Box
                       key={req.label}
                       sx={{
-                        display: 'flex',
-                        alignItems: 'center',
+                        display: "flex",
+                        alignItems: "center",
                         gap: 1,
-                        bgcolor: fulfilled ? '#e6f4ea' : 'transparent',
+                        bgcolor: fulfilled ? "#e6f4ea" : "transparent",
                         borderRadius: 2,
                         px: 1,
                         py: 0.5,
@@ -188,9 +156,19 @@ export const SignupModal = (
                       <Checkbox
                         checked={fulfilled}
                         disabled
-                        sx={{ p: 0.5, color: fulfilled ? 'success.main' : undefined }}
+                        sx={{
+                          p: 0.5,
+                          color: fulfilled ? "success.main" : undefined,
+                        }}
                       />
-                      <span style={{ color: fulfilled ? '#2e7d32' : undefined, fontWeight: fulfilled ? 600 : 400 }}>{req.label}</span>
+                      <span
+                        style={{
+                          color: fulfilled ? "#2e7d32" : undefined,
+                          fontWeight: fulfilled ? 600 : 400,
+                        }}
+                      >
+                        {req.label}
+                      </span>
                     </Box>
                   );
                 })}
@@ -237,7 +215,7 @@ export const SignupModal = (
             </Button>
           </Box>
         </Box>
-      </Box>
+      </ModalWrapper>
     </Modal>
   );
 };

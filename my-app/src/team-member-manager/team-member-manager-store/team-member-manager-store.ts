@@ -8,6 +8,7 @@ import {
 import {
   setTeamMemberManagerStateAction,
   getTeamMembersAction,
+  removeTeamMemberAction,
 } from "./actions";
 import { TeamMemberContract } from "../../api/contracts";
 
@@ -17,17 +18,20 @@ export interface TeamMemberManagerState {
   teamMembers: TeamMemberContract[];
   selectedTeamMemberIds: number[];
   isTeamDataLoading: boolean;
+  userId: string;
 }
 
 const initialState: TeamMemberManagerState = {
   teamMembers: [],
   selectedTeamMemberIds: [],
   isTeamDataLoading: false,
+  userId: "",
 };
 
 const actions = {
   setTeamMemberManagerStateAction,
   getTeamMembersAction,
+  removeTeamMemberAction,
 };
 
 const TeamMemberManagerStore = createStore({
@@ -51,15 +55,17 @@ export const TeamMemberManagerContainer = createContainer<
 >(TeamMemberManagerStore, {
   onInit:
     () =>
-    ({ dispatch }, { userId }) => {
+    ({ dispatch, setState }, { userId }) => {
       if (userId) {
+        setState({ userId });
         dispatch(getTeamMembersAction(userId));
       }
     },
   onUpdate:
     () =>
-    ({ dispatch }, { userId }) => {
+    ({ dispatch, setState }, { userId }) => {
       if (userId) {
+        setState({ userId });
         dispatch(getTeamMembersAction(userId));
       }
     },

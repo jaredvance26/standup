@@ -1,16 +1,7 @@
 import React, { useState, ReactElement } from "react";
-import {
-  Modal,
-  Box,
-  Typography,
-  Tabs,
-  Tab,
-  useTheme,
-  IconButton,
-} from "@mui/material";
+import { Modal, Box, Tabs, Tab, useTheme } from "@mui/material";
 import {
   Cable,
-  Close,
   Palette,
   Star,
   Settings,
@@ -19,9 +10,10 @@ import {
 } from "@mui/icons-material";
 import { isEqual } from "lodash";
 
-import { SettingsModalFooter, TabLabel, TabPanel } from "./components";
+import { TabLabel, TabPanel } from "./components";
 import { AccountTab, GeneralTab, ThemeTab } from "./tabs";
 import { useStandupWizardStore } from "../standup-wizard-store";
+import { ModalFooter, ModalWrapper } from "../../components";
 import { useMessageAlert } from "../../hooks";
 
 export const SettingsModal = (): ReactElement => {
@@ -47,63 +39,15 @@ export const SettingsModal = (): ReactElement => {
       disableAutoFocus
       aria-labelledby="settings-modal-title"
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 900,
-          minHeight: 600,
-          bgcolor: "background.paper",
-          borderRadius: 3,
-          boxShadow: 24,
-          p: 0,
-          display: "flex",
-          flexDirection: "column",
-        }}
+      <ModalWrapper
+        onClose={() =>
+          setStandupWizardStateAction({ settingsModalOpen: false })
+        }
+        headerName="Settings"
+        modalIcon={
+          <Settings sx={{ mr: 1, fontSize: 45, color: palette.primary.main }} />
+        }
       >
-        <Box
-          sx={{
-            backgroundColor: palette.grey[100],
-            borderRadius: 3,
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
-            borderBottom: 1,
-            borderColor: "divider",
-            p: 2,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Settings
-              sx={{ mr: 1, fontSize: 45, color: palette.primary.main }}
-            />
-            <Typography
-              fontSize={32}
-              fontWeight={600}
-              sx={{ color: palette.primary.main }}
-            >
-              Settings
-            </Typography>
-          </Box>
-          <IconButton
-            onClick={() =>
-              setStandupWizardStateAction({ settingsModalOpen: false })
-            }
-            sx={{
-              color: palette.primary.main,
-              "&:hover": {
-                color: palette.primary.dark,
-              },
-            }}
-          >
-            <Close sx={{ fontSize: 28 }} />
-          </IconButton>
-        </Box>
-
         <Box sx={{ flex: 1, overflowY: "auto" }}>
           <Box marginTop={2} marginLeft={2}>
             <Tabs value={tabValue} onChange={handleTabChange}>
@@ -144,8 +88,7 @@ export const SettingsModal = (): ReactElement => {
             Fun content coming soon...
           </TabPanel>
         </Box>
-        {/* Modal Footer */}
-        <SettingsModalFooter
+        <ModalFooter
           onPrimaryClick={() => {
             updateSettingsAction(userId);
             setMessage("success", "Settings updated successfully");
@@ -156,8 +99,8 @@ export const SettingsModal = (): ReactElement => {
           }}
           isPrimaryDisabled={isPrimaryDisabled}
         />
-		{AlertComponent}
-      </Box>
+        {AlertComponent}
+      </ModalWrapper>
     </Modal>
   );
 };
