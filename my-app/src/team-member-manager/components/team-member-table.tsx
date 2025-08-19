@@ -48,28 +48,28 @@ export const TeamMemberTable = (): ReactElement => {
         <Table aria-label="team members table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
-                <Typography fontSize={20} fontWeight={700} color="white">
+              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+                <Typography fontSize={20} fontWeight={700} color={palette.grey[800]}>
                   First Name
                 </Typography>
               </TableCell>
-              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
-                <Typography fontSize={20} fontWeight={700} color="white">
+              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+                <Typography fontSize={20} fontWeight={700} color={palette.grey[800]}>
                   Last Name
                 </Typography>
               </TableCell>
-              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
-                <Typography fontSize={20} fontWeight={700} color="white">
+              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+                <Typography fontSize={20} fontWeight={700} color={palette.grey[800]}>
                   Position
                 </Typography>
               </TableCell>
-              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
-                <Typography fontSize={20} fontWeight={700} color="white">
+              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+                <Typography fontSize={20} fontWeight={700} color={palette.grey[800]}>
                   Jira ID
                 </Typography>
               </TableCell>
               <TableCell
-                sx={{ backgroundColor: palette.primary.dark }}
+                sx={{ backgroundColor: palette.grey[400] }}
                 align="right"
               ></TableCell>
             </TableRow>

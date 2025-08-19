@@ -40,12 +40,12 @@ export const RemoveTeamMemberModal = (
           }}
         >
           <Warning sx={{ fontSize: 85, color: palette.warning.main }} />
-          <Typography fontSize={25} fontWeight={600} color={palette.grey[800]}>
+          <Typography fontSize={28} fontWeight={800} color={palette.grey[800]}>
             Are you sure you want to remove this team member?
           </Typography>
           <Box
             sx={{
-              marginTop: 5,
+              marginTop: 4,
               backgroundColor: palette.grey[100],
               borderRadius: 3,
               padding: 2,
