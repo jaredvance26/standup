@@ -20,10 +20,12 @@ import { RemoveTeamMemberModal } from "./remove-team-member-modal";
 import { useTeamMemberManagerStore } from "../team-member-manager-store/team-member-manager-store";
 import { TeamMemberContract } from "../../api/contracts";
 import { useMessageAlert } from "../../hooks";
+import { TeamMemberModal } from "./team-member-modal";
 
 export const TeamMemberTable = (): ReactElement => {
-  const [state, { removeTeamMemberAction }] = useTeamMemberManagerStore();
-  const { teamMembers, isTeamDataLoading } = state;
+  const [state, { removeTeamMemberAction, updateTeamMemberAction }] =
+    useTeamMemberManagerStore();
+  const { teamMembers, isTeamDataLoading, userId } = state;
   const { palette } = useTheme();
   const [setMessage, AlertComponent] = useMessageAlert();
 
@@ -31,6 +33,8 @@ export const TeamMemberTable = (): ReactElement => {
     useState<boolean>(false);
   const [selectedTeamMember, setSelectedTeamMember] =
     useState<TeamMemberContract | null>(null);
+  const [isTeamMemberModalOpen, setIsTeamMemberModalOpen] =
+    useState<boolean>(false);
 
   const maskJiraId = (jiraId: string | undefined): string => {
     if (!jiraId) return "--";
@@ -49,22 +53,38 @@ export const TeamMemberTable = (): ReactElement => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ backgroundColor: palette.grey[400] }}>
-                <Typography fontSize={20} fontWeight={700} color={palette.grey[800]}>
+                <Typography
+                  fontSize={20}
+                  fontWeight={700}
+                  color={palette.grey[800]}
+                >
                   First Name
                 </Typography>
               </TableCell>
               <TableCell sx={{ backgroundColor: palette.grey[400] }}>
-                <Typography fontSize={20} fontWeight={700} color={palette.grey[800]}>
+                <Typography
+                  fontSize={20}
+                  fontWeight={700}
+                  color={palette.grey[800]}
+                >
                   Last Name
                 </Typography>
               </TableCell>
               <TableCell sx={{ backgroundColor: palette.grey[400] }}>
-                <Typography fontSize={20} fontWeight={700} color={palette.grey[800]}>
+                <Typography
+                  fontSize={20}
+                  fontWeight={700}
+                  color={palette.grey[800]}
+                >
                   Position
                 </Typography>
               </TableCell>
               <TableCell sx={{ backgroundColor: palette.grey[400] }}>
-                <Typography fontSize={20} fontWeight={700} color={palette.grey[800]}>
+                <Typography
+                  fontSize={20}
+                  fontWeight={700}
+                  color={palette.grey[800]}
+                >
                   Jira ID
                 </Typography>
               </TableCell>
@@ -111,15 +131,21 @@ export const TeamMemberTable = (): ReactElement => {
                     }}
                   >
                     <Tooltip title="Edit">
-                      <IconButton onClick={() => null} size="small">
+                      <IconButton
+                        onClick={() => {
+                          setSelectedTeamMember(member);
+                          setIsTeamMemberModalOpen(true);
+                        }}
+                        size="small"
+                      >
                         <EditIcon fontSize="medium" />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
                       <IconButton
                         onClick={() => {
-                          setIsRemoveTeamMemberOpen(true);
                           setSelectedTeamMember(member);
+                          setIsRemoveTeamMemberOpen(true);
                         }}
                         size="small"
                       >
@@ -143,17 +169,44 @@ export const TeamMemberTable = (): ReactElement => {
         </Table>
       </TableContainer>
       {selectedTeamMember && (
-        <RemoveTeamMemberModal
-          isOpen={isRemoveTeamMemberModalOpen}
-          onClose={() => setIsRemoveTeamMemberOpen(false)}
-          onRemove={() => {
-            removeTeamMemberAction(selectedTeamMember.id, () =>
-              setMessage("success", "Team member removed successfully")
-            );
-            setIsRemoveTeamMemberOpen(false);
-          }}
-          selectedTeamMember={selectedTeamMember}
-        />
+        <>
+          <RemoveTeamMemberModal
+            isOpen={isRemoveTeamMemberModalOpen}
+            onClose={() => {
+              setIsRemoveTeamMemberOpen(false);
+              setSelectedTeamMember(null);
+            }}
+            onRemove={() => {
+              removeTeamMemberAction(selectedTeamMember.id, () =>
+                setMessage("success", "Team member removed successfully")
+              );
+              setIsRemoveTeamMemberOpen(false);
+              setSelectedTeamMember(null);
+            }}
+            selectedTeamMember={selectedTeamMember}
+          />
+          <TeamMemberModal
+            isOpen={isTeamMemberModalOpen}
+            onClose={() => {
+              setIsTeamMemberModalOpen(false);
+              setSelectedTeamMember(null);
+            }}
+            selectedTeamMember={selectedTeamMember}
+            userId={userId}
+            primaryButtonAction={(
+              teamMemberData: Omit<TeamMemberContract, "id">
+            ) =>
+              updateTeamMemberAction(
+                teamMemberData,
+                selectedTeamMember.id,
+                () => {
+                  setIsTeamMemberModalOpen(false);
+                  setMessage("success", "Team member updated successfully");
+                }
+              )
+            }
+          />
+        </>
       )}
       {AlertComponent}
     </Box>

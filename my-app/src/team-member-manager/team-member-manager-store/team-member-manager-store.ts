@@ -6,9 +6,11 @@ import {
   defaults,
 } from "react-sweet-state";
 import {
+  createTeamMemberAction,
   setTeamMemberManagerStateAction,
   getTeamMembersAction,
   removeTeamMemberAction,
+  updateTeamMemberAction,
 } from "./actions";
 import { TeamMemberContract } from "../../api/contracts";
 
@@ -29,9 +31,11 @@ const initialState: TeamMemberManagerState = {
 };
 
 const actions = {
+  createTeamMemberAction,
   setTeamMemberManagerStateAction,
   getTeamMembersAction,
   removeTeamMemberAction,
+  updateTeamMemberAction,
 };
 
 const TeamMemberManagerStore = createStore({
