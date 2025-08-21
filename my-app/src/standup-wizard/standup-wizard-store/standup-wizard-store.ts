@@ -14,11 +14,11 @@ import {
   getJiraDataAction,
   getUserSettingsAction,
   updateSettingsAction,
+  getTeamMembersAction,
 } from "./actions";
 import { getJiraSectionContentSelector } from "./selectors";
 import { Colors, JiraIssue, Sprint, Settings } from "../types";
 import { TeamMember } from "../../types";
-import { teamMembers } from "../../local";
 
 defaults.devtools = true;
 
@@ -26,6 +26,7 @@ export interface StandupWizardState {
   currentStep: number;
   selectedTeamMemberIds: number[];
   teamMembers: Record<number, TeamMember>;
+  areTeamMembersLoading: boolean;
   settingsModalOpen: boolean;
   userId: string;
   // Jira data
@@ -46,10 +47,8 @@ const initialSettingsState = {
 const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
-  teamMembers: teamMembers.reduce(
-    (acc, member) => ({ ...acc, [member.id]: member }),
-    {}
-  ),
+  teamMembers: {},
+  areTeamMembersLoading: false,
   userId: "",
   settingsModalOpen: false,
   // Jira data
@@ -71,6 +70,7 @@ const actions = {
   getJiraDataAction,
   getUserSettingsAction,
   updateSettingsAction,
+  getTeamMembersAction,
 };
 
 const StandupWizardStore = createStore({
@@ -99,6 +99,7 @@ export const StandupWizardContainer = createContainer<
       if (userId) {
         setState({ userId });
         dispatch(getUserSettingsAction(userId));
+        dispatch(getTeamMembersAction());
       }
     },
 	onUpdate:
@@ -107,6 +108,7 @@ export const StandupWizardContainer = createContainer<
 		  if (userId) {
 			  setState({ userId });
 			  dispatch(getUserSettingsAction(userId));
+			  dispatch(getTeamMembersAction());
 		  }
 		},
 });
