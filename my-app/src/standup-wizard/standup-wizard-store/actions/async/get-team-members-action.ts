@@ -1,5 +1,6 @@
 import { StandupWizardAction } from "../../standup-wizard-store";
 import { getTeamMembers } from "../../../../api/team-members";
+import { MemberStatus } from "../../../../types";
 
 export const getTeamMembersAction =
   (): StandupWizardAction =>
@@ -20,13 +21,23 @@ export const getTeamMembersAction =
 
       // Convert array to record object with id as key
       const teamMembersRecord = teamMembersData.reduce(
-        (acc, member) => ({ ...acc, [member.id]: member }),
+        (acc, member) => ({
+          ...acc,
+          [member.id]: {
+            ...member,
+            isGuest: false,
+            notes: "",
+            status: MemberStatus.None,
+            hasBeenViewed: false,
+          },
+        }),
         {}
       );
 
       setState({
         teamMembers: teamMembersRecord,
         areTeamMembersLoading: false,
+        serverTeamMembers: teamMembersData,
       });
     } catch (error) {
       console.error("Failed to fetch team members:", error);

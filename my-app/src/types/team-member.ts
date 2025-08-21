@@ -5,9 +5,10 @@ export interface TeamMember {
 	id: number;
 	jiraId?: string;
 	lastName: string;
-	photoUrl: string;
-	position: string;
+	photoUrl?: string;
+	position?: string;
 	notes: string;
 	status: MemberStatus;
 	hasBeenViewed: boolean;
+	isGuest: boolean;
 }

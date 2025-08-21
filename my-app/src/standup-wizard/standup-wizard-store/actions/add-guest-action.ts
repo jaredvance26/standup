@@ -7,7 +7,7 @@ export const addGuestAction =
     const { selectedTeamMemberIds, teamMembers } = getState();
 
     const newTeamMember = {
-      id: Math.max(0, ...Object.keys(teamMembers).map(Number)) + 1,
+      id: Math.floor(Math.random() * 100000) + 1,
       firstName: name,
       lastName: "",
       position: "",
@@ -16,6 +16,7 @@ export const addGuestAction =
       status: MemberStatus.None,
       jiraId: "",
 	  hasBeenViewed: false,
+	  isGuest: true,
     };
 
     setState({

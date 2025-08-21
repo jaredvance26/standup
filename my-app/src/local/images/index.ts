@@ -1,8 +1,0 @@
-export { default as ad } from "./ad.jpg";
-export { default as bb } from "./bb.jpg";
-export { default as cr } from "./cr.jpg";
-export { default as cs } from "./cs.jpg";
-export { default as dc } from "./dc.jpg";
-export { default as ds } from "./ds.jpg";
-export { default as jv } from "./jv.png";
-export { default as rp } from "./rp.png";

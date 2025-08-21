@@ -4,7 +4,6 @@ import { Group, Settings } from "@mui/icons-material";
 import { format } from "date-fns";
 
 import roundTable from "../../static/round-table.png";
-import { TEAM } from "../../local";
 
 interface StandupWizardHeaderProps {
   onSettingsClick: () => void;
@@ -35,7 +34,7 @@ export const StandupWizardHeader = (
             textAlign="center"
             fontSize={32}
             fontWeight={800}
-          >{`${TEAM.name} Standup`}</Typography>
+          >{`Standup`}</Typography>
           <Typography fontSize={18} fontWeight={500}>
             {format(new Date(), "EEEE, MMMM d, yyyy")}
           </Typography>

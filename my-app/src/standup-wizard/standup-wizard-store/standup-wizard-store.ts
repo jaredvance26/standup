@@ -18,6 +18,7 @@ import {
 } from "./actions";
 import { getJiraSectionContentSelector } from "./selectors";
 import { Colors, JiraIssue, Sprint, Settings } from "../types";
+import { TeamMemberContract } from "../../api/contracts";
 import { TeamMember } from "../../types";
 
 defaults.devtools = true;
@@ -26,7 +27,6 @@ export interface StandupWizardState {
   currentStep: number;
   selectedTeamMemberIds: number[];
   teamMembers: Record<number, TeamMember>;
-  areTeamMembersLoading: boolean;
   settingsModalOpen: boolean;
   userId: string;
   // Jira data
@@ -37,6 +37,9 @@ export interface StandupWizardState {
   isSettingsDataLoading: boolean;
   settings: Settings;
   originalSettings: Settings;
+  // team member
+  areTeamMembersLoading: boolean;
+  serverTeamMembers: TeamMemberContract[]
 }
 
 const initialSettingsState = {
@@ -48,7 +51,6 @@ const initialState: StandupWizardState = {
   currentStep: 0,
   selectedTeamMemberIds: [],
   teamMembers: {},
-  areTeamMembersLoading: false,
   userId: "",
   settingsModalOpen: false,
   // Jira data
@@ -59,6 +61,9 @@ const initialState: StandupWizardState = {
   isSettingsDataLoading: false,
   settings: initialSettingsState,
   originalSettings: initialSettingsState,
+  // team member
+  areTeamMembersLoading: false,
+  serverTeamMembers: [],
 };
 
 const actions = {

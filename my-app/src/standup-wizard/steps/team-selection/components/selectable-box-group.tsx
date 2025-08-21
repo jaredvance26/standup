@@ -16,6 +16,8 @@ export const SelectableBoxGroup = (
 ): ReactElement => {
   const { onRemoveGuest, selectedIds, setSelectedIds, teamMembers } = props;
 
+  console.log({selectedIds})
+
   const handleToggle = (id: number) => {
     const newValues = (prevSelectedIds: number[]) =>
       prevSelectedIds.includes(id)
@@ -26,22 +28,17 @@ export const SelectableBoxGroup = (
   };
 
   return (
-    <Grid
-      container
-      spacing={4}
-    >
+    <Grid container spacing={4}>
       {teamMembers.map((teamMember) => (
-        <Grid 
-          size={{ xs: 12, sm: 12, md: 6, lg: 4 }}
-          key={teamMember.id}
-        >
+        <Grid size={{ xs: 12, sm: 12, md: 6, lg: 4 }} key={teamMember.id}>
           <SelectableBox
             key={teamMember.id}
             id={teamMember.id}
-            imageUrl={teamMember.photoUrl}
+            imageUrl={teamMember.photoUrl || ""	}
+            isGuest={teamMember.isGuest}
             name={`${teamMember.firstName} ${teamMember.lastName}`}
             onRemoveGuest={onRemoveGuest}
-            position={teamMember.position}
+            position={teamMember.isGuest ? "Guest" : teamMember.position || ""}
             selected={selectedIds.includes(teamMember.id)}
             onToggle={() => handleToggle(teamMember.id)}
           />
