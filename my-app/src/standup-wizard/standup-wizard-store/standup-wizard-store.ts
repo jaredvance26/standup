@@ -46,6 +46,7 @@ const initialSettingsState = {
   selectedColor: Colors.Blue,
   hideEmployees: true,
   showStatusField: true,
+  teamName: "",
 };
 
 const initialState: StandupWizardState = {

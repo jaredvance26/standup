@@ -1,8 +1,10 @@
 import React, { ReactElement } from "react";
-import { Adjust, VisibilityOff } from "@mui/icons-material";
-import { Box, Switch, Typography, useTheme } from "@mui/material";
+import { Adjust, Group, VisibilityOff } from "@mui/icons-material";
+import { Box, Switch, TextField, Typography, useTheme } from "@mui/material";
 
 interface GeneralTabProps {
+  teamName: string;
+  onTeamNameChange: (teamName: string) => void;
   hideEmployees: boolean;
   onToggleHideEmployees: () => void;
   showStatusField: boolean;
@@ -15,11 +17,36 @@ export const GeneralTab = (props: GeneralTabProps): ReactElement => {
     onToggleHideEmployees,
     showStatusField,
     onToggleShowStatusField,
+    teamName,
+    onTeamNameChange,
   } = props;
   const { palette } = useTheme();
 
   return (
     <Box display="flex" flexDirection="column" gap={2}>
+      {/* Team name */}
+      <Box>
+		<Box display="flex" alignItems="center" gap={1}>
+        <Typography color={palette.grey[800]} fontSize={18} fontWeight={500}>
+          Team name
+        </Typography>
+		<Group sx={{ fill: palette.grey[800] }} />
+		</Box>
+        <TextField
+          value={teamName}
+          onChange={(e) => onTeamNameChange(e.target.value)}
+          variant="outlined"
+          placeholder="Enter your team name"
+          sx={{
+            width: "35%",
+            mt: 1,
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 3,
+            },
+          }}
+        />
+      </Box>
+
       {/* Hide employees */}
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box>

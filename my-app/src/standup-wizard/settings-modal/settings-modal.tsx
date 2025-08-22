@@ -24,7 +24,7 @@ export const SettingsModal = (): ReactElement => {
     { settings, userId, settingsModalOpen, originalSettings },
     { setStandupWizardStateAction, updateSettingsAction },
   ] = useStandupWizardStore();
-  const { selectedColor, hideEmployees, showStatusField } = settings;
+  const { selectedColor, hideEmployees, showStatusField, teamName } = settings;
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -74,6 +74,12 @@ export const SettingsModal = (): ReactElement => {
               onToggleShowStatusField={() =>
                 setStandupWizardStateAction({
                   settings: { ...settings, showStatusField: !showStatusField },
+                })
+              }
+              teamName={teamName}
+              onTeamNameChange={(teamName) =>
+                setStandupWizardStateAction({
+                  settings: { ...settings, teamName },
                 })
               }
             />

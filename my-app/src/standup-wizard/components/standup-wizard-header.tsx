@@ -8,12 +8,13 @@ import roundTable from "../../static/round-table.png";
 interface StandupWizardHeaderProps {
   onSettingsClick: () => void;
   currentStep: number;
+  teamName: string;
 }
 
 export const StandupWizardHeader = (
   props: StandupWizardHeaderProps
 ): ReactElement => {
-  const { onSettingsClick, currentStep } = props;
+  const { onSettingsClick, currentStep, teamName } = props;
   const { palette } = useTheme();
   return (
     <Box
@@ -34,7 +35,7 @@ export const StandupWizardHeader = (
             textAlign="center"
             fontSize={32}
             fontWeight={800}
-          >{`Standup`}</Typography>
+          >{`${teamName} Standup`}</Typography>
           <Typography fontSize={18} fontWeight={500}>
             {format(new Date(), "EEEE, MMMM d, yyyy")}
           </Typography>

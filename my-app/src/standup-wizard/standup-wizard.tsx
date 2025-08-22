@@ -4,10 +4,7 @@ import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import {
-  StandupWizardFooter,
-  StandupWizardHeader,
-} from "./components";
+import { StandupWizardFooter, StandupWizardHeader } from "./components";
 import { useStandupWizardStore } from "./standup-wizard-store";
 import { Standup, StandupSummary, TeamSelection } from "./steps";
 import { SettingsModal } from "./settings-modal";
@@ -54,7 +51,12 @@ export const StandupWizard = () => {
     },
   });
 
-  const [{ selectedTeamMemberIds }] = useStandupWizardStore();
+  const [
+    {
+      selectedTeamMemberIds,
+      settings: { teamName },
+    },
+  ] = useStandupWizardStore();
 
   const StepContent = stepComponents[currentStep];
   const overflowSetting = currentStep === 1 ? "hidden" : "auto";
@@ -81,6 +83,7 @@ export const StandupWizard = () => {
             setStandupWizardStateAction({ settingsModalOpen: true })
           }
           currentStep={currentStep}
+          teamName={teamName}
         />
         <Stepper
           activeStep={currentStep}
@@ -123,7 +126,7 @@ export const StandupWizard = () => {
               margin: "auto",
               backgroundColor: "#F6F6F4",
               borderRadius: 3,
-			  height: '100%'
+              height: "100%",
             }}
           >
             <StepContent />

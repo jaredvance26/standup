@@ -13,11 +13,13 @@ export const updateSettingsAction = (userId: string): StandupWizardAction => asy
 		if (newSettings) {
 			setState({
 				settings: {
+					teamName: newSettings.teamName,
 					selectedColor: newSettings.theme,
 					hideEmployees: newSettings.standup.hideUnselectedEmployees,
 					showStatusField: newSettings.standup.showStatusField
 				},
 				originalSettings: {
+					teamName: newSettings.teamName,
 					selectedColor: newSettings.theme,
 					hideEmployees: newSettings.standup.hideUnselectedEmployees,
 					showStatusField: newSettings.standup.showStatusField
