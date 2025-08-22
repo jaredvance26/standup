@@ -38,7 +38,7 @@ export const SelectableBoxGroup = (
             isGuest={teamMember.isGuest}
             name={`${teamMember.firstName} ${teamMember.lastName}`}
             onRemoveGuest={onRemoveGuest}
-            position={teamMember.isGuest ? "Guest" : teamMember.position || ""}
+            position={teamMember.position || ""}
             selected={selectedIds.includes(teamMember.id)}
             onToggle={() => handleToggle(teamMember.id)}
           />

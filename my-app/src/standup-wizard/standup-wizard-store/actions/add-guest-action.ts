@@ -10,7 +10,7 @@ export const addGuestAction =
       id: Math.floor(Math.random() * 100000) + 1,
       firstName: name,
       lastName: "",
-      position: "",
+      position: "Guest",
       photoUrl: "",
       notes: "",
       status: MemberStatus.None,
