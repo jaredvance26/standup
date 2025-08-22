@@ -24,7 +24,7 @@ export const SettingsModal = (): ReactElement => {
     { settings, userId, settingsModalOpen, originalSettings },
     { setStandupWizardStateAction, updateSettingsAction },
   ] = useStandupWizardStore();
-  const { selectedColor, hideEmployees } = settings;
+  const { selectedColor, hideEmployees, showStatusField } = settings;
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -40,9 +40,10 @@ export const SettingsModal = (): ReactElement => {
       aria-labelledby="settings-modal-title"
     >
       <ModalWrapper
-        onClose={() =>
-          setStandupWizardStateAction({ settingsModalOpen: false })
-        }
+        onClose={() => {
+          setStandupWizardStateAction({ settingsModalOpen: false });
+          setStandupWizardStateAction({ settings: originalSettings });
+        }}
         headerName="Settings"
         modalIcon={
           <Settings sx={{ mr: 1, fontSize: 45, color: palette.primary.main }} />
@@ -67,6 +68,12 @@ export const SettingsModal = (): ReactElement => {
               onToggleHideEmployees={() =>
                 setStandupWizardStateAction({
                   settings: { ...settings, hideEmployees: !hideEmployees },
+                })
+              }
+              showStatusField={showStatusField}
+              onToggleShowStatusField={() =>
+                setStandupWizardStateAction({
+                  settings: { ...settings, showStatusField: !showStatusField },
                 })
               }
             />

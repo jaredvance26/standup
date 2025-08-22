@@ -11,11 +11,13 @@ export const getUserSettingsAction = (userId: string): StandupWizardAction => as
       setState({
         settings: {
           selectedColor: userSettings.theme,
-          hideEmployees: userSettings.standup.hideUnselectedEmployees
+          hideEmployees: userSettings.standup.hideUnselectedEmployees,
+          showStatusField: userSettings.standup.showStatusField
         },
         originalSettings: {
           selectedColor: userSettings.theme,
-          hideEmployees: userSettings.standup.hideUnselectedEmployees
+          hideEmployees: userSettings.standup.hideUnselectedEmployees,
+          showStatusField: userSettings.standup.showStatusField
         },
         isSettingsDataLoading: false
       });

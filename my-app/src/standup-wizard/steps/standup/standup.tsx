@@ -12,7 +12,12 @@ import { MemberStatus, TeamMember } from "../../../types";
 export const Standup = (): ReactElement => {
   const [store, { addGuestAction, setStandupWizardStateAction }] =
     useStandupWizardStore();
-  const { selectedTeamMemberIds, teamMembers, issues, settings } = store;
+  const {
+    selectedTeamMemberIds,
+    teamMembers,
+    issues,
+    settings,
+  } = store;
 
   const selectedTeamMembers = selectedTeamMemberIds
     .map((id) => teamMembers[id])
@@ -85,20 +90,24 @@ export const Standup = (): ReactElement => {
       {jiraSection}
       <Box flex={1}>
         <Box display="flex" flexDirection="column" gap={2}>
-          <StatusSelect
-            value={teamMembers[selectedEmployeeId]?.status || MemberStatus.None}
-            onChange={(status) => {
-              setStandupWizardStateAction({
-                teamMembers: {
-                  ...teamMembers,
-                  [selectedEmployeeId]: {
-                    ...teamMembers[selectedEmployeeId],
-                    status,
+          {settings.showStatusField && (
+            <StatusSelect
+              value={
+                teamMembers[selectedEmployeeId]?.status || MemberStatus.None
+              }
+              onChange={(status) => {
+                setStandupWizardStateAction({
+                  teamMembers: {
+                    ...teamMembers,
+                    [selectedEmployeeId]: {
+                      ...teamMembers[selectedEmployeeId],
+                      status,
+                    },
                   },
-                },
-              });
-            }}
-          />
+                });
+              }}
+            />
+          )}
           <TextField
             fullWidth={true}
             multiline={true}
@@ -108,7 +117,7 @@ export const Standup = (): ReactElement => {
               "& .MuiOutlinedInput-root": {
                 borderRadius: 3,
                 backgroundColor: "white",
-              }
+              },
             }}
             value={teamMembers[selectedEmployeeId]?.notes || ""}
             onChange={(e) => {

@@ -6,7 +6,7 @@ export const prepareUpdatedSettings = (settings: Settings): SettingsContract => 
 	theme: settings.selectedColor,
 	standup: {
 	  hideUnselectedEmployees: settings.hideEmployees,
-	  showStatusField: false
+	  showStatusField: settings.showStatusField
 	}
   }
 };

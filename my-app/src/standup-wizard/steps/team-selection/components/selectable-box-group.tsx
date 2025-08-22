@@ -16,8 +16,6 @@ export const SelectableBoxGroup = (
 ): ReactElement => {
   const { onRemoveGuest, selectedIds, setSelectedIds, teamMembers } = props;
 
-  console.log({selectedIds})
-
   const handleToggle = (id: number) => {
     const newValues = (prevSelectedIds: number[]) =>
       prevSelectedIds.includes(id)

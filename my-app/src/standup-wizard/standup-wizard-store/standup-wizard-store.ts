@@ -45,6 +45,7 @@ export interface StandupWizardState {
 const initialSettingsState = {
   selectedColor: Colors.Blue,
   hideEmployees: true,
+  showStatusField: true,
 };
 
 const initialState: StandupWizardState = {
