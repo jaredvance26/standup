@@ -3,6 +3,7 @@ import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+import { hashStringToNumber } from "../../../utils";
 import { TeamMember } from "../../../../types";
 
 interface EmployeeListProps {
@@ -13,7 +14,12 @@ interface EmployeeListProps {
 }
 
 export const EmployeeList = (props: EmployeeListProps): ReactElement => {
-  const { teamMembers, selectedEmployeeId, onEmployeeSelect, hideEmployeesSetting } = props;
+  const {
+    teamMembers,
+    selectedEmployeeId,
+    onEmployeeSelect,
+    hideEmployeesSetting,
+  } = props;
   const { palette } = useTheme();
   const employeeIndex = teamMembers.findIndex(
     (teamMember) => teamMember.id === selectedEmployeeId
@@ -111,11 +117,15 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                         src={teamMember.photoUrl}
                         alt={`${teamMember.firstName} ${teamMember.lastName}`}
                         sx={{
-                          color: palette.primary.main,
+                          color: palette.common.white,
                           width: 50,
                           height: 50,
-                          backgroundColor: palette.grey[100],
-						  borderRadius: 3,
+                          backgroundColor: `hsl(${
+                            hashStringToNumber(
+                              `${teamMember.firstName} ${teamMember.lastName}`
+                            ) % 360
+                          }, 70%, 45%)`,
+                          borderRadius: 3,
                         }}
                       >
                         {teamMember.firstName[0]}

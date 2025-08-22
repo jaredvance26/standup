@@ -45,7 +45,7 @@ export const AddMember = (props: AddMemberProps): ReactElement => {
             },
           }}
           value={selectedTeamMember || ''}
-          onChange={(e) => setSelectedTeamMember(Number(e.target.value))}
+          onChange={(e) => setSelectedTeamMember(e.target.value)}
           renderValue={(value) =>
             value ? (
               `${teamMember?.firstName} ${teamMember?.lastName}`

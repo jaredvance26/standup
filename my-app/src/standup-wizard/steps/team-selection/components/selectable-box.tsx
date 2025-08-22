@@ -8,6 +8,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { hashStringToNumber } from "../../../utils";
 
 interface SelectableBoxProps {
   id: number;
@@ -19,17 +20,6 @@ interface SelectableBoxProps {
   onRemoveGuest: (id: number) => void;
   onToggle: () => void;
 }
-
-// Create a hash from a string to use for generating consistent colors
-const hashStringToNumber = (str: string): number => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = ((hash << 5) - hash) + str.charCodeAt(i);
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  // Make sure it's positive
-  return Math.abs(hash);
-};
 
 export const SelectableBox = (props: SelectableBoxProps) => {
   const {

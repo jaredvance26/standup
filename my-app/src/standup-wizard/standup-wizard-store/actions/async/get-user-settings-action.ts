@@ -16,12 +16,22 @@ export const getUserSettingsAction =
             selectedColor: userSettings.theme,
             hideEmployees: userSettings.standup.hideUnselectedEmployees,
             showStatusField: userSettings.standup.showStatusField,
+            jiraSettings: {
+				apiToken: userSettings.jiraData.apiToken,
+				jiraUsername: userSettings.jiraData.jiraUsername,
+				jiraUrl: userSettings.jiraData.jiraUrl,
+			}
           },
           originalSettings: {
             teamName: userSettings.teamName,
             selectedColor: userSettings.theme,
             hideEmployees: userSettings.standup.hideUnselectedEmployees,
             showStatusField: userSettings.standup.showStatusField,
+            jiraSettings: {
+				apiToken: userSettings.jiraData.apiToken,
+				jiraUsername: userSettings.jiraData.jiraUsername,
+				jiraUrl: userSettings.jiraData.jiraUrl,
+			}
           },
           isSettingsDataLoading: false,
         });

@@ -11,7 +11,7 @@ import {
 import { isEqual } from "lodash";
 
 import { TabLabel, TabPanel } from "./components";
-import { AccountTab, GeneralTab, ThemeTab } from "./tabs";
+import { AccountTab, GeneralTab, IntegrationsTab, ThemeTab } from "./tabs";
 import { useStandupWizardStore } from "../standup-wizard-store";
 import { ModalFooter, ModalWrapper } from "../../components";
 import { useMessageAlert } from "../../hooks";
@@ -85,7 +85,7 @@ export const SettingsModal = (): ReactElement => {
             />
           </TabPanel>
           <TabPanel value={tabValue} index={2}>
-            Integrations content coming soon...
+            <IntegrationsTab />
           </TabPanel>
           <TabPanel value={tabValue} index={3}>
             <ThemeTab

@@ -38,7 +38,7 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
             >
               <Typography
                 textAlign="center"
-                fontSize={24}
+                fontSize={20}
                 fontWeight={600}
                 marginBottom={0.5}
                 color={palette.primary.dark}

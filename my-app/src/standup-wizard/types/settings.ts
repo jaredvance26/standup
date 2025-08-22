@@ -5,4 +5,9 @@ export interface Settings {
 	selectedColor: Colors;
 	hideEmployees: boolean;
 	showStatusField: boolean;
+	jiraSettings: {
+		apiToken: string | null;
+		jiraUsername: string | null;
+		jiraUrl: string | null;
+	}
 }

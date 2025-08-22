@@ -8,4 +8,9 @@ export interface SettingsContract {
 	  hideUnselectedEmployees: boolean;
 	  showStatusField: boolean;
 	};
+	jiraData: {
+		apiToken: string | null;
+		jiraUsername: string | null;
+		jiraUrl: string | null;
+	}
   }

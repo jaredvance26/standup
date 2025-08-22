@@ -47,6 +47,11 @@ const initialSettingsState = {
   hideEmployees: true,
   showStatusField: true,
   teamName: "",
+  jiraSettings: {
+	apiToken: null,
+	jiraUsername: null,
+	jiraUrl: null,
+  }
 };
 
 const initialState: StandupWizardState = {
