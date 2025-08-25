@@ -17,9 +17,9 @@ export const getUserSettingsAction =
             hideEmployees: userSettings.standup.hideUnselectedEmployees,
             showStatusField: userSettings.standup.showStatusField,
             jiraSettings: {
-				apiToken: userSettings.jiraData.apiToken,
-				jiraUsername: userSettings.jiraData.jiraUsername,
-				jiraUrl: userSettings.jiraData.jiraUrl,
+				apiToken: '',
+				jiraUsername: '',
+				jiraUrl: '',
 			}
           },
           originalSettings: {
@@ -28,9 +28,9 @@ export const getUserSettingsAction =
             hideEmployees: userSettings.standup.hideUnselectedEmployees,
             showStatusField: userSettings.standup.showStatusField,
             jiraSettings: {
-				apiToken: userSettings.jiraData.apiToken,
-				jiraUsername: userSettings.jiraData.jiraUsername,
-				jiraUrl: userSettings.jiraData.jiraUrl,
+				apiToken: '',
+				jiraUsername: '',
+				jiraUrl: '',
 			}
           },
           isSettingsDataLoading: false,

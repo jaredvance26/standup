@@ -19,9 +19,9 @@ export const updateSettingsAction =
             hideEmployees: newSettings.standup.hideUnselectedEmployees,
             showStatusField: newSettings.standup.showStatusField,
             jiraSettings: {
-              apiToken: newSettings.jiraData.apiToken,
-              jiraUsername: newSettings.jiraData.jiraUsername,
-              jiraUrl: newSettings.jiraData.jiraUrl,
+              apiToken: '',
+              jiraUsername: '',
+              jiraUrl: '',
             },
           },
           originalSettings: {
@@ -30,9 +30,9 @@ export const updateSettingsAction =
             hideEmployees: newSettings.standup.hideUnselectedEmployees,
             showStatusField: newSettings.standup.showStatusField,
             jiraSettings: {
-              apiToken: newSettings.jiraData.apiToken,
-              jiraUsername: newSettings.jiraData.jiraUsername,
-              jiraUrl: newSettings.jiraData.jiraUrl,
+              apiToken: '',
+              jiraUsername: '',
+              jiraUrl: '',
             },
           },
           isSettingsDataLoading: false,

@@ -23,7 +23,7 @@ const stepComponents = [StepOne, StepTwo, StepThree];
 
 export const StandupWizard = () => {
   const [
-    { currentStep, settings },
+    { currentStep, settings, selectedTeamMemberIds },
     {
       navigateBackwardAction,
       navigateForwardAction,
@@ -31,7 +31,7 @@ export const StandupWizard = () => {
       setStandupWizardStateAction,
     },
   ] = useStandupWizardStore();
-  const { selectedColor } = settings;
+  const { selectedColor, teamName } = settings;
   const theme = createTheme({
     palette: {
       primary: {
@@ -51,12 +51,6 @@ export const StandupWizard = () => {
     },
   });
 
-  const [
-    {
-      selectedTeamMemberIds,
-      settings: { teamName },
-    },
-  ] = useStandupWizardStore();
 
   const StepContent = stepComponents[currentStep];
   const overflowSetting = currentStep === 1 ? "hidden" : "auto";
