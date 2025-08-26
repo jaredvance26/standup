@@ -24,8 +24,8 @@ app.use(express.json());
 // Routes
 app.use("/api/jira", jiraRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/settings", settingsRouter);
-app.use("/api/team-members", teamMemberRouter);
+app.use("/api", settingsRouter);
+app.use("/api", teamMemberRouter);
 
 // MongoDB connection
 import mongoose from 'mongoose';

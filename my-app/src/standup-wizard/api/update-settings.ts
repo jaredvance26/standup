@@ -5,7 +5,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api
 
 export const updateSettings = async (userId: string, settings: SettingsContract): Promise<SettingsContract> => {
   try {
-    const response = await axios.put<SettingsContract>(`${API_BASE_URL}/settings/${userId}`, settings, {
+    const response = await axios.put<SettingsContract>(`${API_BASE_URL}/user/${userId}/settings`, settings, {
       headers: {
         'Content-Type': 'application/json',
       },

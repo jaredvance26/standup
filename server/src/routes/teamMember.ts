@@ -5,7 +5,7 @@ const router = express.Router();
 const teamMemberService = new TeamMemberService();
 
 // Get all team members for a specific user
-router.get("/:userId", async (req, res) => {
+router.get("/user/:userId/team-members", async (req, res) => {
   try {
     const { userId } = req.params;
 
@@ -23,7 +23,7 @@ router.get("/:userId", async (req, res) => {
 });
 
 // Create a new team member
-router.post("/", async (req, res) => {
+router.post("/team-member", async (req, res) => {
   try {
     const { firstName, lastName, position, jiraId, userId } = req.body;
 
@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
 });
 
 // Update a team member
-router.put("/:id", async (req, res) => {
+router.put("/team-member/:id", async (req, res) => {
   try {
     const updateData: any = {};
     const { firstName, lastName, position, jiraId, userId } = req.body;
@@ -80,7 +80,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete a team member
-router.delete("/:id", async (req, res) => {
+router.delete("/team-member/:id", async (req, res) => {
   try {
     const deletedTeamMember = await teamMemberService.deleteTeamMember(
       req.params.id

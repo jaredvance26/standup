@@ -15,7 +15,7 @@ export const getTeamMembers = async (
 ): Promise<TeamMemberContract[]> => {
   try {
     const response = await axios.get<TeamMemberContract[]>(
-      `${API_BASE_URL}/team-members/${userId}`,
+      `${API_BASE_URL}/user/${userId}/team-members`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const createTeamMember = async (
 ): Promise<TeamMemberContract> => {
   try {
     const response = await axios.post<TeamMemberContract>(
-      `${API_BASE_URL}/team-members`,
+      `${API_BASE_URL}/team-member`,
       teamMemberData,
       {
         headers: {
@@ -80,7 +80,7 @@ export const updateTeamMember = async (
 ): Promise<TeamMemberContract> => {
   try {
     const response = await axios.put<TeamMemberContract>(
-      `${API_BASE_URL}/team-members/${id}`,
+      `${API_BASE_URL}/team-member/${id}`,
       updateData,
       {
         headers: {
@@ -112,7 +112,7 @@ export const deleteTeamMember = async (
 ): Promise<{ message: string }> => {
   try {
     const response = await axios.delete<{ message: string }>(
-      `${API_BASE_URL}/team-members/${id}`,
+      `${API_BASE_URL}/team-member/${id}`,
       {
         headers: {
           "Content-Type": "application/json",

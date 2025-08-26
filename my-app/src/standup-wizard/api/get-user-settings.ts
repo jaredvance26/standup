@@ -5,7 +5,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api
 
 export const getUserSettings = async (userId: string): Promise<SettingsContract> => {
   try {
-    const response = await axios.get<SettingsContract>(`${API_BASE_URL}/settings/${userId}`, {
+    const response = await axios.get<SettingsContract>(`${API_BASE_URL}/user/${userId}/settings`, {
       headers: {
         'Content-Type': 'application/json',
       },
