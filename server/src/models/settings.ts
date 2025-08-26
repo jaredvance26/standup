@@ -10,6 +10,7 @@ export interface ISettings extends Document {
   };
   jiraData: {
 	apiToken: string | null;
+	jiraBoardId: string | null;
 	jiraUsername: string | null;
 	jiraUrl: string | null;
   };

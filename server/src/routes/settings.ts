@@ -25,6 +25,7 @@ router.get("/user/:userId/settings", async (req, res) => {
       jiraUsername: jiraData?.jiraUsername || null,
       jiraUrl: jiraData?.jiraUrl || null,
       hasJiraApiToken: Boolean(jiraData?.apiToken),
+      jiraBoardId: jiraData?.jiraBoardId || null,
     };
     res.json({ ...safeSettings, jiraData: { ...jiraFields } });
   } catch (error) {
@@ -58,6 +59,7 @@ router.put("/user/:userId/settings", async (req, res) => {
       jiraUsername: jiraData?.jiraUsername || null,
       jiraUrl: jiraData?.jiraUrl || null,
       hasJiraApiToken: Boolean(jiraData?.apiToken),
+      jiraBoardId: jiraData?.jiraBoardId || null,
     };
     res.json({ ...safeSettings, jiraData: { ...jiraFields } });
   } catch (error) {

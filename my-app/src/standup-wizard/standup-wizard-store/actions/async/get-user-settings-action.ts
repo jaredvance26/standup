@@ -10,29 +10,21 @@ export const getUserSettingsAction =
     try {
       const userSettings = await getUserSettings(userId);
       if (userSettings) {
+        const settings = {
+          teamName: userSettings.teamName,
+          selectedColor: userSettings.theme,
+          hideEmployees: userSettings.standup.hideUnselectedEmployees,
+          showStatusField: userSettings.standup.showStatusField,
+          jiraSettings: {
+            apiToken: userSettings.jiraData.hasJiraApiToken ? '*********************' : '',
+            jiraUsername: userSettings.jiraData.jiraUsername,
+            jiraUrl: userSettings.jiraData.jiraUrl,
+            jiraBoardId: userSettings.jiraData.jiraBoardId,
+          },
+        };
         setState({
-          settings: {
-            teamName: userSettings.teamName,
-            selectedColor: userSettings.theme,
-            hideEmployees: userSettings.standup.hideUnselectedEmployees,
-            showStatusField: userSettings.standup.showStatusField,
-            jiraSettings: {
-				apiToken: '',
-				jiraUsername: '',
-				jiraUrl: '',
-			}
-          },
-          originalSettings: {
-            teamName: userSettings.teamName,
-            selectedColor: userSettings.theme,
-            hideEmployees: userSettings.standup.hideUnselectedEmployees,
-            showStatusField: userSettings.standup.showStatusField,
-            jiraSettings: {
-				apiToken: '',
-				jiraUsername: '',
-				jiraUrl: '',
-			}
-          },
+          settings: settings,
+          originalSettings: settings,
           isSettingsDataLoading: false,
         });
       }

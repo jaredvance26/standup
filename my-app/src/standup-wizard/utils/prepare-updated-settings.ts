@@ -1,10 +1,10 @@
 import { Settings } from "../types";
-import { SettingsContract } from "../api/contracts";
+import { SettingsPOSTContract } from "../api/contracts";
 
 export const prepareUpdatedSettings = (
   settings: Settings
-): SettingsContract => {
-  const { apiToken, jiraUsername, jiraUrl } = settings.jiraSettings;
+): SettingsPOSTContract => {
+  const { apiToken, jiraUsername, jiraUrl, jiraBoardId } = settings.jiraSettings;
   return {
     theme: settings.selectedColor,
     teamName: settings.teamName,
@@ -16,6 +16,7 @@ export const prepareUpdatedSettings = (
       apiToken,
       jiraUsername,
       jiraUrl,
+      jiraBoardId,
     },
   };
 };

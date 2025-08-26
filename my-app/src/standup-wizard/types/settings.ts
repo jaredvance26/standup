@@ -9,5 +9,6 @@ export interface Settings {
 		apiToken: string | null;
 		jiraUsername: string | null;
 		jiraUrl: string | null;
+		jiraBoardId: string | null;
 	}
 }

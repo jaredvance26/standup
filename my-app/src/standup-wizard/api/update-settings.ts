@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { SettingsContract } from './contracts';
+import { SettingsGETContract, SettingsPOSTContract } from './contracts';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
-export const updateSettings = async (userId: string, settings: SettingsContract): Promise<SettingsContract> => {
+export const updateSettings = async (userId: string, settings: SettingsPOSTContract): Promise<SettingsGETContract> => {
   try {
-    const response = await axios.put<SettingsContract>(`${API_BASE_URL}/user/${userId}/settings`, settings, {
+    const response = await axios.put<SettingsGETContract>(`${API_BASE_URL}/user/${userId}/settings`, settings, {
       headers: {
         'Content-Type': 'application/json',
       },

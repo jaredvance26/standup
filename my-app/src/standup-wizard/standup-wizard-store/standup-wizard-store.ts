@@ -51,6 +51,7 @@ const initialSettingsState = {
 	apiToken: null,
 	jiraUsername: null,
 	jiraUrl: null,
+	jiraBoardId: null,
   }
 };
 

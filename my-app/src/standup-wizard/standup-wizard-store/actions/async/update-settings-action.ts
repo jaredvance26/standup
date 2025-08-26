@@ -12,29 +12,23 @@ export const updateSettingsAction =
     try {
       const newSettings = await updateSettings(userId, updatedSettings);
       if (newSettings) {
+        const settings = {
+          teamName: newSettings.teamName,
+          selectedColor: newSettings.theme,
+          hideEmployees: newSettings.standup.hideUnselectedEmployees,
+          showStatusField: newSettings.standup.showStatusField,
+          jiraSettings: {
+            apiToken: newSettings.jiraData.hasJiraApiToken
+              ? "*********************"
+              : "",
+            jiraUsername: newSettings.jiraData.jiraUsername,
+            jiraUrl: newSettings.jiraData.jiraUrl,
+            jiraBoardId: newSettings.jiraData.jiraBoardId,
+          },
+        };
         setState({
-          settings: {
-            teamName: newSettings.teamName,
-            selectedColor: newSettings.theme,
-            hideEmployees: newSettings.standup.hideUnselectedEmployees,
-            showStatusField: newSettings.standup.showStatusField,
-            jiraSettings: {
-              apiToken: '',
-              jiraUsername: '',
-              jiraUrl: '',
-            },
-          },
-          originalSettings: {
-            teamName: newSettings.teamName,
-            selectedColor: newSettings.theme,
-            hideEmployees: newSettings.standup.hideUnselectedEmployees,
-            showStatusField: newSettings.standup.showStatusField,
-            jiraSettings: {
-              apiToken: '',
-              jiraUsername: '',
-              jiraUrl: '',
-            },
-          },
+          settings: settings,
+          originalSettings: settings,
           isSettingsDataLoading: false,
         });
       }
