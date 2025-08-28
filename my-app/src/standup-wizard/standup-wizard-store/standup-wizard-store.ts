@@ -39,7 +39,7 @@ export interface StandupWizardState {
   originalSettings: Settings;
   // team member
   areTeamMembersLoading: boolean;
-  serverTeamMembers: TeamMemberContract[]
+  serverTeamMembers: TeamMemberContract[];
 }
 
 const initialSettingsState = {
@@ -48,11 +48,11 @@ const initialSettingsState = {
   showStatusField: true,
   teamName: "",
   jiraSettings: {
-	apiToken: null,
-	jiraUsername: null,
-	jiraUrl: null,
-	jiraBoardId: null,
-  }
+    apiToken: null,
+    jiraUsername: null,
+    jiraUrl: null,
+    jiraBoardId: null,
+  },
 };
 
 const initialState: StandupWizardState = {
@@ -108,22 +108,23 @@ export const StandupWizardContainer = createContainer<
   onInit:
     () =>
     ({ setState, dispatch }, { userId }) => {
-      dispatch(getJiraDataAction());
       if (userId) {
+        dispatch(getJiraDataAction(userId));
         setState({ userId });
         dispatch(getUserSettingsAction(userId));
         dispatch(getTeamMembersAction());
       }
     },
-	onUpdate:
-		() =>
-		({ setState, dispatch }, { userId }) => {
-		  if (userId) {
-			  setState({ userId });
-			  dispatch(getUserSettingsAction(userId));
-			  dispatch(getTeamMembersAction());
-		  }
-		},
+  onUpdate:
+    () =>
+    ({ setState, dispatch }, { userId }) => {
+      if (userId) {
+        setState({ userId });
+		dispatch(getJiraDataAction(userId));
+        dispatch(getUserSettingsAction(userId));
+        dispatch(getTeamMembersAction());
+      }
+    },
 });
 
 export const useGetJiraSectionContent = createHook(StandupWizardStore, {

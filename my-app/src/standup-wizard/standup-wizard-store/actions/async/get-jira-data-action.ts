@@ -1,12 +1,12 @@
 import { StandupWizardAction } from "../../standup-wizard-store";
 import { getJiraData } from "../../../api/get-jira-data";
 
-export const getJiraDataAction = (): StandupWizardAction => async ({ getState, setState }) => {
+export const getJiraDataAction = (userId: string): StandupWizardAction => async ({ getState, setState }) => {
   const { isJiraDataLoading } = getState();
   if (isJiraDataLoading) return;
   setState({ isJiraDataLoading: true });
   try {
-    const jiraData = await getJiraData();
+    const jiraData = await getJiraData(userId);
     if (jiraData) {
       setState({
         issues: jiraData.sprint?.issues || [],

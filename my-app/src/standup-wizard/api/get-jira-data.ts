@@ -3,9 +3,9 @@ import { JiraGetData } from '../types/jira';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
-export const getJiraData = async (): Promise<JiraGetData> => {
+export const getJiraData = async (userId: string): Promise<JiraGetData> => {
   try {
-    const response = await axios.get<JiraGetData>(`${API_BASE_URL}/jira/issues`, {
+    const response = await axios.get<JiraGetData>(`${API_BASE_URL}/user/${userId}/jira/issues`, {
       headers: {
         'Content-Type': 'application/json',
       },

@@ -22,7 +22,7 @@ app.use(
 app.use(express.json());
 
 // Routes
-app.use("/api/jira", jiraRouter);
+app.use("/api", jiraRouter);
 app.use("/api/auth", authRouter);
 app.use("/api", settingsRouter);
 app.use("/api", teamMemberRouter);

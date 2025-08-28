@@ -4,7 +4,8 @@ import { SettingsPOSTContract } from "../api/contracts";
 export const prepareUpdatedSettings = (
   settings: Settings
 ): SettingsPOSTContract => {
-  const { apiToken, jiraUsername, jiraUrl, jiraBoardId } = settings.jiraSettings;
+  const { apiToken, jiraUsername, jiraUrl, jiraBoardId } =
+    settings.jiraSettings;
   return {
     theme: settings.selectedColor,
     teamName: settings.teamName,
@@ -13,7 +14,7 @@ export const prepareUpdatedSettings = (
       showStatusField: settings.showStatusField,
     },
     jiraData: {
-      apiToken,
+      apiToken: apiToken === "*********************" ? null : apiToken,
       jiraUsername,
       jiraUrl,
       jiraBoardId,

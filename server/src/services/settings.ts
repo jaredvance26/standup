@@ -1,4 +1,5 @@
-import Settings, { ISettings } from '../models/settings';
+import Settings, { ISettings } from "../models/settings";
+import { EncryptionService } from "../utils/encryption";
 
 class SettingsService {
   /**
@@ -15,10 +16,25 @@ class SettingsService {
    * @param settings Partial settings to update
    * @returns The updated settings document
    */
-  async updateSettingsByUserId(userId: string, settings: Partial<ISettings>): Promise<ISettings | null> {
+  async updateSettingsByUserId(
+    userId: string,
+    settings: Partial<ISettings>
+  ): Promise<ISettings | null> {
+    // Create a deep copy to avoid mutating the input settings
+    const settingsToUpdate = JSON.parse(JSON.stringify(settings));
+
+    // Encrypt the Jira API token if it exists
+    if (settingsToUpdate.jiraData && settingsToUpdate.jiraData.apiToken) {
+
+      settingsToUpdate.jiraData.apiToken = EncryptionService.encrypt(
+        settingsToUpdate.jiraData.apiToken
+      );
+    }
+
+    // Update the settings
     return Settings.findOneAndUpdate(
       { userId },
-      { $set: settings },
+      { $set: settingsToUpdate },
       { new: true, upsert: true }
     ).exec();
   }
