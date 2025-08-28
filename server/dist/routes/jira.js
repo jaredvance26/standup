@@ -7,9 +7,9 @@ exports.jiraRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const jira_1 = require("../services/jira");
 const router = express_1.default.Router();
-const jiraService = new jira_1.JiraService();
 // Get issues for user
-router.get('/issues', async (req, res) => {
+router.get('/user/:userId/jira/issues', async (req, res) => {
+    const jiraService = new jira_1.JiraService(req.params.userId);
     try {
         const issues = await jiraService.getUserIssues();
         res.json(issues);

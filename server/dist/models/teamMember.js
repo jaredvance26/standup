@@ -34,19 +34,23 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const settingsSchema = new mongoose_1.Schema({
-    userId: { type: mongoose_1.default.Schema.Types.ObjectId, required: true, ref: 'User' },
-    theme: { type: String, default: 'blue' },
-    teamName: { type: String, default: '' },
-    standup: {
-        hideUnselectedEmployees: { type: Boolean, default: false, required: true },
-        showStatusField: { type: Boolean, default: true, required: true },
+const teamMemberSchema = new mongoose_1.Schema({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    position: { type: String, required: false },
+    jiraId: { type: String, required: false },
+    userId: { type: String, required: true },
+}, {
+    timestamps: true,
+    toJSON: {
+        virtuals: true,
+        transform: (_doc, ret) => {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.__v;
+            return ret;
+        },
     },
-    jiraData: {
-        apiToken: { type: String, default: null },
-        jiraUsername: { type: String, default: null },
-        jiraUrl: { type: String, default: null },
-        jiraBoardId: { type: String, default: null },
-    },
-}, { timestamps: true });
-exports.default = mongoose_1.default.model('Settings', settingsSchema);
+    id: true,
+});
+exports.default = mongoose_1.default.model("TeamMember", teamMemberSchema, "teamMembers");
