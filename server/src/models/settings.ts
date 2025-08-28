@@ -29,6 +29,7 @@ const settingsSchema = new Schema(
       apiToken: { type: String, default: null },
       jiraUsername: { type: String, default: null },
       jiraUrl: { type: String, default: null },
+	  jiraBoardId: { type: String, default: null },
     },
   },
   { timestamps: true }

@@ -24,7 +24,13 @@ export const SettingsModal = (): ReactElement => {
     { settings, userId, settingsModalOpen, originalSettings },
     { setStandupWizardStateAction, updateSettingsAction },
   ] = useStandupWizardStore();
-  const { selectedColor, hideEmployees, showStatusField, teamName } = settings;
+  const {
+    selectedColor,
+    hideEmployees,
+    showStatusField,
+    teamName,
+    jiraSettings,
+  } = settings;
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -85,7 +91,17 @@ export const SettingsModal = (): ReactElement => {
             />
           </TabPanel>
           <TabPanel value={tabValue} index={2}>
-            <IntegrationsTab />
+            <IntegrationsTab
+              jiraSettings={jiraSettings}
+              onJiraSettingsChange={(newValue, key) =>
+                setStandupWizardStateAction({
+                  settings: {
+                    ...settings,
+                    jiraSettings: { ...jiraSettings, [key]: newValue },
+                  },
+                })
+              }
+            />
           </TabPanel>
           <TabPanel value={tabValue} index={3}>
             <ThemeTab
