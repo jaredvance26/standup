@@ -19,7 +19,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { RemoveTeamMemberModal } from "./remove-team-member-modal";
 import { useTeamMemberManagerStore } from "../team-member-manager-store/team-member-manager-store";
 import { TeamMemberContract } from "../../api/contracts";
-import { useMessageAlert } from "../../hooks";
+import { notifyAlert } from "../../alerts/alert-notifier";
 import { TeamMemberModal } from "./team-member-modal";
 
 export const TeamMemberTable = (): ReactElement => {
@@ -27,7 +27,6 @@ export const TeamMemberTable = (): ReactElement => {
     useTeamMemberManagerStore();
   const { teamMembers, isTeamDataLoading, userId } = state;
   const { palette } = useTheme();
-  const [setMessage, AlertComponent] = useMessageAlert();
 
   const [isRemoveTeamMemberModalOpen, setIsRemoveTeamMemberOpen] =
     useState<boolean>(false);
@@ -178,7 +177,7 @@ export const TeamMemberTable = (): ReactElement => {
             }}
             onRemove={() => {
               removeTeamMemberAction(selectedTeamMember.id, () =>
-                setMessage("success", "Team member removed successfully")
+                notifyAlert("success", "Team member removed successfully")
               );
               setIsRemoveTeamMemberOpen(false);
               setSelectedTeamMember(null);
@@ -201,14 +200,13 @@ export const TeamMemberTable = (): ReactElement => {
                 selectedTeamMember.id,
                 () => {
                   setIsTeamMemberModalOpen(false);
-                  setMessage("success", "Team member updated successfully");
+                  notifyAlert("success", "Team member updated successfully");
                 }
               )
             }
           />
         </>
       )}
-      {AlertComponent}
     </Box>
   );
 };

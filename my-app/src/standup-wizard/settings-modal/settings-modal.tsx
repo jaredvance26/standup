@@ -14,12 +14,11 @@ import { TabLabel, TabPanel } from "./components";
 import { AccountTab, GeneralTab, IntegrationsTab, ThemeTab } from "./tabs";
 import { useStandupWizardStore } from "../standup-wizard-store";
 import { ModalFooter, ModalWrapper } from "../../components";
-import { useMessageAlert } from "../../hooks";
+import { notifyAlert } from "../../alerts/alert-notifier";
 
 export const SettingsModal = (): ReactElement => {
   const [tabValue, setTabValue] = useState(0);
   const { palette } = useTheme();
-  const [setMessage, AlertComponent] = useMessageAlert();
   const [
     { settings, userId, settingsModalOpen, originalSettings },
     { setStandupWizardStateAction, updateSettingsAction },
@@ -120,7 +119,7 @@ export const SettingsModal = (): ReactElement => {
         <ModalFooter
           onPrimaryClick={() => {
             updateSettingsAction(userId);
-            setMessage("success", "Settings updated successfully");
+            notifyAlert("success", "Settings updated successfully");
           }}
           onCancel={() => {
             setStandupWizardStateAction({ settingsModalOpen: false });
@@ -128,7 +127,6 @@ export const SettingsModal = (): ReactElement => {
           }}
           isPrimaryDisabled={isPrimaryDisabled}
         />
-        {AlertComponent}
       </ModalWrapper>
     </Modal>
   );

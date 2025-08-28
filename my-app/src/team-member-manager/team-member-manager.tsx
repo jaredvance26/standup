@@ -15,12 +15,12 @@ import {
 } from "./components";
 import { useTeamMemberManagerStore } from "./team-member-manager-store";
 import { TeamMemberContract } from "../api/contracts";
-import { useMessageAlert } from "../hooks";
+import { notifyAlert } from "../alerts/alert-notifier";
+import { MessageAlertHost } from "../alerts/MessageAlertHost";
 
 export const TeamMemberManager = (): ReactElement => {
   // Access the store directly
   const [{ userId }, { createTeamMemberAction }] = useTeamMemberManagerStore();
-  const [setMessage, AlertComponent] = useMessageAlert();
 
   const [isTeamMemberModalOpen, setIsTeamMemberModalOpen] =
     useState<boolean>(false);
@@ -39,6 +39,7 @@ export const TeamMemberManager = (): ReactElement => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <MessageAlertHost />
       <Box marginY={3}>
         <TeamMemberManagerHeader />
         <Box
@@ -78,11 +79,10 @@ export const TeamMemberManager = (): ReactElement => {
           ) =>
             createTeamMemberAction(teamMemberData, () => {
               setIsTeamMemberModalOpen(false);
-              setMessage("success", "Team member added successfully");
+              notifyAlert("success", "Team member added successfully");
             })
           }
         />
-        {AlertComponent}
       </Box>
     </ThemeProvider>
   );

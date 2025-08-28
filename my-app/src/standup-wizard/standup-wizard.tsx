@@ -9,6 +9,7 @@ import { useStandupWizardStore } from "./standup-wizard-store";
 import { Standup, StandupSummary, TeamSelection } from "./steps";
 import { SettingsModal } from "./settings-modal";
 import { COLOR_SHADES } from "./constants";
+import { MessageAlertHost } from "../alerts/MessageAlertHost";
 
 const steps = ["Team Selection", "Standup", "Standup Summary"];
 
@@ -71,6 +72,7 @@ export const StandupWizard = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <MessageAlertHost />
       <Box marginY={3} width="100%">
         <StandupWizardHeader
           onSettingsClick={() =>
