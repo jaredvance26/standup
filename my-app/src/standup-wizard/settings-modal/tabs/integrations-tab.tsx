@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import jiraLogo from "../../../static/jira-logo.png";
 
 interface IntegrationsTabProps {
@@ -105,13 +105,13 @@ export const IntegrationsTab = (props: IntegrationsTabProps): ReactElement => {
             },
           }}
         />
-        <Button
+        {/* <Button
           size="small"
           variant="contained"
           sx={{ backgroundColor: "#1868DB", borderRadius: 3 }}
         >
           Test Connection
-        </Button>
+        </Button> */}
       </Box>
     </Box>
   );
