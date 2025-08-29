@@ -5,15 +5,16 @@ export interface ISettings extends Document {
   theme: string;
   teamName: string;
   standup: {
-	hideUnselectedEmployees: boolean;
-	showStatusField: boolean;
+    hideUnselectedEmployees: boolean;
+    showStatusField: boolean;
   };
   jiraData: {
-	apiToken: string | null;
-	jiraBoardId: string | null;
-	jiraUsername: string | null;
-	jiraUrl: string | null;
+    apiToken: string | null;
+    jiraBoardId: string | null;
+    jiraUsername: string | null;
+    jiraUrl: string | null;
   };
+  toObject(options?: any): any;
 }
 
 const settingsSchema = new Schema(
@@ -29,7 +30,7 @@ const settingsSchema = new Schema(
       apiToken: { type: String, default: null },
       jiraUsername: { type: String, default: null },
       jiraUrl: { type: String, default: null },
-	  jiraBoardId: { type: String, default: null },
+      jiraBoardId: { type: String, default: null },
     },
   },
   { timestamps: true }
