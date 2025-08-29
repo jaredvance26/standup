@@ -1,6 +1,5 @@
 import { StandupWizardAction } from "../../standup-wizard-store";
 import { getJiraData } from "../../../api/get-jira-data";
-import { notifyAlert } from "../../../../alerts/alert-notifier";
 
 export const getJiraDataAction = (userId: string): StandupWizardAction => async ({ getState, setState }) => {
   const { isJiraDataLoading } = getState();
@@ -21,7 +20,6 @@ export const getJiraDataAction = (userId: string): StandupWizardAction => async 
       issues: [],
       sprint: null
     });
-    notifyAlert('error', 'Failed to fetch Jira data');
   } finally {
     setState({ isJiraDataLoading: false });
   }
