@@ -14,9 +14,32 @@ const port = process.env.PORT || 3001;
 
 // Middleware
 app.use(helmet());
+// Enhanced CORS to support Vercel deploys and additional client URLs
+const primaryClientUrl = process.env.CLIENT_URL || "http://localhost:3000";
+const extraClientUrls = (process.env.ADDITIONAL_CLIENT_URLS || "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+const allowedOrigins = [primaryClientUrl, ...extraClientUrls];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      // Allow non-browser requests or same-origin
+      if (!origin) return callback(null, true);
+
+      // Allow exact matches from env-configured origins
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+
+      // Allow Vercel preview/prod deployments like https://*.vercel.app
+      const vercelPattern = /https?:\/\/([a-z0-9-]+)\.vercel\.app$/i;
+      if (vercelPattern.test(origin)) return callback(null, true);
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false, // set true only if you switch to cookie-based auth
   })
 );
 app.use(express.json());
