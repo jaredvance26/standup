@@ -7,21 +7,15 @@ Standup is a modern web application built with React and TypeScript that helps t
 - React 18
 - TypeScript
 - Material-UI (MUI)
-- Emotion (for styled components)
 - React Sweet State (for state management)
 - Axios (for API requests)
-- Jira API integration
 
-## Getting Started
+## Production
+- Site: https://standup-silk.vercel.app/
+- FE: Vercel
+- BE: Render
 
-### Prerequisites
-- Node.js (v16 or higher)
-- npm
-- Jira account with API token
-
-### Installation
-
-#### Frontend Setup
+#### Frontend Local Setup
 1. Clone the repository
 ```bash
 git clone https://github.com/jaredvance26/standup.git
@@ -40,7 +34,7 @@ npm start
 
 The frontend application will be available at `http://localhost:3000`
 
-#### Backend Setup
+#### Backend Local Setup
 1. Navigate to the server directory
 ```bash
 cd ../server
@@ -51,16 +45,6 @@ cd ../server
 npm install
 ```
 
-3. Configure environment variables
-   - Copy the `.env.example` file to create a new `.env` file
-   ```bash
-   cp .env.example .env
-   ```
-   - Update the `.env` file with your Jira credentials:
-     - `JIRA_URL`: Your Jira instance URL (e.g., https://your-domain.atlassian.net)
-     - `JIRA_EMAIL`: Your Jira account email
-     - `JIRA_API_TOKEN`: Your Jira API token (can be created in Atlassian account settings)
-
 4. Start the backend server
 ```bash
 npm start
@@ -68,7 +52,6 @@ npm start
 
 The backend server will be available at `http://localhost:3001`
 
-### Building for Production
 
 #### Frontend
 ```bash
@@ -86,10 +69,9 @@ npm run build
 - Modern, responsive UI with Material-UI components
 - Theme customization
 - TypeScript for enhanced type safety and developer experience
-- State management with React Sweet State
-- Jira integration for fetching user stories and tasks
-- Sprint goals retrieval and display
-- Comprehensive user issue tracking for standup meetings
-- RESTful backend API for Jira data integration
+- Jira integration for fetching user stories and sprint goals
+- Team member management (adding, removing, and updating)
 
-## Standup tool web app
+## Security
+- Jira API token encrypted and never sent to the client
+- Password hashed and never sent to the client
