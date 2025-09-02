@@ -59,7 +59,7 @@ export const SettingsModal = (): ReactElement => {
   const isPrimaryDisabled = () => {
     if (tabValue === SettingTabs.Fun) {
       return (
-        (!tempQuestionOfDay.includeQuestion &&
+        (tempQuestionOfDay.includeQuestion &&
           !Boolean(tempQuestionOfDay.question)) ||
         isEqual(tempQuestionOfDay, questionOfDay)
       );
