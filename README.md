@@ -4,14 +4,23 @@
 Standup is a modern web application built with React and TypeScript that helps teams manage their daily standup meetings. The application features a user-friendly interface built with Material-UI (MUI) components and integrates with Jira to pull sprint information and goals.
 
 ## Tech Stack
-- React 18
-- TypeScript
-- Node.js
-- Express.js
-- Mongoose
-- Material-UI (MUI)
-- React Sweet State (for state management)
-- Axios (for API requests)
+- FE
+	- React 18
+	- TypeScript
+	- Material-UI (MUI)
+	- Material Icons
+	- React Sweet State (for state management)
+	- Axios (for API requests)
+- BE
+	- Node.js
+	- TypeScript
+	- Express.js (REST API)
+	- MongoDB with Mongoose (ODM)
+	- JSON Web Tokens (jsonwebtoken) for auth
+	- bcryptjs for password hashing
+	- Helmet and CORS for security
+	- dotenv for environment configuration
+	- Axios for outbound HTTP (Jira integration)
 
 ## Production
 - Site: https://standup-silk.vercel.app/
