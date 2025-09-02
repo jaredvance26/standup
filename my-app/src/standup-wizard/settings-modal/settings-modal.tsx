@@ -11,16 +11,23 @@ import {
 import { isEqual } from "lodash";
 
 import { TabLabel, TabPanel } from "./components";
-import { AccountTab, GeneralTab, IntegrationsTab, ThemeTab } from "./tabs";
+import {
+  AccountTab,
+  FunTab,
+  GeneralTab,
+  IntegrationsTab,
+  ThemeTab,
+} from "./tabs";
 import { useStandupWizardStore } from "../standup-wizard-store";
 import { ModalFooter, ModalWrapper } from "../../components";
 import { notifyAlert } from "../../alerts/alert-notifier";
+import { QuestionOfDay } from "../types";
 
 export const SettingsModal = (): ReactElement => {
   const [tabValue, setTabValue] = useState(0);
   const { palette } = useTheme();
   const [
-    { settings, userId, settingsModalOpen, originalSettings },
+    { settings, userId, settingsModalOpen, originalSettings, questionOfDay },
     { setStandupWizardStateAction, updateSettingsAction },
   ] = useStandupWizardStore();
   const {
@@ -31,11 +38,34 @@ export const SettingsModal = (): ReactElement => {
     jiraSettings,
   } = settings;
 
+  enum SettingTabs {
+    Account = 0,
+    General = 1,
+    Integrations = 2,
+    Theme = 3,
+    Fun = 4,
+  }
+
+  const [tempQuestionOfDay, setTempQuestionOfDay] = useState<QuestionOfDay>({
+    includeQuestion: questionOfDay.includeQuestion,
+    question: questionOfDay.question,
+    isDuringStandup: questionOfDay.isDuringStandup,
+  });
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 
-  const isPrimaryDisabled = isEqual(settings, originalSettings);
+  const isPrimaryDisabled = () => {
+    if (tabValue === SettingTabs.Fun) {
+      return (
+        !tempQuestionOfDay.includeQuestion ||
+        !Boolean(tempQuestionOfDay.question) ||
+        isEqual(tempQuestionOfDay, questionOfDay)
+      );
+    }
+    return isEqual(settings, originalSettings);
+  };
 
   return (
     <Modal
@@ -47,6 +77,14 @@ export const SettingsModal = (): ReactElement => {
       <ModalWrapper
         onClose={() => {
           setStandupWizardStateAction({ settingsModalOpen: false });
+          if (tabValue === SettingTabs.Fun) {
+            setTempQuestionOfDay({
+              includeQuestion: questionOfDay.includeQuestion,
+              question: questionOfDay.question,
+              isDuringStandup: questionOfDay.isDuringStandup,
+            });
+            return;
+          }
           setStandupWizardStateAction({ settings: originalSettings });
         }}
         headerName="Settings"
@@ -64,10 +102,10 @@ export const SettingsModal = (): ReactElement => {
               <Tab label={<TabLabel label="Fun" icon={<Star />} />} />
             </Tabs>
           </Box>
-          <TabPanel value={tabValue} index={0}>
+          <TabPanel value={tabValue} index={SettingTabs.Account}>
             <AccountTab />
           </TabPanel>
-          <TabPanel value={tabValue} index={1}>
+          <TabPanel value={tabValue} index={SettingTabs.General}>
             <GeneralTab
               hideEmployees={hideEmployees}
               onToggleHideEmployees={() =>
@@ -89,7 +127,7 @@ export const SettingsModal = (): ReactElement => {
               }
             />
           </TabPanel>
-          <TabPanel value={tabValue} index={2}>
+          <TabPanel value={tabValue} index={SettingTabs.Integrations}>
             <IntegrationsTab
               jiraSettings={jiraSettings}
               onJiraSettingsChange={(newValue, key) =>
@@ -102,7 +140,7 @@ export const SettingsModal = (): ReactElement => {
               }
             />
           </TabPanel>
-          <TabPanel value={tabValue} index={3}>
+          <TabPanel value={tabValue} index={SettingTabs.Theme}>
             <ThemeTab
               selectedColor={selectedColor}
               onColorSelect={(color) =>
@@ -112,20 +150,43 @@ export const SettingsModal = (): ReactElement => {
               }
             />
           </TabPanel>
-          <TabPanel value={tabValue} index={4}>
-            Fun content coming soon...
+          <TabPanel value={tabValue} index={SettingTabs.Fun}>
+            <FunTab
+              questionOfDay={tempQuestionOfDay}
+              onQuestionOfTheDayChange={(questionOfDay) =>
+                setTempQuestionOfDay(questionOfDay)
+              }
+            />
           </TabPanel>
         </Box>
         <ModalFooter
           onPrimaryClick={() => {
+            if (tabValue === SettingTabs.Fun) {
+              setStandupWizardStateAction({
+                questionOfDay: tempQuestionOfDay,
+              });
+              notifyAlert(
+                "success",
+                "Question of the day updated successfully"
+              );
+              return;
+            }
             updateSettingsAction(userId);
             notifyAlert("success", "Settings updated successfully");
           }}
           onCancel={() => {
             setStandupWizardStateAction({ settingsModalOpen: false });
+            if (tabValue === SettingTabs.Fun) {
+              setTempQuestionOfDay({
+                includeQuestion: questionOfDay.includeQuestion,
+                question: questionOfDay.question,
+                isDuringStandup: questionOfDay.isDuringStandup,
+              });
+              return;
+            }
             setStandupWizardStateAction({ settings: originalSettings });
           }}
-          isPrimaryDisabled={isPrimaryDisabled}
+          isPrimaryDisabled={isPrimaryDisabled()}
         />
       </ModalWrapper>
     </Modal>

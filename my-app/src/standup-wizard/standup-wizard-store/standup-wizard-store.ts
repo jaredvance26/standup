@@ -17,7 +17,7 @@ import {
   getTeamMembersAction,
 } from "./actions";
 import { getJiraSectionContentSelector } from "./selectors";
-import { Colors, JiraIssue, Sprint, Settings } from "../types";
+import { Colors, JiraIssue, Sprint, Settings, QuestionOfDay } from "../types";
 import { TeamMemberContract } from "../../api/contracts";
 import { TeamMember } from "../../types";
 
@@ -29,6 +29,7 @@ export interface StandupWizardState {
   teamMembers: Record<number, TeamMember>;
   settingsModalOpen: boolean;
   userId: string;
+  questionOfDay: QuestionOfDay;
   // Jira data
   isJiraDataLoading: boolean;
   sprint: Sprint | null;
@@ -61,6 +62,11 @@ const initialState: StandupWizardState = {
   teamMembers: {},
   userId: "",
   settingsModalOpen: false,
+  questionOfDay: {
+	includeQuestion: false,
+	isDuringStandup: false,
+	question: ""
+  },
   // Jira data
   isJiraDataLoading: false,
   sprint: null,
