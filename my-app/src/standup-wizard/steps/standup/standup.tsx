@@ -1,5 +1,5 @@
 import { ReactElement, useState } from "react";
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 
 import { AddMember, EmployeeList, StatusSelect } from "./components";
 import {
@@ -8,6 +8,7 @@ import {
 } from "../../standup-wizard-store";
 import { AddGuest } from "../../components";
 import { MemberStatus, TeamMember } from "../../../types";
+import { COLOR_SHADES } from "../../constants";
 
 export const Standup = (): ReactElement => {
   const [store, { addGuestAction, setStandupWizardStateAction }] =
@@ -17,6 +18,7 @@ export const Standup = (): ReactElement => {
     teamMembers,
     issues,
     settings,
+    questionOfDay,
   } = store;
 
   const selectedTeamMembers = selectedTeamMemberIds
@@ -90,6 +92,22 @@ export const Standup = (): ReactElement => {
       {jiraSection}
       <Box flex={1}>
         <Box display="flex" flexDirection="column" gap={2}>
+          {questionOfDay.includeQuestion && questionOfDay.isDuringStandup && (
+            <Box
+              sx={{
+                backgroundColor: 'white',
+                borderRadius: 3,
+                p: 2,
+              }}
+            >
+              <Typography fontWeight={600} variant="h6" color={COLOR_SHADES[settings.selectedColor].dark	}>
+                Question of the Day
+              </Typography>
+              <Typography variant="body1" color={COLOR_SHADES[settings.selectedColor].main}>
+                {questionOfDay.question}
+              </Typography>
+            </Box>
+          )}
           {settings.showStatusField && (
             <StatusSelect
               value={
