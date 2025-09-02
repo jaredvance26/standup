@@ -18,7 +18,19 @@ Standup is a modern web application built with React and TypeScript that helps t
 - FE: Vercel
 - BE: Render
 
-#### Frontend Local Setup
+## Security
+- Jira API token encrypted and never sent to the client
+- Password hashed and never sent to the client
+
+## Features
+- Modern, responsive UI with Material-UI components
+- Theme customization
+- TypeScript for enhanced type safety and developer experience
+- Jira integration for fetching user stories and sprint goals
+- Team member management (adding, removing, and updating)
+
+## Local Setup
+### Frontend Local Setup
 1. Clone the repository
 ```bash
 git clone https://github.com/jaredvance26/standup.git
@@ -37,7 +49,7 @@ npm start
 
 The frontend application will be available at `http://localhost:3000`
 
-#### Backend Local Setup
+### Backend Local Setup
 1. Navigate to the server directory
 ```bash
 cd ../server
@@ -55,26 +67,3 @@ npm start
 
 The backend server will be available at `http://localhost:3001`
 
-
-#### Frontend
-```bash
-cd ../my-app
-npm run build
-```
-
-#### Backend
-```bash
-cd ../server
-npm run build
-```
-
-## Features
-- Modern, responsive UI with Material-UI components
-- Theme customization
-- TypeScript for enhanced type safety and developer experience
-- Jira integration for fetching user stories and sprint goals
-- Team member management (adding, removing, and updating)
-
-## Security
-- Jira API token encrypted and never sent to the client
-- Password hashed and never sent to the client
