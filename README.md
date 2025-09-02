@@ -6,6 +6,9 @@ Standup is a modern web application built with React and TypeScript that helps t
 ## Tech Stack
 - React 18
 - TypeScript
+- Node.js
+- Express.js
+- Mongoose
 - Material-UI (MUI)
 - React Sweet State (for state management)
 - Axios (for API requests)
