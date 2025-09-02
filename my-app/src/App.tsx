@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthConnector, LoginPage, useAuthStore } from "./auth";
 import { StandupWizardConnector } from "./standup-wizard";
 import { TeamMemberManagerConnector } from "./team-member-manager";
+import { Loader } from "./components";
 
 const AppRoutes = () => {
   const [{ isAuthenticated, userId }] = useAuthStore();
@@ -38,6 +39,14 @@ const AppRoutes = () => {
 };
 
 function App() {
+  const [{ isLoading, isTokenValidationLoading }] = useAuthStore();
+
+  if (isLoading || isTokenValidationLoading) {
+    return (
+      <Loader />
+    );
+  }
+
   return (
     <BrowserRouter>
       <div className="App">
