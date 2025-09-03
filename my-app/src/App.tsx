@@ -28,7 +28,7 @@ const AppRoutes = () => {
       <Route
         path="/team-members"
         element={
-          isAuthenticated && !isTokenValidationLoading && !isLoading ? (
+          isAuthenticated ? (
             <TeamMemberManagerConnector userId={userId || ""} />
           ) : (
             <Navigate to="/" />
