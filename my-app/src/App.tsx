@@ -6,7 +6,8 @@ import { TeamMemberManagerConnector } from "./team-member-manager";
 import { Loader } from "./components";
 
 const AppRoutes = () => {
-  const [{ isAuthenticated, userId }] = useAuthStore();
+  const [{ isAuthenticated, userId, isTokenValidationLoading, isLoading }] =
+    useAuthStore();
 
   return (
     <Routes>
@@ -17,7 +18,7 @@ const AppRoutes = () => {
       <Route
         path="/standup"
         element={
-          isAuthenticated ? (
+          isAuthenticated && !isTokenValidationLoading && !isLoading ? (
             <StandupWizardConnector userId={userId || ""} />
           ) : (
             <Navigate to="/" />
@@ -27,7 +28,7 @@ const AppRoutes = () => {
       <Route
         path="/team-members"
         element={
-          isAuthenticated ? (
+          isAuthenticated && !isTokenValidationLoading && !isLoading ? (
             <TeamMemberManagerConnector userId={userId || ""} />
           ) : (
             <Navigate to="/" />
@@ -42,9 +43,7 @@ function App() {
   const [{ isLoading, isTokenValidationLoading }] = useAuthStore();
 
   if (isLoading || isTokenValidationLoading) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   return (
