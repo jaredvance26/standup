@@ -14,7 +14,9 @@ const AppRoutes = () => {
       <Route
         path="/"
         element={
-          isAuthenticated && !isTokenValidationLoading ? (
+          isAuthenticated && isTokenValidationLoading ? (
+            <Loader />
+          ) : isAuthenticated ? (
             <Navigate to="/standup" />
           ) : (
             <LoginPage />
@@ -46,12 +48,6 @@ const AppRoutes = () => {
 };
 
 function App() {
-  const [{ isLoading, isTokenValidationLoading }] = useAuthStore();
-
-  if (isLoading || isTokenValidationLoading) {
-    return <Loader />;
-  }
-
   return (
     <BrowserRouter>
       <div className="App">
