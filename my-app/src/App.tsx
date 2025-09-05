@@ -13,7 +13,13 @@ const AppRoutes = () => {
     <Routes>
       <Route
         path="/"
-        element={isAuthenticated ? <Navigate to="/standup" /> : <LoginPage />}
+        element={
+          isAuthenticated && !isTokenValidationLoading ? (
+            <Navigate to="/standup" />
+          ) : (
+            <LoginPage />
+          )
+        }
       />
       <Route
         path="/standup"
