@@ -14,7 +14,7 @@ const AppRoutes = () => {
       <Route
         path="/"
         element={
-          isAuthenticated && isTokenValidationLoading ? (
+          isTokenValidationLoading ? (
             <Loader />
           ) : isAuthenticated ? (
             <Navigate to="/standup" />
