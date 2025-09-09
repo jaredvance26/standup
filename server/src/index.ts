@@ -28,7 +28,6 @@ app.use(
       // Allow non-browser requests or same-origin
       if (!origin) return callback(null, true);
 
-      // Allow exact matches from env-configured origins
       if (allowedOrigins.includes(origin)) return callback(null, true);
 
       // Allow Vercel preview/prod deployments like https://*.vercel.app
