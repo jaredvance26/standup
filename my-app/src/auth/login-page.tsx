@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "./auth-store";
 import { SignupModal } from "./components";
+import { notifyAlert } from "../alerts/alert-notifier";
+import { MessageAlertHost } from "../alerts/MessageAlertHost";
 import roundTable from "../static/round-table.png";
 import { Loader } from "../components";
 
@@ -16,6 +18,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <Box>
+      <MessageAlertHost />
       <Box
         display="flex"
         alignItems="center"
@@ -87,12 +90,17 @@ export const LoginPage: React.FC = () => {
           />
           {isLoading ? (
             <Box display="flex" justifyContent="center" alignItems="center">
-              <Loader size='80' />
+              <Loader size="80" />
             </Box>
           ) : (
             <Button
               disabled={!email || !password}
-              onClick={() => loginAction(() => navigate("/standup"))}
+              onClick={() =>
+                loginAction(
+                  () => navigate("/standup"),
+                  () => notifyAlert("error", "Invalid username or password")
+                )
+              }
               variant="contained"
               color="primary"
               sx={{
