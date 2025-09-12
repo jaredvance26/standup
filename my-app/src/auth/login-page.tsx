@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "./auth-store";
 import { SignupModal } from "./components";
 import roundTable from "../static/round-table.png";
+import { Loader } from "../components";
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const [{ email, password }, { loginAction, setAuthDataAction }] =
+  const [{ email, password, isLoading }, { loginAction, setAuthDataAction }] =
     useAuthStore();
 
-const [signupModalOpen, setSignupModalOpen] = useState<boolean>(false);
+  const [signupModalOpen, setSignupModalOpen] = useState<boolean>(false);
 
   return (
     <Box>
@@ -84,22 +85,28 @@ const [signupModalOpen, setSignupModalOpen] = useState<boolean>(false);
               },
             }}
           />
-          <Button
-            disabled={!email || !password}
-            onClick={() => loginAction(() => navigate("/standup"))}
-            variant="contained"
-            color="primary"
-            sx={{
-              borderRadius: 3,
-              width: "50%",
-              margin: "auto",
-              height: "45px",
-              marginTop: 2,
-              fontSize: 18,
-            }}
-          >
-            Login
-          </Button>
+          {isLoading ? (
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <Loader size='80' />
+            </Box>
+          ) : (
+            <Button
+              disabled={!email || !password}
+              onClick={() => loginAction(() => navigate("/standup"))}
+              variant="contained"
+              color="primary"
+              sx={{
+                borderRadius: 3,
+                width: "50%",
+                margin: "auto",
+                height: "45px",
+                marginTop: 2,
+                fontSize: 18,
+              }}
+            >
+              Login
+            </Button>
+          )}
           <Box display="flex" alignItems="center" justifyContent="center">
             <Typography
               fontFamily='"Raleway", "Roboto", "Helvetica", "Arial", sans-serif'
@@ -108,7 +115,7 @@ const [signupModalOpen, setSignupModalOpen] = useState<boolean>(false);
               Don't have an account?
             </Typography>
             <Button
-			onClick={() => setSignupModalOpen(true)}
+              onClick={() => setSignupModalOpen(true)}
               variant="text"
               sx={{
                 textTransform: "none",
@@ -122,7 +129,10 @@ const [signupModalOpen, setSignupModalOpen] = useState<boolean>(false);
           </Box>
         </Box>
       </Box>
-	  <SignupModal isOpen={signupModalOpen} onClose={() => setSignupModalOpen(false)} />
+      <SignupModal
+        isOpen={signupModalOpen}
+        onClose={() => setSignupModalOpen(false)}
+      />
     </Box>
   );
 };

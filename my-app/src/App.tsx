@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Box } from "@mui/material";
 
 import { AuthConnector, LoginPage, useAuthStore } from "./auth";
 import { StandupWizardConnector } from "./standup-wizard";
@@ -15,7 +16,17 @@ const AppRoutes = () => {
         path="/"
         element={
           isTokenValidationLoading ? (
-            <Loader />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
+              <Loader />
+            </Box>
           ) : isAuthenticated ? (
             <Navigate to="/standup" />
           ) : (
