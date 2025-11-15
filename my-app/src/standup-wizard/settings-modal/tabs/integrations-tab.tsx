@@ -105,13 +105,6 @@ export const IntegrationsTab = (props: IntegrationsTabProps): ReactElement => {
             },
           }}
         />
-        {/* <Button
-          size="small"
-          variant="contained"
-          sx={{ backgroundColor: "#1868DB", borderRadius: 3 }}
-        >
-          Test Connection
-        </Button> */}
       </Box>
     </Box>
   );

@@ -44,7 +44,7 @@ router.post('/signup', async (req, res) => {
             message: 'Account created successfully',
             token,
             user: {
-                _id: user._id,
+                id: user._id,
                 email: user.email,
                 // Add other non-sensitive fields as needed
             }

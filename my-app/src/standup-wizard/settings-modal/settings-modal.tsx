@@ -103,7 +103,7 @@ export const SettingsModal = (): ReactElement => {
             </Tabs>
           </Box>
           <TabPanel value={tabValue} index={SettingTabs.Account}>
-            <AccountTab />
+            <AccountTab userId={userId} />
           </TabPanel>
           <TabPanel value={tabValue} index={SettingTabs.General}>
             <GeneralTab

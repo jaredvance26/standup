@@ -8,6 +8,7 @@ import { jiraRouter } from "./routes/jira";
 import { authRouter } from "./routes/auth";
 import { settingsRouter } from "./routes/settings";
 import { teamMemberRouter } from "./routes/teamMember";
+import { accountRouter } from "./routes/account";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -48,6 +49,7 @@ app.use("/api", jiraRouter);
 app.use("/api/auth", authRouter);
 app.use("/api", settingsRouter);
 app.use("/api", teamMemberRouter);
+app.use("/api/account", accountRouter);
 
 // MongoDB connection
 import mongoose from 'mongoose';
