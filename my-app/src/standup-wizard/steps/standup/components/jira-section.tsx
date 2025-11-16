@@ -5,6 +5,7 @@ import { format, parseISO } from "date-fns";
 import { JiraIssue, Sprint } from "../../../types/jira";
 import { JiraIssues } from "./jira-issues";
 import { Coffee } from "@mui/icons-material";
+import { useStandupWizardStore } from "../../../standup-wizard-store";
 
 interface JiraSectionProps {
   sprint: Sprint;
@@ -13,6 +14,7 @@ interface JiraSectionProps {
 
 export const JiraSection = (props: JiraSectionProps): ReactElement => {
   const { sprint, issues } = props;
+  const [{ settings }] = useStandupWizardStore();
   const { palette } = useTheme();
 
   const endDate = parseISO(sprint.endDate);
@@ -66,7 +68,10 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
         </Box>
         <Box height="400px" overflow="auto">
           {issues.length ? (
-            <JiraIssues issues={issues} />
+            <JiraIssues
+              issues={issues}
+              jiraUrl={settings.jiraSettings.jiraUrl || ""}
+            />
           ) : (
             <Box
               display="flex"

@@ -1,27 +1,53 @@
 import { ReactElement } from "react";
-import { Card, CardContent, Typography, Chip, Stack, Box } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Chip,
+  Stack,
+  Box,
+  Link,
+} from "@mui/material";
 
 import { getJiraIssueStatusColor } from "../utils";
 import { JiraIssue, JiraIssueStatus } from "../../../types";
 
+import { OpenInNew } from "@mui/icons-material";
+
 interface JiraIssuesProps {
   issues: JiraIssue[];
+  jiraUrl: string;
 }
 
 export const JiraIssues = (props: JiraIssuesProps): ReactElement => {
-  const { issues } = props;
+  const { issues, jiraUrl } = props;
   const statusOrder = Object.values(JiraIssueStatus);
   const sortedIssues = [...issues].sort((a, b) => {
-    const aIndex = statusOrder.indexOf(a.fields.status.name.toLowerCase() as JiraIssueStatus);
-    const bIndex = statusOrder.indexOf(b.fields.status.name.toLowerCase() as JiraIssueStatus);
+    const aIndex = statusOrder.indexOf(
+      a.fields.status.name.toLowerCase() as JiraIssueStatus
+    );
+    const bIndex = statusOrder.indexOf(
+      b.fields.status.name.toLowerCase() as JiraIssueStatus
+    );
     return aIndex - bIndex;
   });
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       {sortedIssues.map((issue) => (
-        <Card key={issue.id} variant="outlined" sx={{ width: "100%", borderRadius: 3, height: 140 }}>
-          <CardContent sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+        <Card
+          key={issue.id}
+          variant="outlined"
+          sx={{ width: "100%", borderRadius: 3, height: 140 }}
+        >
+          <CardContent
+            sx={{
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <Box sx={{ width: "100%", maxWidth: "100%", mb: 2 }}>
               <Typography
                 fontSize={14}
@@ -38,14 +64,28 @@ export const JiraIssues = (props: JiraIssuesProps): ReactElement => {
                   WebkitBoxOrient: "vertical",
                 }}
               >
-               <b>{issue.key}</b>: {issue.fields.summary}
+                <Box display="flex" justifyContent="space-between">
+                  <Typography>
+                    <b>{issue.key}</b>: {issue.fields.summary}
+                  </Typography>
+                  {jiraUrl && (
+                    <Link
+                      href={`${jiraUrl}/browse/${issue.key}`}
+                      target="_blank"
+                    >
+                      <OpenInNew sx={{ cursor: "pointer" }} />
+                    </Link>
+                  )}
+                </Box>
               </Typography>
             </Box>
             <Box>
               <Chip
                 label={issue.fields.status.name}
                 size="small"
-                color={getJiraIssueStatusColor(issue.fields.status.name.toLowerCase() as JiraIssueStatus)}
+                color={getJiraIssueStatusColor(
+                  issue.fields.status.name.toLowerCase() as JiraIssueStatus
+                )}
               />
             </Box>
           </CardContent>
