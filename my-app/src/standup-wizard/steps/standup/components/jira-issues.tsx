@@ -49,25 +49,23 @@ export const JiraIssues = (props: JiraIssuesProps): ReactElement => {
             }}
           >
             <Box sx={{ width: "100%", maxWidth: "100%", mb: 2 }}>
-              <Typography
-                fontSize={14}
-                fontWeight={500}
-                gutterBottom
-                sx={{
-                  wordBreak: "break-word",
-                  overflowWrap: "break-word",
-                  whiteSpace: "normal",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  display: "-webkit-box",
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: "vertical",
-                }}
-              >
-                <Box display="flex" justifyContent="space-between">
-                  <Typography>
+              <Typography fontSize={14} fontWeight={500} gutterBottom>
+                <Box display="flex" justifyContent="space-between" alignItems="flex-start" gap={1}>
+                  <Box
+                    component="span"
+                    sx={{
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      whiteSpace: "normal",
+                    }}
+                  >
                     <b>{issue.key}</b>: {issue.fields.summary}
-                  </Typography>
+                  </Box>
                   {jiraUrl && (
                     <Link
                       href={`${jiraUrl}/browse/${issue.key}`}
