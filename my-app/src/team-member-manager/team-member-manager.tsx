@@ -17,14 +17,26 @@ import { useTeamMemberManagerStore } from "./team-member-manager-store";
 import { TeamMemberContract } from "../api/contracts";
 import { notifyAlert } from "../alerts/alert-notifier";
 import { MessageAlertHost } from "../alerts/MessageAlertHost";
+import { COLOR_SHADES } from "../standup-wizard/constants";
+import { Loader } from "../components";
 
 export const TeamMemberManager = (): ReactElement => {
   // Access the store directly
-  const [{ userId }, { createTeamMemberAction }] = useTeamMemberManagerStore();
+  const [
+    { userId, themeColor, isTeamDataLoading, isSettingsDataLoading },
+    { createTeamMemberAction },
+  ] = useTeamMemberManagerStore();
 
   const [isTeamMemberModalOpen, setIsTeamMemberModalOpen] =
     useState<boolean>(false);
   const theme = createTheme({
+    palette: {
+      primary: {
+        main: COLOR_SHADES[themeColor].main,
+        light: COLOR_SHADES[themeColor].light,
+        dark: COLOR_SHADES[themeColor].dark,
+      },
+    },
     typography: {
       fontFamily: '"Raleway", "Roboto", "Helvetica", "Arial", sans-serif',
       button: {
@@ -35,6 +47,22 @@ export const TeamMemberManager = (): ReactElement => {
       borderRadius: 3,
     },
   });
+
+  if (isTeamDataLoading || isSettingsDataLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Loader />
+      </Box>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>

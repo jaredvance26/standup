@@ -5,12 +5,14 @@ import {
   createStore,
   defaults,
 } from "react-sweet-state";
+import { Colors } from "../../standup-wizard/types";
 import {
   createTeamMemberAction,
   setTeamMemberManagerStateAction,
   getTeamMembersAction,
   removeTeamMemberAction,
   updateTeamMemberAction,
+  getUserSettingsAction,
 } from "./actions";
 import { TeamMemberContract } from "../../api/contracts";
 
@@ -21,6 +23,8 @@ export interface TeamMemberManagerState {
   selectedTeamMemberIds: number[];
   isTeamDataLoading: boolean;
   userId: string;
+  isSettingsDataLoading: boolean;
+  themeColor: Colors;
 }
 
 const initialState: TeamMemberManagerState = {
@@ -28,6 +32,8 @@ const initialState: TeamMemberManagerState = {
   selectedTeamMemberIds: [],
   isTeamDataLoading: false,
   userId: "",
+  isSettingsDataLoading: false,
+  themeColor: Colors.Blue,
 };
 
 const actions = {
@@ -36,6 +42,7 @@ const actions = {
   getTeamMembersAction,
   removeTeamMemberAction,
   updateTeamMemberAction,
+  getUserSettingsAction,
 };
 
 const TeamMemberManagerStore = createStore({
@@ -63,6 +70,7 @@ export const TeamMemberManagerContainer = createContainer<
       if (userId) {
         setState({ userId });
         dispatch(getTeamMembersAction(userId));
+        dispatch(getUserSettingsAction(userId));
       }
     },
   onUpdate:
@@ -71,6 +79,7 @@ export const TeamMemberManagerContainer = createContainer<
       if (userId) {
         setState({ userId });
         dispatch(getTeamMembersAction(userId));
+        dispatch(getUserSettingsAction(userId));
       }
     },
 });
