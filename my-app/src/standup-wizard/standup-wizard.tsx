@@ -59,7 +59,6 @@ export const StandupWizard = () => {
 
   const handleNext = () => {
     if (isLastStep) {
-      captureTableScreenshot();
       resetStandupWizardStoreAction();
     } else {
       navigateForwardAction();

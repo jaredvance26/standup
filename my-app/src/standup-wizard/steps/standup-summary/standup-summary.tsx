@@ -10,11 +10,15 @@ import {
   Paper,
   Typography,
   useTheme,
+  Button,
 } from "@mui/material";
-import { useStandupWizardStore } from "../../standup-wizard-store";
-import { MemberStatus, TeamMember } from "../../../types";
+import { Download } from "@mui/icons-material";
+
 import { Status } from "../../components";
+import { useStandupWizardStore } from "../../standup-wizard-store";
 import { COLOR_SHADES } from "../../constants";
+import { captureTableScreenshot } from "../../utils";
+import { MemberStatus, TeamMember } from "../../../types";
 
 export const StandupSummary = React.forwardRef<HTMLDivElement>(
   (_, ref): ReactElement => {
@@ -53,6 +57,22 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>(
             </Typography>
           </Box>
         )}
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="end"
+          marginBlock={2}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              captureTableScreenshot();
+            }}
+          >
+            <Download />
+          </Button>
+        </Box>
         <TableContainer
           ref={ref}
           component={Paper}
