@@ -21,6 +21,7 @@ import { useTeamMemberManagerStore } from "../team-member-manager-store/team-mem
 import { TeamMemberContract } from "../../api/contracts";
 import { notifyAlert } from "../../alerts/alert-notifier";
 import { TeamMemberModal } from "./team-member-modal";
+import { Loader } from "../../components";
 
 export const TeamMemberTable = (): ReactElement => {
   const [state, { removeTeamMemberAction, updateTeamMemberAction }] =
@@ -158,9 +159,7 @@ export const TeamMemberTable = (): ReactElement => {
             {teamMembers.length === 0 && (
               <TableRow>
                 <TableCell colSpan={5} align="center">
-                  {isTeamDataLoading
-                    ? "Loading team members..."
-                    : "No team members found"}
+                  {isTeamDataLoading ? <Loader /> : "No added team members"}
                 </TableCell>
               </TableRow>
             )}

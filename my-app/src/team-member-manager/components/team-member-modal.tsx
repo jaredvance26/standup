@@ -135,7 +135,7 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
             display: "flex",
             flexDirection: "column",
             gap: 3,
-            maxWidth: "60%",
+            maxWidth: "65%",
           }}
         >
           {/* First Name - Required */}
@@ -208,7 +208,7 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
               fullWidth
               value={jiraId}
               onChange={(e) => setJiraId(e.target.value)}
-              placeholder="Enter Jira ID"
+              placeholder="Jira Board > Teams > Select team member > Copy Jira ID from URL"
               size="small"
               type="password"
               sx={{

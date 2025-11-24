@@ -1,10 +1,12 @@
 import { ReactElement, useState } from "react";
 import { Box, Button, Typography, useTheme } from "@mui/material";
+import { People } from "@mui/icons-material";
 import { shuffle } from "lodash";
 
 import { SelectableBoxGroup } from "./components";
 import { AddGuest } from "../../components";
 import { useStandupWizardStore } from "../../standup-wizard-store";
+import { BlankState } from "../../../components";
 
 export const TeamSelection = (): ReactElement => {
   const [
@@ -45,6 +47,21 @@ export const TeamSelection = (): ReactElement => {
     }
   };
 
+  if (teamMemberCount === 0) {
+    return (
+      <BlankState
+        actionButton={
+          <Button href="/team-members" variant="contained">
+            Start adding team members
+          </Button>
+        }
+        icon={<People sx={{ fontSize: 100 }} />}
+        title="No team members have been added yet"
+        description="Add team members to get started"
+      />
+    );
+  }
+
   return (
     <Box>
       <Box
@@ -58,7 +75,7 @@ export const TeamSelection = (): ReactElement => {
           onAddGuest={() => addGuestAction(addedGuest)}
           setAddedGuest={(value) => setAddedGuest(value)}
         />
-        <Box display='flex' flexDirection='column'>
+        <Box display="flex" flexDirection="column">
           <Button
             onClick={onSelectDeselect}
             variant="text"

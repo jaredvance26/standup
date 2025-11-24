@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { captureTableScreenshot } from "./utils";
 import { Stepper, Step, StepLabel, Box, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";

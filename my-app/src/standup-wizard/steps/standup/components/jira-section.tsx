@@ -1,11 +1,12 @@
 import { ReactElement } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
+import { Coffee } from "@mui/icons-material";
 import { format, parseISO } from "date-fns";
 
-import { JiraIssue, Sprint } from "../../../types/jira";
 import { JiraIssues } from "./jira-issues";
-import { Coffee } from "@mui/icons-material";
+import { JiraIssue, Sprint } from "../../../types/jira";
 import { useStandupWizardStore } from "../../../standup-wizard-store";
+import { BlankState } from "../../../../components";
 
 interface JiraSectionProps {
   sprint: Sprint;
@@ -73,28 +74,11 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
               jiraUrl={settings.jiraSettings.jiraUrl || ""}
             />
           ) : (
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              height="100%"
-              sx={{
-                "& > *": {
-                  opacity: 0.5,
-                },
-                backgroundColor: palette.grey[200],
-                borderRadius: 3,
-              }}
-            >
-              <Coffee sx={{ fontSize: 100 }} />
-              <Typography marginTop={2} fontSize={24} fontWeight={500}>
-                Taking a breather from tickets
-              </Typography>
-              <Typography fontSize={16} color="text.secondary">
-                Sometimes the best work happens outside of Jira
-              </Typography>
-            </Box>
+            <BlankState
+              icon={<Coffee sx={{ fontSize: 100 }} />}
+              title="Taking a breather from tickets"
+              description="Sometimes the best work happens outside of Jira"
+            />
           )}
         </Box>
       </Box>
