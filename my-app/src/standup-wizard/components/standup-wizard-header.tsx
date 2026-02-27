@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Box, Typography, IconButton, useTheme, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { Group, History, Settings } from "@mui/icons-material";
 import { format } from "date-fns";
 
@@ -15,7 +15,6 @@ export const StandupWizardHeader = (
   props: StandupWizardHeaderProps
 ): ReactElement => {
   const { onSettingsClick, currentStep, teamName } = props;
-  const { palette } = useTheme();
   return (
     <Box
       position="relative"
@@ -78,9 +77,18 @@ export const StandupWizardHeader = (
             </Button>
           </>
         )}
-        <IconButton onClick={onSettingsClick}>
-          <Settings sx={{ fontSize: 70, color: palette.primary.main }} />
-        </IconButton>
+        <Button
+          variant="contained"
+          onClick={onSettingsClick}
+          sx={{
+            borderRadius: 3,
+            width: "55px",
+            height: "60px",
+            minWidth: "55px",
+          }}
+        >
+          <Settings sx={{ fontSize: 40 }} />
+        </Button>
       </Box>
     </Box>
   );

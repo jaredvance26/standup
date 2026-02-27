@@ -3,4 +3,4 @@ export { getUserSettings } from './get-user-settings';
 export { updateSettings } from './update-settings';
 export { putUserEmail } from './put-user-email';
 export { putUserPassword } from './put-user-password';
-export { createStandup, getStandups } from './standups';
+export { createStandup, getStandups, deleteStandup } from './standups';

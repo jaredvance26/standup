@@ -32,3 +32,19 @@ export const getStandups = async (userId: string): Promise<StandupGETContract[]>
 
   return response.data;
 };
+
+export const deleteStandup = async (
+  userId: string,
+  standupId: string
+): Promise<{ message: string }> => {
+  const response = await axios.delete<{ message: string }>(
+    `${API_BASE_URL}/user/${userId}/standups/${standupId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response.data;
+};
