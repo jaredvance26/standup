@@ -15,6 +15,7 @@ export const getUserSettingsAction =
           selectedColor: userSettings.theme,
           hideEmployees: userSettings.standup.hideUnselectedEmployees,
           showStatusField: userSettings.standup.showStatusField,
+          saveStandupData: userSettings.standup.saveStandupData,
           jiraSettings: {
             apiToken: userSettings.jiraData.hasJiraApiToken ? '*********************' : '',
             jiraUsername: userSettings.jiraData.jiraUsername,

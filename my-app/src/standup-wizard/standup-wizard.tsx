@@ -23,12 +23,13 @@ const stepComponents = [StepOne, StepTwo, StepThree];
 
 export const StandupWizard = () => {
   const [
-    { currentStep, settings, selectedTeamMemberIds },
+    { currentStep, settings, selectedTeamMemberIds, userId, isStandupSaveLoading },
     {
       navigateBackwardAction,
       navigateForwardAction,
       resetStandupWizardStoreAction,
       setStandupWizardStateAction,
+      saveStandupAction,
     },
   ] = useStandupWizardStore();
   const { selectedColor, teamName } = settings;
@@ -56,8 +57,11 @@ export const StandupWizard = () => {
   const overflowSetting = currentStep === 1 ? "hidden" : "auto";
   const isLastStep = currentStep === steps.length - 1;
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (isLastStep) {
+      if (settings.saveStandupData && userId) {
+        await saveStandupAction();
+      }
       resetStandupWizardStoreAction();
     } else {
       navigateForwardAction();
@@ -65,7 +69,8 @@ export const StandupWizard = () => {
   };
 
   const canMoveForward =
-    currentStep === 0 ? selectedTeamMemberIds.length > 0 : true;
+    (currentStep === 0 ? selectedTeamMemberIds.length > 0 : true) &&
+    !isStandupSaveLoading;
 
   return (
     <ThemeProvider theme={theme}>

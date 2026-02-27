@@ -34,6 +34,7 @@ export const SettingsModal = (): ReactElement => {
     selectedColor,
     hideEmployees,
     showStatusField,
+    saveStandupData,
     teamName,
     jiraSettings,
   } = settings;
@@ -117,6 +118,12 @@ export const SettingsModal = (): ReactElement => {
               onToggleShowStatusField={() =>
                 setStandupWizardStateAction({
                   settings: { ...settings, showStatusField: !showStatusField },
+                })
+              }
+              saveStandupData={saveStandupData}
+              onToggleSaveStandupData={() =>
+                setStandupWizardStateAction({
+                  settings: { ...settings, saveStandupData: !saveStandupData },
                 })
               }
               teamName={teamName}
