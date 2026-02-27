@@ -17,5 +17,8 @@ class StandupService {
     async getStandupsByUserId(userId) {
         return standup_1.default.find({ userId }).sort({ completedAt: -1 }).exec();
     }
+    async deleteStandupById(userId, standupId) {
+        return standup_1.default.findOneAndDelete({ _id: standupId, userId }).exec();
+    }
 }
 exports.default = new StandupService();

@@ -19,6 +19,10 @@ class StandupService {
   async getStandupsByUserId(userId: string): Promise<IStandup[]> {
     return Standup.find({ userId }).sort({ completedAt: -1 }).exec();
   }
+
+  async deleteStandupById(userId: string, standupId: string): Promise<IStandup | null> {
+    return Standup.findOneAndDelete({ _id: standupId, userId }).exec();
+  }
 }
 
 export default new StandupService();

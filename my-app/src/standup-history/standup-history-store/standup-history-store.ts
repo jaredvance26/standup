@@ -8,6 +8,7 @@ import {
 import { StandupGETContract } from "../../standup-wizard/api/contracts";
 import { Colors } from "../../standup-wizard/types";
 import {
+  deleteStandupAction,
   getStandupsAction,
   getUserSettingsAction,
   setStandupHistoryStateAction,
@@ -20,6 +21,7 @@ export interface StandupHistoryState {
   standups: StandupGETContract[];
   isStandupsLoading: boolean;
   isSettingsLoading: boolean;
+  deletingStandupId: string | null;
   themeColor: Colors;
 }
 
@@ -28,10 +30,12 @@ const initialState: StandupHistoryState = {
   standups: [],
   isStandupsLoading: false,
   isSettingsLoading: false,
+  deletingStandupId: null,
   themeColor: Colors.Blue,
 };
 
 const actions = {
+  deleteStandupAction,
   getStandupsAction,
   getUserSettingsAction,
   setStandupHistoryStateAction,

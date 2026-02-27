@@ -39,4 +39,20 @@ router.post("/user/:userId/standups", async (req, res) => {
   }
 });
 
+router.delete("/user/:userId/standups/:standupId", async (req, res) => {
+  const { userId, standupId } = req.params;
+
+  try {
+    const deletedStandup = await StandupService.deleteStandupById(userId, standupId);
+
+    if (!deletedStandup) {
+      return res.status(404).json({ error: "Standup not found" });
+    }
+
+    res.json({ message: "Standup deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete standup", details: error });
+  }
+});
+
 export const standupRouter = router;
