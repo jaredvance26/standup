@@ -12,6 +12,7 @@ export const prepareUpdatedSettings = (
     standup: {
       hideUnselectedEmployees: settings.hideEmployees,
       showStatusField: settings.showStatusField,
+      saveStandupData: settings.saveStandupData,
     },
     jiraData: {
       apiToken: apiToken === "*********************" ? null : apiToken,

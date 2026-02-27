@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import { AuthConnector, LoginPage, useAuthStore } from "./auth";
 import { StandupWizardConnector } from "./standup-wizard";
 import { TeamMemberManagerConnector } from "./team-member-manager";
+import { StandupHistoryConnector } from "./standup-history";
 import { Loader } from "./components";
 
 const AppRoutes = () => {
@@ -49,6 +50,16 @@ const AppRoutes = () => {
         element={
           isAuthenticated ? (
             <TeamMemberManagerConnector userId={userId || ""} />
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      />
+      <Route
+        path="/standup-history"
+        element={
+          isAuthenticated ? (
+            <StandupHistoryConnector userId={userId || ""} />
           ) : (
             <Navigate to="/" />
           )

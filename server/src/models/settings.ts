@@ -7,6 +7,7 @@ export interface ISettings extends Document {
   standup: {
     hideUnselectedEmployees: boolean;
     showStatusField: boolean;
+    saveStandupData: boolean;
   };
   jiraData: {
     apiToken: string | null;
@@ -25,6 +26,7 @@ const settingsSchema = new Schema(
     standup: {
       hideUnselectedEmployees: { type: Boolean, default: false, required: true },
       showStatusField: { type: Boolean, default: true, required: true },
+      saveStandupData: { type: Boolean, default: false, required: true },
     },
     jiraData: {
       apiToken: { type: String, default: null },

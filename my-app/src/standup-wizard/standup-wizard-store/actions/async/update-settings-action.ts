@@ -17,6 +17,7 @@ export const updateSettingsAction =
           selectedColor: newSettings.theme,
           hideEmployees: newSettings.standup.hideUnselectedEmployees,
           showStatusField: newSettings.standup.showStatusField,
+          saveStandupData: newSettings.standup.saveStandupData,
           jiraSettings: {
             apiToken: newSettings.jiraData.hasJiraApiToken
               ? "*********************"

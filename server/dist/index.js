@@ -13,6 +13,7 @@ const auth_1 = require("./routes/auth");
 const settings_1 = require("./routes/settings");
 const teamMember_1 = require("./routes/teamMember");
 const account_1 = require("./routes/account");
+const standup_1 = require("./routes/standup");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3001;
 // Middleware
@@ -47,6 +48,7 @@ app.use("/api", jira_1.jiraRouter);
 app.use("/api/auth", auth_1.authRouter);
 app.use("/api", settings_1.settingsRouter);
 app.use("/api", teamMember_1.teamMemberRouter);
+app.use("/api", standup_1.standupRouter);
 app.use("/api/account", account_1.accountRouter);
 // MongoDB connection
 const mongoose_1 = __importDefault(require("mongoose"));

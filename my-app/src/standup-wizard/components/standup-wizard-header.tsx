@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { Box, Typography, IconButton, useTheme, Button } from "@mui/material";
-import { Group, Settings } from "@mui/icons-material";
+import { Group, History, Settings } from "@mui/icons-material";
 import { format } from "date-fns";
 
 import roundTable from "../../static/round-table.png";
@@ -41,30 +41,47 @@ export const StandupWizardHeader = (
           </Typography>
         </Box>
       </Box>
-      {currentStep === 0 && (
-        <Button
-          href="/team-members"
-          variant="contained"
-          sx={{
-            position: "absolute",
-            right: 115,
-            borderRadius: 3,
-            width: "55px",
-            height: "60px",
-          }}
-        >
-          <Group sx={{ fontSize: 40 }} />
-        </Button>
-      )}
-      <IconButton
-        onClick={onSettingsClick}
+      <Box
         sx={{
           position: "absolute",
           right: 20,
+          display: "flex",
+          alignItems: "center",
+          gap: 1.5,
         }}
       >
-        <Settings sx={{ fontSize: 70, color: palette.primary.main }} />
-      </IconButton>
+        {currentStep === 0 && (
+          <>
+            <Button
+              href="/standup-history"
+              variant="contained"
+              sx={{
+                borderRadius: 3,
+                width: "55px",
+                height: "60px",
+                minWidth: "55px",
+              }}
+            >
+              <History sx={{ fontSize: 36 }} />
+            </Button>
+            <Button
+              href="/team-members"
+              variant="contained"
+              sx={{
+                borderRadius: 3,
+                width: "55px",
+                height: "60px",
+                minWidth: "55px",
+              }}
+            >
+              <Group sx={{ fontSize: 40 }} />
+            </Button>
+          </>
+        )}
+        <IconButton onClick={onSettingsClick}>
+          <Settings sx={{ fontSize: 70, color: palette.primary.main }} />
+        </IconButton>
+      </Box>
     </Box>
   );
 };

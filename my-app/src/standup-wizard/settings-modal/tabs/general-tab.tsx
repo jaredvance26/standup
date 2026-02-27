@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Adjust, Group, VisibilityOff } from "@mui/icons-material";
+import { Adjust, Group, SaveAlt, VisibilityOff } from "@mui/icons-material";
 import { Box, Switch, TextField, Typography, useTheme } from "@mui/material";
 
 interface GeneralTabProps {
@@ -9,6 +9,8 @@ interface GeneralTabProps {
   onToggleHideEmployees: () => void;
   showStatusField: boolean;
   onToggleShowStatusField: () => void;
+  saveStandupData: boolean;
+  onToggleSaveStandupData: () => void;
 }
 
 export const GeneralTab = (props: GeneralTabProps): ReactElement => {
@@ -17,6 +19,8 @@ export const GeneralTab = (props: GeneralTabProps): ReactElement => {
     onToggleHideEmployees,
     showStatusField,
     onToggleShowStatusField,
+    saveStandupData,
+    onToggleSaveStandupData,
     teamName,
     onTeamNameChange,
   } = props;
@@ -84,6 +88,24 @@ export const GeneralTab = (props: GeneralTabProps): ReactElement => {
           </Typography>
         </Box>
         <Switch checked={showStatusField} onChange={onToggleShowStatusField} />
+      </Box>
+      <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Box>
+          <Box display="flex" alignItems="center" gap={1}>
+            <Typography
+              color={palette.grey[800]}
+              fontSize={18}
+              fontWeight={500}
+            >
+              Save standup data
+            </Typography>
+            <SaveAlt sx={{ fill: palette.grey[800] }} />
+          </Box>
+          <Typography fontSize={14} color={palette.grey[700]}>
+            Save selected standup member data after clicking Finish.
+          </Typography>
+        </Box>
+        <Switch checked={saveStandupData} onChange={onToggleSaveStandupData} />
       </Box>
     </Box>
   );

@@ -15,6 +15,7 @@ import {
   getUserSettingsAction,
   updateSettingsAction,
   getTeamMembersAction,
+  saveStandupAction,
 } from "./actions";
 import { getJiraSectionContentSelector } from "./selectors";
 import { Colors, JiraIssue, Sprint, Settings, QuestionOfDay } from "../types";
@@ -41,12 +42,14 @@ export interface StandupWizardState {
   // team member
   areTeamMembersLoading: boolean;
   serverTeamMembers: TeamMemberContract[];
+  isStandupSaveLoading: boolean;
 }
 
 const initialSettingsState = {
   selectedColor: Colors.Blue,
   hideEmployees: true,
   showStatusField: true,
+  saveStandupData: false,
   teamName: "",
   jiraSettings: {
     apiToken: null,
@@ -78,6 +81,7 @@ const initialState: StandupWizardState = {
   // team member
   areTeamMembersLoading: false,
   serverTeamMembers: [],
+  isStandupSaveLoading: false,
 };
 
 const actions = {
@@ -90,6 +94,7 @@ const actions = {
   getUserSettingsAction,
   updateSettingsAction,
   getTeamMembersAction,
+  saveStandupAction,
 };
 
 const StandupWizardStore = createStore({

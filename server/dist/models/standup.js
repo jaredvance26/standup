@@ -34,20 +34,19 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const settingsSchema = new mongoose_1.Schema({
-    userId: { type: mongoose_1.default.Schema.Types.ObjectId, required: true, ref: 'User' },
-    theme: { type: String, default: 'blue' },
-    teamName: { type: String, default: '' },
-    standup: {
-        hideUnselectedEmployees: { type: Boolean, default: false, required: true },
-        showStatusField: { type: Boolean, default: true, required: true },
-        saveStandupData: { type: Boolean, default: false, required: true },
-    },
-    jiraData: {
-        apiToken: { type: String, default: null },
-        jiraUsername: { type: String, default: null },
-        jiraUrl: { type: String, default: null },
-        jiraBoardId: { type: String, default: null },
-    },
+const standupTeamMemberSnapshotSchema = new mongoose_1.Schema({
+    memberId: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    position: { type: String, default: null },
+    jiraId: { type: String, default: null },
+    status: { type: String, required: true },
+    notes: { type: String, default: "" },
+}, { _id: false });
+const standupSchema = new mongoose_1.Schema({
+    userId: { type: mongoose_1.default.Schema.Types.ObjectId, required: true, ref: "User", index: true },
+    completedAt: { type: Date, required: true, default: Date.now, index: true },
+    showStatusField: { type: Boolean, required: true, default: true },
+    teamMembers: { type: [standupTeamMemberSnapshotSchema], required: true, default: [] },
 }, { timestamps: true });
-exports.default = mongoose_1.default.model('Settings', settingsSchema);
+exports.default = mongoose_1.default.model("Standup", standupSchema, "standups");
