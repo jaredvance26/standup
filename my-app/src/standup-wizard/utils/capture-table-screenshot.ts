@@ -1,9 +1,23 @@
 import html2canvas from "html2canvas";
 
-export const captureTableScreenshot = async () => {
-  const container = document.querySelector(
-    ".MuiTableContainer-root"
-  ) as HTMLElement;
+interface CaptureTableScreenshotOptions {
+  containerSelector?: string;
+  title?: string;
+  fileNamePrefix?: string;
+  fileNameDate?: string;
+}
+
+export const captureTableScreenshot = async (
+  options: CaptureTableScreenshotOptions = {}
+) => {
+  const {
+    containerSelector = ".MuiTableContainer-root",
+    title: titleText = "Standup Summary",
+    fileNamePrefix = "standup-summary",
+    fileNameDate = new Date().toISOString().split("T")[0],
+  } = options;
+
+  const container = document.querySelector(containerSelector) as HTMLElement;
   if (!container) return;
 
   // Create a wrapper div to contain both title and table
@@ -15,13 +29,13 @@ export const captureTableScreenshot = async () => {
   wrapper.style.backgroundColor = "#fff";
 
   // Create title element
-  const title = document.createElement("h2");
-  title.textContent = "Standup Summary";
-  title.style.margin = "0";
-  title.style.fontSize = "32px";
-  title.style.fontWeight = "500";
-  title.style.color = "#000000";
-  title.style.textAlign = "center";
+  const titleElement = document.createElement("h2");
+  titleElement.textContent = titleText;
+  titleElement.style.margin = "0";
+  titleElement.style.fontSize = "32px";
+  titleElement.style.fontWeight = "500";
+  titleElement.style.color = "#000000";
+  titleElement.style.textAlign = "center";
 
   // Add wrapper to document temporarily
   document.body.appendChild(wrapper);
@@ -33,7 +47,7 @@ export const captureTableScreenshot = async () => {
   tableClone.style.height = "auto";
 
   // Add elements to wrapper
-  wrapper.appendChild(title);
+  wrapper.appendChild(titleElement);
   wrapper.appendChild(tableClone);
 
   // Store original styles
@@ -50,9 +64,9 @@ export const captureTableScreenshot = async () => {
       useCORS: true,
       logging: false,
       onclone: (clonedDoc) => {
-        const clonedElement = clonedDoc.querySelector(
-          ".MuiTableContainer-root"
-        ) as HTMLElement;
+        const clonedElement = (clonedDoc.querySelector(
+          containerSelector
+        ) || clonedDoc.querySelector(".MuiTableContainer-root")) as HTMLElement | null;
         if (clonedElement) {
           clonedElement.style.maxHeight = "none";
           clonedElement.style.overflow = "visible";
@@ -70,9 +84,7 @@ export const captureTableScreenshot = async () => {
     });
 
     const link = document.createElement("a");
-    link.download = `standup-summary-${
-      new Date().toISOString().split("T")[0]
-    }.png`;
+    link.download = `${fileNamePrefix}-${fileNameDate}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
   } finally {
@@ -82,6 +94,8 @@ export const captureTableScreenshot = async () => {
     container.style.height = originalStyle.height;
 
     // Clean up: remove the wrapper from document
-    document.body.removeChild(wrapper);
+    if (wrapper.parentNode === document.body) {
+      document.body.removeChild(wrapper);
+    }
   }
 };

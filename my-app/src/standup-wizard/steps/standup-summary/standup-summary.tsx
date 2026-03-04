@@ -74,6 +74,7 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>(
           </Button>
         </Box>
         <TableContainer
+          className="standup-summary-table-container"
           ref={ref}
           component={Paper}
           sx={{ height: 550, backgroundColor: "#fff" }}
