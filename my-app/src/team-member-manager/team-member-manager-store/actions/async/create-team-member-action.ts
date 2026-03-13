@@ -1,11 +1,11 @@
 import { getTeamMembersAction } from "./get-team-members-action";
 import { TeamMemberManagerAction } from "../../team-member-manager-store";
-import { TeamMemberContract } from "../../../../api/contracts";
+import { TeamMemberUpsertContract } from "../../../../api/contracts";
 import { createTeamMember } from "../../../../api/team-members";
 
 export const createTeamMemberAction =
   (
-    teamMemberData: Omit<TeamMemberContract, "id">,
+    teamMemberData: TeamMemberUpsertContract,
     onSuccess: () => void
   ): TeamMemberManagerAction =>
   async ({ getState, dispatch, setState }) => {

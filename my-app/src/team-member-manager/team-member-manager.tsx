@@ -14,7 +14,7 @@ import {
   TeamMemberModal,
 } from "./components";
 import { useTeamMemberManagerStore } from "./team-member-manager-store";
-import { TeamMemberContract } from "../api/contracts";
+import { TeamMemberUpsertContract } from "../api/contracts";
 import { notifyAlert } from "../alerts/alert-notifier";
 import { MessageAlertHost } from "../alerts/MessageAlertHost";
 import { COLOR_SHADES } from "../standup-wizard/constants";
@@ -103,7 +103,7 @@ export const TeamMemberManager = (): ReactElement => {
           selectedTeamMember={null}
           userId={userId}
           primaryButtonAction={(
-            teamMemberData: Omit<TeamMemberContract, "id">
+            teamMemberData: TeamMemberUpsertContract
           ) =>
             createTeamMemberAction(teamMemberData, () => {
               setIsTeamMemberModalOpen(false);

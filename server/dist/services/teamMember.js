@@ -60,5 +60,14 @@ class TeamMemberService {
             throw error;
         }
     }
+    async getTeamMemberById(id) {
+        try {
+            return await teamMember_1.default.findById(id);
+        }
+        catch (error) {
+            console.error(`Error fetching team member with id ${id}:`, error);
+            throw error;
+        }
+    }
 }
 exports.TeamMemberService = TeamMemberService;

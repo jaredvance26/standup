@@ -26,6 +26,8 @@ export class TeamMemberService {
     lastName: string;
     position?: string;
     jiraId?: string;
+    photoUrl?: string | null;
+    photoPublicId?: string | null;
     userId: string;
   }): Promise<ITeamMember> {
     try {
@@ -49,6 +51,8 @@ export class TeamMemberService {
       lastName: string;
       position?: string;
       jiraId?: string;
+      photoUrl?: string | null;
+      photoPublicId?: string | null;
       userId?: string;
     }>
   ): Promise<ITeamMember | null> {
@@ -73,6 +77,15 @@ export class TeamMemberService {
       return await TeamMember.findByIdAndDelete(id);
     } catch (error) {
       console.error(`Error deleting team member with id ${id}:`, error);
+      throw error;
+    }
+  }
+
+  async getTeamMemberById(id: string): Promise<ITeamMember | null> {
+    try {
+      return await TeamMember.findById(id);
+    } catch (error) {
+      console.error(`Error fetching team member with id ${id}:`, error);
       throw error;
     }
   }

@@ -4,6 +4,7 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import path from "path";
 import { jiraRouter } from "./routes/jira";
 import { authRouter } from "./routes/auth";
 import { settingsRouter } from "./routes/settings";
@@ -43,7 +44,8 @@ app.use(
     credentials: false, // set true only if you switch to cookie-based auth
   })
 );
-app.use(express.json());
+app.use(express.json({ limit: "6mb" }));
+app.use("/uploads", express.static(path.resolve(process.cwd(), "uploads")));
 
 // Routes
 app.use("/api", jiraRouter);

@@ -8,6 +8,7 @@ dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
+const path_1 = __importDefault(require("path"));
 const jira_1 = require("./routes/jira");
 const auth_1 = require("./routes/auth");
 const settings_1 = require("./routes/settings");
@@ -42,7 +43,8 @@ app.use((0, cors_1.default)({
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: false, // set true only if you switch to cookie-based auth
 }));
-app.use(express_1.default.json());
+app.use(express_1.default.json({ limit: "6mb" }));
+app.use("/uploads", express_1.default.static(path_1.default.resolve(process.cwd(), "uploads")));
 // Routes
 app.use("/api", jira_1.jiraRouter);
 app.use("/api/auth", auth_1.authRouter);

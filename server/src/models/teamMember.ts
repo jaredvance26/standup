@@ -6,6 +6,8 @@ export interface ITeamMember extends Document {
   lastName: string;
   position?: string;
   jiraId?: string;
+  photoUrl?: string | null;
+  photoPublicId?: string | null;
   userId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -17,6 +19,8 @@ const teamMemberSchema = new Schema(
     lastName: { type: String, required: true },
     position: { type: String, required: false },
     jiraId: { type: String, required: false },
+    photoUrl: { type: String, required: false, default: null },
+    photoPublicId: { type: String, required: false, default: null },
     userId: { type: String, required: true },
   },
   {
@@ -27,6 +31,7 @@ const teamMemberSchema = new Schema(
         ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
+        delete ret.photoPublicId;
         return ret;
       },
     },

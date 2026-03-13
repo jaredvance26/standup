@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import {
+  Avatar,
   Box,
   Table,
   TableBody,
@@ -18,7 +19,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { RemoveTeamMemberModal } from "./remove-team-member-modal";
 import { useTeamMemberManagerStore } from "../team-member-manager-store/team-member-manager-store";
-import { TeamMemberContract } from "../../api/contracts";
+import { TeamMemberContract, TeamMemberUpsertContract } from "../../api/contracts";
 import { notifyAlert } from "../../alerts/alert-notifier";
 import { TeamMemberModal } from "./team-member-modal";
 import { Loader } from "../../components";
@@ -52,6 +53,15 @@ export const TeamMemberTable = (): ReactElement => {
         <Table aria-label="team members table">
           <TableHead>
             <TableRow>
+              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+                <Typography
+                  fontSize={20}
+                  fontWeight={700}
+                  color={palette.grey[800]}
+                >
+                  Photo
+                </Typography>
+              </TableCell>
               <TableCell sx={{ backgroundColor: palette.grey[400] }}>
                 <Typography
                   fontSize={20}
@@ -106,6 +116,20 @@ export const TeamMemberTable = (): ReactElement => {
                 }}
               >
                 <TableCell component="th" scope="row">
+                  <Avatar
+                    src={member.photoUrl || undefined}
+                    alt={`${member.firstName} ${member.lastName}`}
+                    sx={{
+                      width: 42,
+                      height: 42,
+                      bgcolor: palette.primary.main,
+                      borderRadius: 2,
+                    }}
+                  >
+                    {member.firstName[0]}
+                  </Avatar>
+                </TableCell>
+                <TableCell component="th" scope="row">
                   <Typography fontSize={18}>{member.firstName}</Typography>
                 </TableCell>
                 <TableCell>
@@ -158,7 +182,7 @@ export const TeamMemberTable = (): ReactElement => {
             ))}
             {teamMembers.length === 0 && (
               <TableRow>
-                <TableCell colSpan={5} align="center">
+                <TableCell colSpan={6} align="center">
                   {isTeamDataLoading ? <Loader /> : "No added team members"}
                 </TableCell>
               </TableRow>
@@ -192,7 +216,7 @@ export const TeamMemberTable = (): ReactElement => {
             selectedTeamMember={selectedTeamMember}
             userId={userId}
             primaryButtonAction={(
-              teamMemberData: Omit<TeamMemberContract, "id">
+              teamMemberData: TeamMemberUpsertContract
             ) =>
               updateTeamMemberAction(
                 teamMemberData,

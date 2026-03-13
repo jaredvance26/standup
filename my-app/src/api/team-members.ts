@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TeamMemberContract } from "./contracts";
+import { TeamMemberContract, TeamMemberUpsertContract } from "./contracts";
 
 const API_BASE_URL =
   process.env.REACT_APP_API_URL || "http://localhost:3001/api";
@@ -42,7 +42,7 @@ export const getTeamMembers = async (
  * @returns Promise with created team member
  */
 export const createTeamMember = async (
-  teamMemberData: Omit<TeamMemberContract, "id">
+  teamMemberData: TeamMemberUpsertContract
 ): Promise<TeamMemberContract> => {
   try {
     const response = await axios.post<TeamMemberContract>(
@@ -76,7 +76,7 @@ export const createTeamMember = async (
  */
 export const updateTeamMember = async (
   id: string,
-  updateData: Partial<TeamMemberContract>
+  updateData: Partial<TeamMemberUpsertContract>
 ): Promise<TeamMemberContract> => {
   try {
     const response = await axios.put<TeamMemberContract>(

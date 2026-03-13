@@ -39,6 +39,8 @@ const teamMemberSchema = new mongoose_1.Schema({
     lastName: { type: String, required: true },
     position: { type: String, required: false },
     jiraId: { type: String, required: false },
+    photoUrl: { type: String, required: false, default: null },
+    photoPublicId: { type: String, required: false, default: null },
     userId: { type: String, required: true },
 }, {
     timestamps: true,
@@ -48,6 +50,7 @@ const teamMemberSchema = new mongoose_1.Schema({
             ret.id = ret._id;
             delete ret._id;
             delete ret.__v;
+            delete ret.photoPublicId;
             return ret;
         },
     },
