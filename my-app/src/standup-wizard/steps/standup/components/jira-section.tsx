@@ -20,13 +20,22 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
   const endDate = parseISO(sprint.endDate);
 
   return (
-    <Box flex={1} width="100%" alignSelf="start" minWidth={0}>
-      <Box display="flex" flexDirection="column" gap={2}>
+    <Box
+      flex={1}
+      width="100%"
+      alignSelf="stretch"
+      minWidth={0}
+      minHeight={0}
+      display="flex"
+      flexDirection="column"
+    >
+      <Box display="flex" flexDirection="column" gap={2} minHeight={0} height="100%">
         <Box
           sx={{
             backgroundColor: palette.grey[300],
             borderRadius: 3,
             padding: 2,
+            flexShrink: 0,
           }}
         >
           <Box display="flex" alignItems="end" gap={1}>
@@ -66,7 +75,7 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ height: 400, overflow: "auto" }}>
+        <Box sx={{ flex: 1, minHeight: 0, overflow: "auto" }}>
           {issues.length ? (
             <JiraIssues
               issues={issues}

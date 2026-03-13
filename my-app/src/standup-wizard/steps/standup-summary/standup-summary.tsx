@@ -32,7 +32,7 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>(
     );
 
     return (
-      <Box>
+      <Box display="flex" flexDirection="column" height="100%" minHeight={0}>
         {questionOfDay.includeQuestion && !questionOfDay.isDuringStandup && (
           <Box
             marginBottom={2}
@@ -40,6 +40,7 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>(
               backgroundColor: "white",
               borderRadius: 3,
               p: 2,
+              flexShrink: 0,
             }}
           >
             <Typography
@@ -62,6 +63,7 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>(
           flexDirection="column"
           alignItems="end"
           marginBlock={2}
+          flexShrink={0}
         >
           <Button
             variant="contained"
@@ -77,7 +79,7 @@ export const StandupSummary = React.forwardRef<HTMLDivElement>(
           className="standup-summary-table-container"
           ref={ref}
           component={Paper}
-          sx={{ height: 550, backgroundColor: "#fff" }}
+          sx={{ flex: 1, minHeight: 0, backgroundColor: "#fff" }}
         >
           <Table stickyHeader>
             <TableHead>

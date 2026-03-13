@@ -127,10 +127,6 @@ export const StandupWizard = () => {
   });
 
   const StepContent = stepComponents[currentStep];
-  const contentHeight =
-    currentStep === 1
-      ? "clamp(560px, calc(100vh - 300px), 1200px)"
-      : "clamp(460px, calc(100vh - 340px), 900px)";
   const isLastStep = currentStep === steps.length - 1;
 
   const handleNext = async () => {
@@ -155,9 +151,12 @@ export const StandupWizard = () => {
       <Box
         width="100%"
         px={2.5}
-        py={3}
+        py={2}
         sx={{
-          minHeight: "100vh",
+          height: "100dvh",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
           background: `
             radial-gradient(circle at 12% 12%, ${withAlpha(selectedShade.light, 0.22)} 0, transparent 34%),
             radial-gradient(circle at 88% 8%, rgba(141, 174, 207, 0.34) 0, transparent 32%),
@@ -171,6 +170,7 @@ export const StandupWizard = () => {
             maxWidth: "min(96vw, 3200px)",
             margin: "0 auto",
             width: "100%",
+            flexShrink: 0,
           }}
         >
           <StandupWizardHeader
@@ -184,7 +184,7 @@ export const StandupWizard = () => {
             activeStep={currentStep}
             alternativeLabel={true}
             sx={{
-              mb: 3,
+              mb: 2,
               "& .MuiStepIcon-root": {
                 fontSize: 34,
               },
@@ -220,19 +220,22 @@ export const StandupWizard = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            overflow: "visible",
-            height: contentHeight,
+            overflow: "hidden",
+            minHeight: 0,
+            flex: 1,
             width: "100%",
           }}
         >
           <Box
             sx={{
+              display: "flex",
+              flexDirection: "column",
               overflowY: "auto",
               overflowX: "hidden",
               padding: 3,
               width: "100%",
               maxWidth: "min(96vw, 3120px)",
-              margin: "auto",
+              margin: "0 auto",
               background:
                 `linear-gradient(145deg, rgba(255,255,255,0.96), ${withAlpha(selectedShade.light, 0.14)})`,
               borderRadius: 6,
@@ -240,13 +243,16 @@ export const StandupWizard = () => {
               boxShadow:
                 "0 28px 50px -36px rgba(19, 41, 61, 0.38), 0 8px 18px -14px rgba(19, 41, 61, 0.22)",
               height: "100%",
+              minHeight: 0,
               WebkitOverflowScrolling: "touch",
             }}
           >
-            <StepContent />
+            <Box sx={{ flex: 1, minHeight: 0 }}>
+              <StepContent />
+            </Box>
           </Box>
         </Box>
-        <Box marginTop={3}>
+        <Box marginTop={2} flexShrink={0}>
           <StandupWizardFooter
             currentStep={currentStep}
             steps={steps}

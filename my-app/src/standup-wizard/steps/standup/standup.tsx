@@ -111,8 +111,10 @@ export const Standup = (): ReactElement => {
       gap={2}
       flexDirection="row"
       alignItems="stretch"
+      height="100%"
+      minHeight={0}
     >
-      <Box flex={1} width="100%" minWidth={0}>
+      <Box flex={1} width="100%" minWidth={0} minHeight={0}>
         <EmployeeList
           hideEmployeesSetting={settings.hideEmployees}
           teamMembers={selectedTeamMembers}
@@ -132,7 +134,7 @@ export const Standup = (): ReactElement => {
         />
       </Box>
       {jiraSection}
-      <Box flex={1} width="100%" minWidth={0}>
+      <Box flex={1} width="100%" minWidth={0} minHeight={0}>
         <Box display="flex" flexDirection="column" gap={2}>
           {questionOfDay.includeQuestion && questionOfDay.isDuringStandup && (
             <Box

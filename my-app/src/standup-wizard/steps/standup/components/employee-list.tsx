@@ -80,12 +80,12 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
   };
 
   return (
-    <Box>
+    <Box display="flex" flexDirection="column" height="100%" minHeight={0}>
       <Box
         ref={scrollContainerRef}
         borderRadius={3}
         overflow="auto"
-        sx={{ height: { xs: 360, md: 500 } }}
+        sx={{ flex: 1, minHeight: 0 }}
       >
         {teamMembers.map((teamMember) => {
           const isSelected = teamMember.id === selectedEmployeeId;
@@ -199,7 +199,7 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
           );
         })}
       </Box>
-      <Box flex={1} marginTop={2}>
+      <Box marginTop={2} flexShrink={0}>
         <Box display="flex" gap={5} justifyContent="center">
           <Button variant="outlined" onClick={onBack} disabled={backIsDisabled}>
             <ArrowBack />
