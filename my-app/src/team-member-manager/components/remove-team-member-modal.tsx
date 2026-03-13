@@ -19,10 +19,31 @@ export const RemoveTeamMemberModal = (
   const { palette } = useTheme();
   return (
     <Modal open={isOpen} onClose={onClose}>
-      <ModalWrapper
+        <ModalWrapper
         onClose={onClose}
         headerName="Remove Team Member"
-        modalHeight={500}
+        modalHeight={560}
+        containerSx={{
+          borderRadius: 5,
+          border: "1px solid rgba(19, 41, 61, 0.12)",
+          boxShadow: "0 28px 60px rgba(19, 41, 61, 0.22)",
+          overflow: "hidden",
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,242,232,0.95))",
+        }}
+        headerSx={{
+          background:
+            "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(244,238,227,0.9))",
+          borderBottom: "1px solid rgba(19, 41, 61, 0.12)",
+          p: 2.25,
+        }}
+        titleSx={{
+          fontFamily: '"Newsreader", serif',
+          fontSize: 36,
+          fontWeight: 700,
+          color: "text.primary",
+          lineHeight: 1,
+        }}
         modalIcon={
           <PersonRemove
             sx={{ mr: 1, fontSize: 45, color: palette.primary.main }}
@@ -30,13 +51,14 @@ export const RemoveTeamMemberModal = (
         }
       >
         <Box
-          marginTop={5}
           sx={{
+            marginTop: 5,
             flexDirection: "column",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: .5,
+            gap: 1,
+            px: 4,
           }}
         >
           <Warning sx={{ fontSize: 85, color: palette.warning.main }} />
@@ -46,12 +68,15 @@ export const RemoveTeamMemberModal = (
           <Box
             sx={{
               marginTop: 4,
-              backgroundColor: palette.grey[100],
-              borderRadius: 3,
-              padding: 2,
+              background:
+                "linear-gradient(145deg, rgba(255,255,255,0.96), rgba(244,238,227,0.75))",
+              borderRadius: 3.5,
+              border: "1px solid rgba(19, 41, 61, 0.12)",
+              padding: 2.5,
               display: "flex",
               gap: 1,
-              width: "45%",
+              width: "100%",
+              maxWidth: 460,
             }}
           >
             <Avatar
@@ -71,13 +96,9 @@ export const RemoveTeamMemberModal = (
                 color={palette.common.black}
               >
                 {`${selectedTeamMember.firstName} ${selectedTeamMember.lastName}`}
-                <Typography
-                  fontSize={16}
-                  fontWeight={600}
-                  color={palette.grey[800]}
-                >
-                  {selectedTeamMember.position}
-                </Typography>
+              </Typography>
+              <Typography fontSize={16} fontWeight={600} color={palette.grey[800]}>
+                {selectedTeamMember.position}
               </Typography>
             </Box>
           </Box>
@@ -87,6 +108,25 @@ export const RemoveTeamMemberModal = (
           onCancel={onClose}
           isPrimaryDisabled={false}
           primaryButtonLabel="Remove Team Member"
+          containerSx={{
+            gap: 1.5,
+            p: 2.5,
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.76), rgba(244,238,227,0.78))",
+          }}
+          cancelButtonSx={{
+            fontSize: 15.5,
+            borderRadius: 999,
+            px: 2,
+          }}
+          primaryButtonSx={{
+            minWidth: 220,
+            height: 44,
+            borderRadius: 999,
+            fontSize: 16,
+            fontWeight: 700,
+            px: 3,
+          }}
         />
       </ModalWrapper>
     </Modal>

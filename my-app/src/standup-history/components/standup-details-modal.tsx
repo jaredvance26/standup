@@ -45,15 +45,37 @@ export const StandupDetailsModal = ({
           <History sx={{ mr: 1, fontSize: 45, color: palette.primary.main }} />
         }
         onClose={onClose}
+        modalHeight={680}
+        containerSx={{
+          borderRadius: 5,
+          border: "1px solid rgba(19, 41, 61, 0.12)",
+          boxShadow: "0 28px 60px rgba(19, 41, 61, 0.22)",
+          overflow: "hidden",
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,242,232,0.95))",
+        }}
+        headerSx={{
+          background:
+            "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(244,238,227,0.9))",
+          borderBottom: "1px solid rgba(19, 41, 61, 0.12)",
+          p: 2.25,
+        }}
+        titleSx={{
+          fontFamily: '"Newsreader", serif',
+          fontSize: 34,
+          fontWeight: 700,
+          color: "text.primary",
+          lineHeight: 1.1,
+        }}
       >
-        <Box sx={{ p: 2, overflowY: "auto", maxHeight: 520 }}>
+        <Box sx={{ p: { xs: 2, md: 3 }, overflowY: "auto", maxHeight: 560 }}>
           {standup && (
             <>
               <Box
                 display="flex"
                 flexDirection="column"
                 alignItems="end"
-                marginBlock={2}
+                marginBottom={2}
               >
                 <IconButton
                   aria-label="Download standup"
@@ -73,9 +95,9 @@ export const StandupDetailsModal = ({
                     });
                   }}
                   sx={{
-                    border: 1,
-                    borderColor: "divider",
-                    borderRadius: 2,
+                    border: "1px solid rgba(19, 41, 61, 0.15)",
+                    borderRadius: 2.5,
+                    backgroundColor: "rgba(255,255,255,0.88)",
                   }}
                 >
                   <Download />
@@ -84,7 +106,13 @@ export const StandupDetailsModal = ({
               <TableContainer
                 className="standup-details-table-container"
                 component={Paper}
-                sx={{ backgroundColor: "#fff" }}
+                sx={{
+                  backgroundColor: "#fff",
+                  border: "1px solid rgba(19, 41, 61, 0.1)",
+                  borderRadius: 3,
+                  boxShadow:
+                    "0 18px 34px -26px rgba(19, 41, 61, 0.45), 0 2px 8px rgba(19, 41, 61, 0.08)",
+                }}
               >
                 <Table stickyHeader>
                   <TableHead>

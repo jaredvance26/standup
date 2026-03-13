@@ -1,16 +1,27 @@
 import { ReactElement } from "react";
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Button, SxProps, Theme, useTheme } from "@mui/material";
 
 interface ModalFooterProps {
   onPrimaryClick: () => void;
   onCancel: () => void;
   isPrimaryDisabled: boolean;
   primaryButtonLabel?: string;
+  containerSx?: SxProps<Theme>;
+  cancelButtonSx?: SxProps<Theme>;
+  primaryButtonSx?: SxProps<Theme>;
 }
 export const ModalFooter = (
   props: ModalFooterProps
 ): ReactElement => {
-  const { onPrimaryClick, onCancel, isPrimaryDisabled, primaryButtonLabel="Save" } = props;
+  const {
+    onPrimaryClick,
+    onCancel,
+    isPrimaryDisabled,
+    primaryButtonLabel = "Save",
+    containerSx,
+    cancelButtonSx,
+    primaryButtonSx,
+  } = props;
   const { palette } = useTheme();
 
   return (
@@ -27,13 +38,14 @@ export const ModalFooter = (
         backgroundColor: palette.grey[50],
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
+        ...containerSx,
       }}
     >
       <Button
         variant="text"
         color="primary"
         onClick={onCancel}
-        sx={{ mr: 1, fontSize: 16 }}
+        sx={{ mr: 1, fontSize: 16, ...cancelButtonSx }}
       >
         Cancel
       </Button>
@@ -41,7 +53,7 @@ export const ModalFooter = (
         variant="contained"
         color="primary"
         onClick={onPrimaryClick}
-        sx={{ fontSize: 18, borderRadius: 3 }}
+        sx={{ fontSize: 18, borderRadius: 3, ...primaryButtonSx }}
         disabled={isPrimaryDisabled}
       >
         {primaryButtonLabel}

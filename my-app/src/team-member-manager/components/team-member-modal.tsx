@@ -230,7 +230,7 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
       modalIcon: (
         <PersonAdd sx={{ mr: 1, fontSize: 45, color: palette.primary.main }} />
       ),
-      actionButtonLabel: "Add Team Member",
+      actionButtonLabel: "Create Member",
     };
   };
   const { headerName, modalIcon, actionButtonLabel } = teamMemberModalData();
@@ -294,16 +294,38 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
           headerName={headerName}
           modalIcon={modalIcon}
           onClose={onClose}
-          modalHeight={600}
+          modalHeight={660}
+          containerSx={{
+            borderRadius: 5,
+            border: "1px solid rgba(19, 41, 61, 0.12)",
+            boxShadow: "0 28px 60px rgba(19, 41, 61, 0.22)",
+            overflow: "hidden",
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,242,232,0.95))",
+          }}
+          headerSx={{
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(244,238,227,0.9))",
+            borderBottom: "1px solid rgba(19, 41, 61, 0.12)",
+            p: 2.25,
+          }}
+          titleSx={{
+            fontFamily: '"Newsreader", serif',
+            fontSize: 38,
+            fontWeight: 700,
+            color: "text.primary",
+            lineHeight: 1,
+          }}
         >
           <Box
-            marginBottom={3.5}
             sx={{
-              p: 2,
+              p: { xs: 3, md: 4 },
               display: "flex",
               flexDirection: "column",
-              gap: 3,
-              maxWidth: "65%",
+              gap: 3.5,
+              width: "100%",
+              maxWidth: 700,
+              margin: "0 auto",
             }}
           >
           {/* First Name - Required */}
@@ -321,7 +343,8 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
               size="small"
               sx={{
                 "& .MuiOutlinedInput-root": {
-                  borderRadius: 3,
+                  borderRadius: 4,
+                  backgroundColor: "rgba(255, 255, 255, 0.94)",
                 },
               }}
             />
@@ -342,7 +365,8 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
               size="small"
               sx={{
                 "& .MuiOutlinedInput-root": {
-                  borderRadius: 3,
+                  borderRadius: 4,
+                  backgroundColor: "rgba(255, 255, 255, 0.94)",
                 },
               }}
             />
@@ -361,7 +385,8 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
               size="small"
               sx={{
                 "& .MuiOutlinedInput-root": {
-                  borderRadius: 3,
+                  borderRadius: 4,
+                  backgroundColor: "rgba(255, 255, 255, 0.94)",
                 },
               }}
             />
@@ -381,7 +406,8 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
               type="password"
               sx={{
                 "& .MuiOutlinedInput-root": {
-                  borderRadius: 3,
+                  borderRadius: 4,
+                  backgroundColor: "rgba(255, 255, 255, 0.94)",
                 },
               }}
             />
@@ -416,11 +442,17 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
                 <Button
                   variant="outlined"
                   onClick={() => fileInputRef.current?.click()}
+                  sx={{ borderRadius: 999 }}
                 >
                   Upload
                 </Button>
                 {photoPreviewUrl && (
-                  <Button variant="text" color="error" onClick={handleRemovePhoto}>
+                  <Button
+                    variant="text"
+                    color="error"
+                    onClick={handleRemovePhoto}
+                    sx={{ borderRadius: 999 }}
+                  >
                     Remove
                   </Button>
                 )}
@@ -441,6 +473,30 @@ export const TeamMemberModal = (props: TeamMemberModalProps): ReactElement => {
             onPrimaryClick={handleSubmit}
             isPrimaryDisabled={!firstName || !lastName}
             primaryButtonLabel={actionButtonLabel}
+            containerSx={{
+              gap: 1.5,
+              p: 2.5,
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.76), rgba(244,238,227,0.78))",
+            }}
+            cancelButtonSx={{
+              fontSize: 15.5,
+              borderRadius: 999,
+              px: 2,
+            }}
+            primaryButtonSx={{
+              minWidth: 210,
+              minHeight: 46,
+              borderRadius: 999,
+              fontSize: 16.5,
+              fontWeight: 700,
+              px: 3,
+              letterSpacing: "0.02em",
+              "&.Mui-disabled": {
+                color: "rgba(19, 41, 61, 0.58)",
+                backgroundColor: "rgba(19, 41, 61, 0.16)",
+              },
+            }}
           />
         </ModalWrapper>
         <Dialog

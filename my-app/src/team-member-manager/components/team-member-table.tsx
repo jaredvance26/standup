@@ -49,57 +49,64 @@ export const TeamMemberTable = (): ReactElement => {
 
   return (
     <Box marginTop={3} sx={{ width: "100%" }}>
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{
+          borderRadius: 3,
+          border: "1px solid rgba(19, 41, 61, 0.1)",
+          boxShadow: "none",
+        }}
+      >
         <Table aria-label="team members table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
                 <Typography
-                  fontSize={20}
+                  fontSize={18}
                   fontWeight={700}
-                  color={palette.grey[800]}
+                  color={palette.common.white}
                 >
                   Photo
                 </Typography>
               </TableCell>
-              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
                 <Typography
-                  fontSize={20}
+                  fontSize={18}
                   fontWeight={700}
-                  color={palette.grey[800]}
+                  color={palette.common.white}
                 >
                   First Name
                 </Typography>
               </TableCell>
-              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
                 <Typography
-                  fontSize={20}
+                  fontSize={18}
                   fontWeight={700}
-                  color={palette.grey[800]}
+                  color={palette.common.white}
                 >
                   Last Name
                 </Typography>
               </TableCell>
-              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
                 <Typography
-                  fontSize={20}
+                  fontSize={18}
                   fontWeight={700}
-                  color={palette.grey[800]}
+                  color={palette.common.white}
                 >
                   Position
                 </Typography>
               </TableCell>
-              <TableCell sx={{ backgroundColor: palette.grey[400] }}>
+              <TableCell sx={{ backgroundColor: palette.primary.dark }}>
                 <Typography
-                  fontSize={20}
+                  fontSize={18}
                   fontWeight={700}
-                  color={palette.grey[800]}
+                  color={palette.common.white}
                 >
                   Jira ID
                 </Typography>
               </TableCell>
               <TableCell
-                sx={{ backgroundColor: palette.grey[400] }}
+                sx={{ backgroundColor: palette.primary.dark }}
                 align="right"
               ></TableCell>
             </TableRow>
@@ -110,8 +117,11 @@ export const TeamMemberTable = (): ReactElement => {
                 key={member.id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
-                  "& .action-buttons": { opacity: 0 },
+                  "& .action-buttons": { opacity: 0.92 },
                   "&:hover .action-buttons": { opacity: 1 },
+                  "&:hover": {
+                    backgroundColor: "rgba(25, 118, 210, 0.05)",
+                  },
                   transition: "all 0.2s",
                 }}
               >
@@ -120,28 +130,32 @@ export const TeamMemberTable = (): ReactElement => {
                     src={member.photoUrl || undefined}
                     alt={`${member.firstName} ${member.lastName}`}
                     sx={{
-                      width: 42,
-                      height: 42,
+                      width: 46,
+                      height: 46,
                       bgcolor: palette.primary.main,
-                      borderRadius: 2,
+                      borderRadius: 2.5,
                     }}
                   >
                     {member.firstName[0]}
                   </Avatar>
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  <Typography fontSize={18}>{member.firstName}</Typography>
+                  <Typography fontSize={17} fontWeight={600}>
+                    {member.firstName}
+                  </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography fontSize={18}>{member.lastName}</Typography>
+                  <Typography fontSize={17} fontWeight={600}>
+                    {member.lastName}
+                  </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography fontSize={18}>
+                  <Typography fontSize={16.5}>
                     {member.position || "--"}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography fontSize={18}>
+                  <Typography fontSize={16.5} sx={{ letterSpacing: "0.04em" }}>
                     {maskJiraId(member.jiraId)}
                   </Typography>
                 </TableCell>
@@ -161,6 +175,15 @@ export const TeamMemberTable = (): ReactElement => {
                           setIsTeamMemberModalOpen(true);
                         }}
                         size="small"
+                        sx={{
+                          color: palette.primary.dark,
+                          backgroundColor: "rgba(25, 118, 210, 0.16)",
+                          border: "1px solid rgba(25, 118, 210, 0.35)",
+                          "&:hover": {
+                            backgroundColor: "rgba(25, 118, 210, 0.25)",
+                            borderColor: "rgba(25, 118, 210, 0.55)",
+                          },
+                        }}
                       >
                         <EditIcon fontSize="medium" />
                       </IconButton>
@@ -172,6 +195,15 @@ export const TeamMemberTable = (): ReactElement => {
                           setIsRemoveTeamMemberOpen(true);
                         }}
                         size="small"
+                        sx={{
+                          color: palette.error.dark,
+                          backgroundColor: "rgba(211, 47, 47, 0.14)",
+                          border: "1px solid rgba(211, 47, 47, 0.33)",
+                          "&:hover": {
+                            backgroundColor: "rgba(211, 47, 47, 0.22)",
+                            borderColor: "rgba(211, 47, 47, 0.5)",
+                          },
+                        }}
                       >
                         <DeleteIcon fontSize="medium" />
                       </IconButton>

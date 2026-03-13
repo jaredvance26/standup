@@ -44,8 +44,18 @@ export const SelectableBox = (props: SelectableBoxProps) => {
         alignItems: "center",
         padding: 3.5,
         cursor: "pointer",
-        backgroundColor: selected ? palette.grey[300] : palette.common.white,
-        transition: "background-color 0.3s ease",
+        backgroundColor: selected
+          ? "rgba(19, 41, 61, 0.14)"
+          : "rgba(255, 255, 255, 0.38)",
+        border: "1px solid rgba(19, 41, 61, 0.14)",
+        boxShadow: "none",
+        transition: "background-color 0.2s ease, border-color 0.2s ease",
+        "&:hover": {
+          backgroundColor: selected
+            ? "rgba(19, 41, 61, 0.18)"
+            : "rgba(255, 255, 255, 0.52)",
+          borderColor: "rgba(19, 41, 61, 0.24)",
+        },
       }}
     >
       <Avatar

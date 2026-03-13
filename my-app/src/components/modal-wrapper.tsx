@@ -1,5 +1,12 @@
 import { forwardRef, ReactElement, ReactNode } from "react";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  SxProps,
+  Theme,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { Close } from "@mui/icons-material";
 
 interface ModalWrapperInterface {
@@ -7,13 +14,26 @@ interface ModalWrapperInterface {
   headerName: string;
   modalIcon: ReactElement;
   modalHeight?: number;
+  containerSx?: SxProps<Theme>;
+  headerSx?: SxProps<Theme>;
+  titleSx?: SxProps<Theme>;
+  closeButtonSx?: SxProps<Theme>;
   onClose: () => void;
 }
 
 export const ModalWrapper = forwardRef<HTMLDivElement, ModalWrapperInterface>(
   (props, ref): ReactElement => {
-    const { children, headerName, modalIcon, modalHeight = 600, onClose } =
-      props;
+    const {
+      children,
+      headerName,
+      modalIcon,
+      modalHeight = 600,
+      containerSx,
+      headerSx,
+      titleSx,
+      closeButtonSx,
+      onClose,
+    } = props;
     const { palette } = useTheme();
 
     return (
@@ -33,6 +53,7 @@ export const ModalWrapper = forwardRef<HTMLDivElement, ModalWrapperInterface>(
           p: 0,
           display: "flex",
           flexDirection: "column",
+          ...containerSx,
         }}
       >
         <Box
@@ -47,6 +68,7 @@ export const ModalWrapper = forwardRef<HTMLDivElement, ModalWrapperInterface>(
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            ...headerSx,
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -54,7 +76,7 @@ export const ModalWrapper = forwardRef<HTMLDivElement, ModalWrapperInterface>(
             <Typography
               fontSize={32}
               fontWeight={600}
-              sx={{ color: palette.primary.main }}
+              sx={{ color: palette.primary.main, ...titleSx }}
             >
               {headerName}
             </Typography>
@@ -66,6 +88,7 @@ export const ModalWrapper = forwardRef<HTMLDivElement, ModalWrapperInterface>(
               "&:hover": {
                 color: palette.primary.dark,
               },
+              ...closeButtonSx,
             }}
           >
             <Close sx={{ fontSize: 28 }} />
