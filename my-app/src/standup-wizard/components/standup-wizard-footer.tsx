@@ -17,15 +17,21 @@ export const StandupWizardFooter = (
   const isNextDisabled = !handleNext;
 
   return (
-    <Box display='flex' justifySelf='center' sx={{ mt: 2 }}>
-      <Button disabled={currentStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+    <Box display="flex" justifySelf="center" sx={{ mt: 2, gap: 1.5 }}>
+      <Button
+        disabled={currentStep === 0}
+        onClick={handleBack}
+        variant="outlined"
+        sx={{ minWidth: 120 }}
+      >
         Back
       </Button>
-      <Button 
-        size='large' 
-        variant="contained" 
+      <Button
+        size="large"
+        variant="contained"
         onClick={handleNext}
         disabled={isNextDisabled}
+        sx={{ minWidth: 140 }}
       >
         {primaryFooterText}
       </Button>

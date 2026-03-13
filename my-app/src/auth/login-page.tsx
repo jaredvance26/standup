@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "./auth-store";
@@ -17,63 +17,80 @@ export const LoginPage: React.FC = () => {
   const [signupModalOpen, setSignupModalOpen] = useState<boolean>(false);
 
   return (
-    <Box>
+    <Box sx={{ minHeight: "100vh", position: "relative", overflow: "hidden" }}>
       <MessageAlertHost />
       <Box
-        display="flex"
-        alignItems="center"
-        gap={2}
-        marginY={3}
-        justifyContent="center"
-      >
-        <img src={roundTable} alt="Logo" />
-        <Typography
-          fontFamily='"Raleway", "Roboto", "Helvetica", "Arial", sans-serif'
-          fontSize={64}
-          fontWeight={800}
-        >
-          Standup
-        </Typography>
-      </Box>
+        sx={{
+          position: "absolute",
+          width: 340,
+          height: 340,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, #ffd6a6, transparent 68%)",
+          top: -70,
+          right: -110,
+          pointerEvents: "none",
+        }}
+      />
       <Box
         sx={{
           width: "100%",
-          height: "100vh",
+          minHeight: "100vh",
           display: "flex",
+          justifyContent: "center",
           alignItems: "center",
-          flexDirection: "column",
-          backgroundColor: "#F6F6F4",
+          background:
+            "linear-gradient(150deg, rgba(255,253,248,0.92), rgba(245,238,226,0.9))",
+          px: 2,
         }}
       >
-        <Box
-          component="form"
-          padding={5}
-          borderRadius={3}
-          marginTop={10}
+        <Paper
+          elevation={0}
           sx={{
-            width: "75%",
-            maxWidth: "400px",
+            width: "100%",
+            maxWidth: "500px",
             display: "flex",
             flexDirection: "column",
-            gap: 2,
-            backgroundColor: "white",
+            gap: 2.5,
+            p: { xs: 3, md: 5 },
+            borderRadius: 6,
+            border: "1px solid rgba(19, 41, 61, 0.12)",
+            boxShadow: "0 24px 50px rgba(19, 41, 61, 0.12)",
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,246,238,0.96))",
           }}
         >
-          <Typography
-            fontFamily='"Raleway", "Roboto", "Helvetica", "Arial", sans-serif'
-            fontSize={32}
-            textAlign="center"
-            fontWeight={600}
-          >
+          <Box display="flex" alignItems="center" gap={2} justifyContent="center">
+            <img src={roundTable} alt="Logo" style={{ width: 56, height: 56 }} />
+            <Box>
+              <Typography
+                fontFamily='"Newsreader", serif'
+                fontSize={{ xs: 38, md: 44 }}
+                lineHeight={1}
+                fontWeight={700}
+              >
+                Standup
+              </Typography>
+              <Typography
+                fontSize={14}
+                letterSpacing="0.08em"
+                textTransform="uppercase"
+                color="text.secondary"
+              >
+                Daily Team Pulse
+              </Typography>
+            </Box>
+          </Box>
+          <Typography fontSize={20} textAlign="center" fontWeight={600}>
             Welcome Back
           </Typography>
           <TextField
             label="Email"
             value={email}
             onChange={(e) => setAuthDataAction({ email: e.target.value })}
+            autoComplete="email"
             sx={{
               "& .MuiOutlinedInput-root": {
-                borderRadius: 3,
+                borderRadius: 4,
               },
             }}
           />
@@ -82,9 +99,10 @@ export const LoginPage: React.FC = () => {
             type="password"
             value={password}
             onChange={(e) => setAuthDataAction({ password: e.target.value })}
+            autoComplete="current-password"
             sx={{
               "& .MuiOutlinedInput-root": {
-                borderRadius: 3,
+                borderRadius: 4,
               },
             }}
           />
@@ -104,12 +122,20 @@ export const LoginPage: React.FC = () => {
               variant="contained"
               color="primary"
               sx={{
-                borderRadius: 3,
-                width: "50%",
+                borderRadius: 999,
+                width: "60%",
                 margin: "auto",
-                height: "45px",
+                height: "48px",
                 marginTop: 2,
-                fontSize: 18,
+                fontSize: 17,
+                color: "#ffffff",
+                backgroundImage:
+                  "linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark))",
+                "&.Mui-disabled": {
+                  color: "rgba(255,255,255,0.82)",
+                  backgroundImage: "none",
+                  backgroundColor: "rgba(15, 118, 110, 0.45)",
+                },
               }}
             >
               Login
@@ -117,7 +143,6 @@ export const LoginPage: React.FC = () => {
           )}
           <Box display="flex" alignItems="center" justifyContent="center">
             <Typography
-              fontFamily='"Raleway", "Roboto", "Helvetica", "Arial", sans-serif'
               fontSize={16}
             >
               Don't have an account?
@@ -128,14 +153,13 @@ export const LoginPage: React.FC = () => {
               sx={{
                 textTransform: "none",
                 fontSize: 16,
-                fontFamily:
-                  '"Raleway", "Roboto", "Helvetica", "Arial", sans-serif',
+                fontWeight: 700,
               }}
             >
               Sign up
             </Button>
           </Box>
-        </Box>
+        </Paper>
       </Box>
       <SignupModal
         isOpen={signupModalOpen}

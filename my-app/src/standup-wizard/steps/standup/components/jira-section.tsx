@@ -6,7 +6,6 @@ import { format, parseISO } from "date-fns";
 import { JiraIssues } from "./jira-issues";
 import { JiraIssue, Sprint } from "../../../types/jira";
 import { useStandupWizardStore } from "../../../standup-wizard-store";
-import { BlankState } from "../../../../components";
 
 interface JiraSectionProps {
   sprint: Sprint;
@@ -21,7 +20,7 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
   const endDate = parseISO(sprint.endDate);
 
   return (
-    <Box flex={1} alignSelf="start">
+    <Box flex={1} width="100%" alignSelf="start" minWidth={0}>
       <Box display="flex" flexDirection="column" gap={2}>
         <Box
           sx={{
@@ -67,18 +66,45 @@ export const JiraSection = (props: JiraSectionProps): ReactElement => {
             </Typography>
           </Box>
         </Box>
-        <Box height="400px" overflow="auto">
+        <Box sx={{ height: 400, overflow: "auto" }}>
           {issues.length ? (
             <JiraIssues
               issues={issues}
               jiraUrl={settings.jiraSettings.jiraUrl || ""}
             />
           ) : (
-            <BlankState
-              icon={<Coffee sx={{ fontSize: 100 }} />}
-              title="Taking a breather from tickets"
-              description="Sometimes the best work happens outside of Jira"
-            />
+            <Box
+              sx={{
+                height: "100%",
+                borderRadius: 3,
+                border: `1px dashed ${palette.grey[400]}`,
+                background:
+                  "linear-gradient(145deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45))",
+                px: 3,
+                py: 2.5,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
+              <Coffee sx={{ fontSize: 56, color: palette.grey[500], mb: 1 }} />
+              <Typography fontSize={30} lineHeight={1} mb={1}>
+                ...
+              </Typography>
+              <Typography fontSize={28} fontWeight={700} color={palette.grey[700]}>
+                Taking a breather from tickets
+              </Typography>
+              <Typography
+                fontSize={15}
+                color={palette.grey[600]}
+                maxWidth={320}
+                mt={0.75}
+              >
+                Sometimes the best work happens outside of Jira
+              </Typography>
+            </Box>
           )}
         </Box>
       </Box>

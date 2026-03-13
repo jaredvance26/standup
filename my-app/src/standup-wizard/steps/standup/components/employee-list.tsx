@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import { ArrowBack, ArrowForward, VisibilityOff } from "@mui/icons-material";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
@@ -85,7 +85,7 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
         ref={scrollContainerRef}
         borderRadius={3}
         overflow="auto"
-        height="500px"
+        sx={{ height: { xs: 360, md: 500 } }}
       >
         {teamMembers.map((teamMember) => {
           const isSelected = teamMember.id === selectedEmployeeId;
@@ -99,7 +99,7 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
               sx={{ cursor: "pointer" }}
             >
               <Paper
-                elevation={3}
+                elevation={0}
                 sx={{
                   borderRadius: 3,
                   backgroundColor: isSelected
@@ -108,6 +108,9 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                     ? palette.common.white
                     : palette.grey[300],
                   minHeight: "70px",
+                  border: "1px solid rgba(19, 41, 61, 0.1)",
+                  boxShadow:
+                    "0 12px 24px -20px rgba(19, 41, 61, 0.45), 0 2px 6px rgba(19, 41, 61, 0.08)",
                 }}
               >
                 {teamMember.hasBeenViewed || !hideEmployeesSetting ? (
@@ -153,13 +156,43 @@ export const EmployeeList = (props: EmployeeListProps): ReactElement => {
                     </Box>
                   </Box>
                 ) : (
-                  // Render a gray box if the team member hasn't been viewed yet
                   <Box
-                    p={1}
-                    height="100%"
-                    width="100%"
-                    sx={{ backgroundColor: palette.grey[300], borderRadius: 3 }}
-                  ></Box>
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    p={1.5}
+                    minHeight="70px"
+                    sx={{
+                      borderRadius: 3,
+                      background:
+                        "linear-gradient(135deg, rgba(0,0,0,0.04), rgba(0,0,0,0.08))",
+                      border: "1px dashed rgba(0, 0, 0, 0.16)",
+                    }}
+                  >
+                    <Box display="flex" alignItems="center" gap={1.5}>
+                      <Box
+                        sx={{
+                          width: 50,
+                          height: 50,
+                          borderRadius: 3,
+                          backgroundColor: "rgba(255,255,255,0.45)",
+                        }}
+                      />
+                      <Box>
+                        <Typography
+                          variant="subtitle2"
+                          fontWeight={700}
+                          color={palette.grey[700]}
+                        >
+                          Hidden Until Selected
+                        </Typography>
+                        <Typography variant="body2" color={palette.grey[600]}>
+                          Select with arrows or click to reveal
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <VisibilityOff sx={{ color: palette.grey[600] }} />
+                  </Box>
                 )}
               </Paper>
             </Box>

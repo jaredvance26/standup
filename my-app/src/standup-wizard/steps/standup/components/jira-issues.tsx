@@ -49,7 +49,12 @@ export const JiraIssues = (props: JiraIssuesProps): ReactElement => {
             }}
           >
             <Box sx={{ width: "100%", maxWidth: "100%", mb: 2 }}>
-              <Typography fontSize={14} fontWeight={500} gutterBottom>
+              <Typography
+                component="div"
+                fontSize={14}
+                fontWeight={500}
+                gutterBottom
+              >
                 <Box display="flex" justifyContent="space-between" alignItems="flex-start" gap={1}>
                   <Box
                     component="span"
