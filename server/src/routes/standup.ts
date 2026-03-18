@@ -1,9 +1,17 @@
 import express from "express";
 import StandupService from "../services/standup";
+import {
+  authenticateToken,
+  requireOwnUserIdFromParams,
+} from "../middleware/auth";
 
 const router = express.Router();
 
-router.get("/user/:userId/standups", async (req, res) => {
+router.get(
+  "/user/:userId/standups",
+  authenticateToken,
+  requireOwnUserIdFromParams,
+  async (req, res) => {
   const { userId } = req.params;
 
   try {
@@ -14,7 +22,11 @@ router.get("/user/:userId/standups", async (req, res) => {
   }
 });
 
-router.post("/user/:userId/standups", async (req, res) => {
+router.post(
+  "/user/:userId/standups",
+  authenticateToken,
+  requireOwnUserIdFromParams,
+  async (req, res) => {
   const { userId } = req.params;
   const { teamMembers, showStatusField } = req.body;
 
@@ -39,7 +51,11 @@ router.post("/user/:userId/standups", async (req, res) => {
   }
 });
 
-router.delete("/user/:userId/standups/:standupId", async (req, res) => {
+router.delete(
+  "/user/:userId/standups/:standupId",
+  authenticateToken,
+  requireOwnUserIdFromParams,
+  async (req, res) => {
   const { userId, standupId } = req.params;
 
   try {

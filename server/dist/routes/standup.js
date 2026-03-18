@@ -6,8 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.standupRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const standup_1 = __importDefault(require("../services/standup"));
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
-router.get("/user/:userId/standups", async (req, res) => {
+router.get("/user/:userId/standups", auth_1.authenticateToken, auth_1.requireOwnUserIdFromParams, async (req, res) => {
     const { userId } = req.params;
     try {
         const standups = await standup_1.default.getStandupsByUserId(userId);
@@ -17,7 +18,7 @@ router.get("/user/:userId/standups", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch standup history", details: error });
     }
 });
-router.post("/user/:userId/standups", async (req, res) => {
+router.post("/user/:userId/standups", auth_1.authenticateToken, auth_1.requireOwnUserIdFromParams, async (req, res) => {
     const { userId } = req.params;
     const { teamMembers, showStatusField } = req.body;
     if (!Array.isArray(teamMembers) || teamMembers.length === 0) {
@@ -38,7 +39,7 @@ router.post("/user/:userId/standups", async (req, res) => {
         res.status(500).json({ error: "Failed to save standup", details: error });
     }
 });
-router.delete("/user/:userId/standups/:standupId", async (req, res) => {
+router.delete("/user/:userId/standups/:standupId", auth_1.authenticateToken, auth_1.requireOwnUserIdFromParams, async (req, res) => {
     const { userId, standupId } = req.params;
     try {
         const deletedStandup = await standup_1.default.deleteStandupById(userId, standupId);

@@ -7,6 +7,7 @@ exports.teamMemberRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const cloudinary_1 = require("cloudinary");
 const teamMember_1 = require("../services/teamMember");
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
 const teamMemberService = new teamMember_1.TeamMemberService();
 const maxPhotoSizeInBytes = 2 * 1024 * 1024;
@@ -66,7 +67,7 @@ const deleteCloudinaryPhoto = async (photoPublicId) => {
     }
 };
 // Get all team members for a specific user
-router.get("/user/:userId/team-members", async (req, res) => {
+router.get("/user/:userId/team-members", auth_1.authenticateToken, auth_1.requireOwnUserIdFromParams, async (req, res) => {
     try {
         const { userId } = req.params;
         if (!userId) {
@@ -82,7 +83,7 @@ router.get("/user/:userId/team-members", async (req, res) => {
     }
 });
 // Create a new team member
-router.post("/team-member", async (req, res) => {
+router.post("/team-member", auth_1.authenticateToken, auth_1.requireOwnUserIdFromBody, async (req, res) => {
     let uploadedPhotoPublicId = null;
     try {
         const { firstName, lastName, position, jiraId, userId, photoDataUrl } = req.body;
@@ -124,7 +125,7 @@ router.post("/team-member", async (req, res) => {
     }
 });
 // Update a team member
-router.put("/team-member/:id", async (req, res) => {
+router.put("/team-member/:id", auth_1.authenticateToken, async (req, res) => {
     let uploadedNewPhotoPublicId = null;
     try {
         const updateData = {};
@@ -132,6 +133,12 @@ router.put("/team-member/:id", async (req, res) => {
         const existingTeamMember = await teamMemberService.getTeamMemberById(req.params.id);
         if (!existingTeamMember) {
             return res.status(404).json({ error: "Team member not found" });
+        }
+        if (!req.user?.userId || req.user.userId !== existingTeamMember.userId) {
+            return res.status(403).json({ error: "Access denied for team member" });
+        }
+        if (typeof userId !== "undefined" && userId !== req.user.userId) {
+            return res.status(403).json({ error: "Access denied for requested user" });
         }
         const photoFolderUserId = userId || existingTeamMember.userId;
         if (typeof firstName !== "undefined")
@@ -184,9 +191,15 @@ router.put("/team-member/:id", async (req, res) => {
     }
 });
 // Delete a team member
-router.delete("/team-member/:id", async (req, res) => {
+router.delete("/team-member/:id", auth_1.authenticateToken, async (req, res) => {
     try {
         const existingTeamMember = await teamMemberService.getTeamMemberById(req.params.id);
+        if (!existingTeamMember) {
+            return res.status(404).json({ error: "Team member not found" });
+        }
+        if (!req.user?.userId || req.user.userId !== existingTeamMember.userId) {
+            return res.status(403).json({ error: "Access denied for team member" });
+        }
         const deletedTeamMember = await teamMemberService.deleteTeamMember(req.params.id);
         if (!deletedTeamMember) {
             return res.status(404).json({ error: "Team member not found" });

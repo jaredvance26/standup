@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SettingsGETContract } from "./contracts";
+import { getAuthHeaders } from "../../api/auth-headers";
 
 const API_BASE_URL =
   process.env.REACT_APP_API_URL || "http://localhost:3001/api";
@@ -11,9 +12,7 @@ export const getUserSettings = async (
     const response = await axios.get<SettingsGETContract>(
       `${API_BASE_URL}/user/${userId}/settings`,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: getAuthHeaders(),
       }
     );
     return response.data;

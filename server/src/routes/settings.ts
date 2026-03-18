@@ -1,10 +1,18 @@
 import express from "express";
 import SettingsService from "../services/settings";
+import {
+  authenticateToken,
+  requireOwnUserIdFromParams,
+} from "../middleware/auth";
 
 const router = express.Router();
 
 // GET /api/user/:userId/settings - Fetch settings for a specific user
-router.get("/user/:userId/settings", async (req, res) => {
+router.get(
+  "/user/:userId/settings",
+  authenticateToken,
+  requireOwnUserIdFromParams,
+  async (req, res) => {
   const { userId } = req.params;
   try {
     const settings = await SettingsService.getSettingsByUserId(userId);
@@ -34,7 +42,11 @@ router.get("/user/:userId/settings", async (req, res) => {
 });
 
 // PUT /api/user/:userId/settings - Update settings for a specific user
-router.put("/user/:userId/settings", async (req, res) => {
+router.put(
+  "/user/:userId/settings",
+  authenticateToken,
+  requireOwnUserIdFromParams,
+  async (req, res) => {
   const { userId } = req.params;
   const update = req.body;
   try {

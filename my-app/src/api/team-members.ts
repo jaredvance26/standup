@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TeamMemberContract, TeamMemberUpsertContract } from "./contracts";
+import { getAuthHeaders } from "./auth-headers";
 
 const API_BASE_URL =
   process.env.REACT_APP_API_URL || "http://localhost:3001/api";
@@ -17,9 +18,7 @@ export const getTeamMembers = async (
     const response = await axios.get<TeamMemberContract[]>(
       `${API_BASE_URL}/user/${userId}/team-members`,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: getAuthHeaders(),
       }
     );
     return response.data;
@@ -49,9 +48,7 @@ export const createTeamMember = async (
       `${API_BASE_URL}/team-member`,
       teamMemberData,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: getAuthHeaders(),
       }
     );
     return response.data;
@@ -83,9 +80,7 @@ export const updateTeamMember = async (
       `${API_BASE_URL}/team-member/${id}`,
       updateData,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: getAuthHeaders(),
       }
     );
     return response.data;
@@ -114,9 +109,7 @@ export const deleteTeamMember = async (
     const response = await axios.delete<{ message: string }>(
       `${API_BASE_URL}/team-member/${id}`,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: getAuthHeaders(),
       }
     );
     return response.data;

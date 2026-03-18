@@ -1,35 +1,16 @@
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import accountService from "../services/account";
+import { authenticateToken, AuthenticatedRequest } from "../middleware/auth";
 
 const router = express.Router();
 const SECRET = process.env.SECRET;
-
 if (!SECRET) {
   throw new Error("JWT SECRET environment variable is not set");
 }
 
-// Middleware to verify JWT token
-const authenticateToken = (req: any, res: Response, next: Function) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1]; // Bearer TOKEN format
-
-  if (!token) {
-    return res.status(401).json({ error: "Authentication token is required" });
-  }
-
-  jwt.verify(token, SECRET, (err: any, decoded: any) => {
-    if (err) {
-      return res.status(403).json({ error: "Invalid or expired token" });
-    }
-
-    req.user = decoded; // Store decoded user data for routes to use
-    next();
-  });
-};
-
 // Update user email
-router.put("/email", authenticateToken, async (req: any, res: Response) => {
+router.put("/email", authenticateToken, async (req: AuthenticatedRequest, res: Response) => {
   const { userId, newEmail } = req.body;
 
   // Validate request body
@@ -41,7 +22,7 @@ router.put("/email", authenticateToken, async (req: any, res: Response) => {
 
   try {
     // Verify the user is updating their own account or is an admin
-    if (req.user.userId !== userId) {
+    if (req.user?.userId !== userId) {
       return res
         .status(403)
         .json({ error: "You can only update your own account" });
@@ -80,7 +61,7 @@ router.put("/email", authenticateToken, async (req: any, res: Response) => {
 });
 
 // Update user password
-router.put("/password", authenticateToken, async (req: any, res: Response) => {
+router.put("/password", authenticateToken, async (req: AuthenticatedRequest, res: Response) => {
   const { userId, currentPassword, newPassword } = req.body;
 
   // Validate request body
@@ -100,7 +81,7 @@ router.put("/password", authenticateToken, async (req: any, res: Response) => {
 
   try {
     // Verify the user is updating their own account
-    if (req.user.userId !== userId) {
+    if (req.user?.userId !== userId) {
       return res
         .status(403)
         .json({ error: "You can only update your own account" });

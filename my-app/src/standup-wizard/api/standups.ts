@@ -1,5 +1,6 @@
 import axios from "axios";
 import { CreateStandupPOSTContract, StandupGETContract } from "./contracts";
+import { getAuthHeaders } from "../../api/auth-headers";
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001/api";
 
@@ -11,9 +12,7 @@ export const createStandup = async (
     `${API_BASE_URL}/user/${userId}/standups`,
     standup,
     {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeaders(),
     }
   );
 
@@ -24,9 +23,7 @@ export const getStandups = async (userId: string): Promise<StandupGETContract[]>
   const response = await axios.get<StandupGETContract[]>(
     `${API_BASE_URL}/user/${userId}/standups`,
     {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeaders(),
     }
   );
 
@@ -40,9 +37,7 @@ export const deleteStandup = async (
   const response = await axios.delete<{ message: string }>(
     `${API_BASE_URL}/user/${userId}/standups/${standupId}`,
     {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeaders(),
     }
   );
 

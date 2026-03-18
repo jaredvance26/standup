@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.settingsRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const settings_1 = __importDefault(require("../services/settings"));
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
 // GET /api/user/:userId/settings - Fetch settings for a specific user
-router.get("/user/:userId/settings", async (req, res) => {
+router.get("/user/:userId/settings", auth_1.authenticateToken, auth_1.requireOwnUserIdFromParams, async (req, res) => {
     const { userId } = req.params;
     try {
         const settings = await settings_1.default.getSettingsByUserId(userId);
@@ -30,7 +31,7 @@ router.get("/user/:userId/settings", async (req, res) => {
     }
 });
 // PUT /api/user/:userId/settings - Update settings for a specific user
-router.put("/user/:userId/settings", async (req, res) => {
+router.put("/user/:userId/settings", auth_1.authenticateToken, auth_1.requireOwnUserIdFromParams, async (req, res) => {
     const { userId } = req.params;
     const update = req.body;
     try {

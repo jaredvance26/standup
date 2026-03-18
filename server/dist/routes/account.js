@@ -7,28 +7,14 @@ exports.accountRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const account_1 = __importDefault(require("../services/account"));
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
 const SECRET = process.env.SECRET;
 if (!SECRET) {
     throw new Error("JWT SECRET environment variable is not set");
 }
-// Middleware to verify JWT token
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1]; // Bearer TOKEN format
-    if (!token) {
-        return res.status(401).json({ error: "Authentication token is required" });
-    }
-    jsonwebtoken_1.default.verify(token, SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(403).json({ error: "Invalid or expired token" });
-        }
-        req.user = decoded; // Store decoded user data for routes to use
-        next();
-    });
-};
 // Update user email
-router.put("/email", authenticateToken, async (req, res) => {
+router.put("/email", auth_1.authenticateToken, async (req, res) => {
     const { userId, newEmail } = req.body;
     // Validate request body
     if (!userId || !newEmail) {
@@ -38,7 +24,7 @@ router.put("/email", authenticateToken, async (req, res) => {
     }
     try {
         // Verify the user is updating their own account or is an admin
-        if (req.user.userId !== userId) {
+        if (req.user?.userId !== userId) {
             return res
                 .status(403)
                 .json({ error: "You can only update your own account" });
@@ -67,7 +53,7 @@ router.put("/email", authenticateToken, async (req, res) => {
     }
 });
 // Update user password
-router.put("/password", authenticateToken, async (req, res) => {
+router.put("/password", auth_1.authenticateToken, async (req, res) => {
     const { userId, currentPassword, newPassword } = req.body;
     // Validate request body
     if (!userId || !currentPassword || !newPassword) {
@@ -84,7 +70,7 @@ router.put("/password", authenticateToken, async (req, res) => {
     }
     try {
         // Verify the user is updating their own account
-        if (req.user.userId !== userId) {
+        if (req.user?.userId !== userId) {
             return res
                 .status(403)
                 .json({ error: "You can only update your own account" });

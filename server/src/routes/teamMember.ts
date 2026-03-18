@@ -1,6 +1,12 @@
 import express from "express";
 import { v2 as cloudinary } from "cloudinary";
 import { TeamMemberService } from "../services/teamMember";
+import {
+  authenticateToken,
+  AuthenticatedRequest,
+  requireOwnUserIdFromBody,
+  requireOwnUserIdFromParams,
+} from "../middleware/auth";
 
 const router = express.Router();
 const teamMemberService = new TeamMemberService();
@@ -79,7 +85,11 @@ const deleteCloudinaryPhoto = async (
 };
 
 // Get all team members for a specific user
-router.get("/user/:userId/team-members", async (req, res) => {
+router.get(
+  "/user/:userId/team-members",
+  authenticateToken,
+  requireOwnUserIdFromParams,
+  async (req, res) => {
   try {
     const { userId } = req.params;
 
@@ -97,7 +107,7 @@ router.get("/user/:userId/team-members", async (req, res) => {
 });
 
 // Create a new team member
-router.post("/team-member", async (req, res) => {
+router.post("/team-member", authenticateToken, requireOwnUserIdFromBody, async (req, res) => {
   let uploadedPhotoPublicId: string | null = null;
 
   try {
@@ -151,7 +161,7 @@ router.post("/team-member", async (req, res) => {
 });
 
 // Update a team member
-router.put("/team-member/:id", async (req, res) => {
+router.put("/team-member/:id", authenticateToken, async (req: AuthenticatedRequest, res) => {
   let uploadedNewPhotoPublicId: string | null = null;
 
   try {
@@ -172,6 +182,14 @@ router.put("/team-member/:id", async (req, res) => {
 
     if (!existingTeamMember) {
       return res.status(404).json({ error: "Team member not found" });
+    }
+
+    if (!req.user?.userId || req.user.userId !== existingTeamMember.userId) {
+      return res.status(403).json({ error: "Access denied for team member" });
+    }
+
+    if (typeof userId !== "undefined" && userId !== req.user.userId) {
+      return res.status(403).json({ error: "Access denied for requested user" });
     }
 
     const photoFolderUserId = userId || existingTeamMember.userId;
@@ -240,11 +258,19 @@ router.put("/team-member/:id", async (req, res) => {
 });
 
 // Delete a team member
-router.delete("/team-member/:id", async (req, res) => {
+router.delete("/team-member/:id", authenticateToken, async (req: AuthenticatedRequest, res) => {
   try {
     const existingTeamMember = await teamMemberService.getTeamMemberById(
       req.params.id
     );
+
+    if (!existingTeamMember) {
+      return res.status(404).json({ error: "Team member not found" });
+    }
+
+    if (!req.user?.userId || req.user.userId !== existingTeamMember.userId) {
+      return res.status(403).json({ error: "Access denied for team member" });
+    }
 
     const deletedTeamMember = await teamMemberService.deleteTeamMember(
       req.params.id
