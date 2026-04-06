@@ -1,12 +1,10 @@
 import { ReactElement } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import roundTable from "../../static/round-table.png";
-import { ArrowBack } from "@mui/icons-material";
 
 export const TeamMemberManagerHeader = (): ReactElement => {
   return (
     <Box
-      position="relative"
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -16,20 +14,6 @@ export const TeamMemberManagerHeader = (): ReactElement => {
         marginX: "auto",
       }}
     >
-      <Button
-        variant="outlined"
-        href="/"
-        sx={{
-          position: "absolute",
-          left: { xs: 8, md: 20 },
-          borderRadius: 4,
-          minWidth: 0,
-          width: 52,
-          height: 52,
-        }}
-      >
-        <ArrowBack />
-      </Button>
       <Box
         display="flex"
         gap={2}

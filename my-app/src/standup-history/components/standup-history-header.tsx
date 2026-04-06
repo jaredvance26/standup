@@ -1,13 +1,11 @@
 import { ReactElement } from "react";
-import { ArrowBack } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import roundTable from "../../static/round-table.png";
 
 export const StandupHistoryHeader = (): ReactElement => {
   return (
     <Box
-      position="relative"
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -17,20 +15,6 @@ export const StandupHistoryHeader = (): ReactElement => {
         marginX: "auto",
       }}
     >
-      <Button
-        variant="outlined"
-        href="/standup"
-        sx={{
-          position: "absolute",
-          left: { xs: 8, md: 20 },
-          borderRadius: 4,
-          minWidth: 0,
-          width: 52,
-          height: 52,
-        }}
-      >
-        <ArrowBack />
-      </Button>
       <Box
         display="flex"
         gap={2}

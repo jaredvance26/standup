@@ -1,20 +1,19 @@
 import React, { ReactElement } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import { Group, History, Settings } from "@mui/icons-material";
+import { Settings } from "@mui/icons-material";
 import { format } from "date-fns";
 
 import roundTable from "../../static/round-table.png";
 
 interface StandupWizardHeaderProps {
   onSettingsClick: () => void;
-  currentStep: number;
   teamName: string;
 }
 
 export const StandupWizardHeader = (
   props: StandupWizardHeaderProps
 ): ReactElement => {
-  const { onSettingsClick, currentStep, teamName } = props;
+  const { onSettingsClick, teamName } = props;
   return (
     <Box
       position="relative"
@@ -62,34 +61,6 @@ export const StandupWizardHeader = (
           gap: 1.5,
         }}
       >
-        {currentStep === 0 && (
-          <>
-            <Button
-              href="/standup-history"
-              variant="contained"
-              sx={{
-                borderRadius: 4,
-                width: "55px",
-                height: "60px",
-                minWidth: "55px",
-              }}
-            >
-              <History sx={{ fontSize: 36 }} />
-            </Button>
-            <Button
-              href="/team-members"
-              variant="contained"
-              sx={{
-                borderRadius: 4,
-                width: "55px",
-                height: "60px",
-                minWidth: "55px",
-              }}
-            >
-              <Group sx={{ fontSize: 40 }} />
-            </Button>
-          </>
-        )}
         <Button
           variant="contained"
           onClick={onSettingsClick}

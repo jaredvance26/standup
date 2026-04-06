@@ -1,5 +1,6 @@
 import { TeamMemberManagerAction } from "../../team-member-manager-store";
 import { getUserSettings } from "../../../../standup-wizard/api";
+import { setAppThemeColor } from "../../../../stores/app-theme-store";
 
 export const getUserSettingsAction =
   (userId: string): TeamMemberManagerAction =>
@@ -11,6 +12,7 @@ export const getUserSettingsAction =
     try {
       const userSettings = await getUserSettings(userId);
       if (userSettings) {
+        setAppThemeColor(userSettings.theme);
         setState({
           themeColor: userSettings.theme,
           isSettingsDataLoading: false,

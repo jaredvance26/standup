@@ -153,7 +153,7 @@ export const StandupWizard = () => {
         px={2.5}
         py={2}
         sx={{
-          height: "100dvh",
+          height: "100%",
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
@@ -177,7 +177,6 @@ export const StandupWizard = () => {
             onSettingsClick={() =>
               setStandupWizardStateAction({ settingsModalOpen: true })
             }
-            currentStep={currentStep}
             teamName={teamName}
           />
           <Stepper
