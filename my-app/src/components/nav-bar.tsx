@@ -82,9 +82,10 @@ export const NavBar = (): ReactElement => {
                 sx={{
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: expanded ? "flex-start" : "center",
                   gap: 1.5,
                   mx: 1,
-                  px: 1.5,
+                  px: expanded ? 1.5 : 0,
                   py: 1.25,
                   borderRadius: 3,
                   cursor: "pointer",
@@ -136,19 +137,24 @@ export const NavBar = (): ReactElement => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: expanded ? "flex-end" : "center",
-          p: 1,
-          borderTop: `1px solid ${hexToRgba(shade.dark, 0.08)}`,
+          justifyContent: "center",
+          p: 1.5,
+          borderTop: `1px solid ${hexToRgba(shade.dark, 0.1)}`,
         }}
       >
         <IconButton
-          size="small"
           onClick={() => setExpanded((prev) => !prev)}
           sx={{
-            color: hexToRgba(shade.dark, 0.5),
+            width: expanded ? "100%" : 40,
+            height: 36,
+            borderRadius: 2,
+            color: shade.dark,
+            backgroundColor: hexToRgba(shade.main, 0.1),
+            border: `1px solid ${hexToRgba(shade.main, 0.15)}`,
+            transition: "all 0.15s ease",
             "&:hover": {
-              backgroundColor: hexToRgba(shade.main, 0.08),
-              color: shade.dark,
+              backgroundColor: hexToRgba(shade.main, 0.2),
+              border: `1px solid ${hexToRgba(shade.main, 0.3)}`,
             },
           }}
         >
