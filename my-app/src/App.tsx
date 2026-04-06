@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Box } from "@mui/material";
+import { Analytics } from "@vercel/analytics/react";
 
 import { AuthConnector, LoginPage, useAuthStore } from "./auth";
 import { StandupWizardConnector } from "./standup-wizard";
@@ -77,6 +78,7 @@ function App() {
           <AppRoutes />
         </AuthConnector>
       </div>
+      <Analytics />
     </BrowserRouter>
   );
 }
