@@ -1,5 +1,6 @@
 import { getUserSettings } from "../../../../standup-wizard/api";
 import { StandupHistoryAction } from "../../standup-history-store";
+import { setAppThemeColor } from "../../../../stores/app-theme-store";
 
 export const getUserSettingsAction =
   (userId: string): StandupHistoryAction =>
@@ -11,6 +12,7 @@ export const getUserSettingsAction =
 
     try {
       const settings = await getUserSettings(userId);
+      setAppThemeColor(settings.theme);
       setState({ themeColor: settings.theme });
     } catch (error) {
       console.error("Failed to fetch settings:", error);

@@ -1,5 +1,6 @@
 import { StandupWizardAction } from "../../standup-wizard-store";
 import { getUserSettings } from "../../../api/get-user-settings";
+import { setAppThemeColor } from "../../../../stores/app-theme-store";
 
 export const getUserSettingsAction =
   (userId: string): StandupWizardAction =>
@@ -23,6 +24,7 @@ export const getUserSettingsAction =
             jiraBoardId: userSettings.jiraData.jiraBoardId,
           },
         };
+        setAppThemeColor(userSettings.theme);
         setState({
           settings: settings,
           originalSettings: settings,

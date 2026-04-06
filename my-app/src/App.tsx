@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import { Analytics } from "@vercel/analytics/react";
@@ -6,7 +7,14 @@ import { AuthConnector, LoginPage, useAuthStore } from "./auth";
 import { StandupWizardConnector } from "./standup-wizard";
 import { TeamMemberManagerConnector } from "./team-member-manager";
 import { StandupHistoryConnector } from "./standup-history";
-import { Loader } from "./components";
+import { Loader, NavBar } from "./components";
+
+const AuthenticatedLayout = ({ children }: { children: React.ReactNode }) => (
+  <Box sx={{ display: "flex", height: "100dvh", overflow: "hidden" }}>
+    <NavBar />
+    <Box sx={{ flex: 1, overflow: "auto" }}>{children}</Box>
+  </Box>
+);
 
 const AppRoutes = () => {
   const [{ isAuthenticated, userId, isTokenValidationLoading, isLoading }] =
@@ -40,7 +48,9 @@ const AppRoutes = () => {
         path="/standup"
         element={
           isAuthenticated && !isTokenValidationLoading && !isLoading ? (
-            <StandupWizardConnector userId={userId || ""} />
+            <AuthenticatedLayout>
+              <StandupWizardConnector userId={userId || ""} />
+            </AuthenticatedLayout>
           ) : (
             <Navigate to="/" />
           )
@@ -50,7 +60,9 @@ const AppRoutes = () => {
         path="/team-members"
         element={
           isAuthenticated ? (
-            <TeamMemberManagerConnector userId={userId || ""} />
+            <AuthenticatedLayout>
+              <TeamMemberManagerConnector userId={userId || ""} />
+            </AuthenticatedLayout>
           ) : (
             <Navigate to="/" />
           )
@@ -60,7 +72,9 @@ const AppRoutes = () => {
         path="/standup-history"
         element={
           isAuthenticated ? (
-            <StandupHistoryConnector userId={userId || ""} />
+            <AuthenticatedLayout>
+              <StandupHistoryConnector userId={userId || ""} />
+            </AuthenticatedLayout>
           ) : (
             <Navigate to="/" />
           )
